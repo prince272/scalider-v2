@@ -30,18 +30,17 @@ namespace Scalider.Data.UnitOfWork
         /// <param name="context"></param>
         public EfUnitOfWork([NotNull] TContext context)
         {
-            context.Database.AutoTransactionsEnabled = false;
             Context = context;
         }
 
         #region # Properties #
 
-        #region == Protected Internal ==
+        #region == Public ==
 
         /// <summary>
         /// Gets the <see cref="DbContext"/> being used by the unit of work.
         /// </summary>
-        protected internal TContext Context { get; }
+        public TContext Context { get; }
 
         #endregion
 
@@ -60,12 +59,6 @@ namespace Scalider.Data.UnitOfWork
         #region # IUnitOfWork #
 
         /// <inheritdoc />
-        public IUnitOfWorkTransaction CurrentTransaction =>
-            Context.Database.CurrentTransaction == null
-                ? null
-                : new EfUnitOfWorkTransaction(Context.Database.CurrentTransaction);
-
-        /// <inheritdoc />
         public IUnitOfWorkTransaction BeginTransaction() =>
             new EfUnitOfWorkTransaction(Context.Database.BeginTransaction());
 
@@ -78,12 +71,6 @@ namespace Scalider.Data.UnitOfWork
             BeginTransactionAsync(CancellationToken cancellationToken) =>
             Task.FromResult<IUnitOfWorkTransaction>(
                 new EfUnitOfWorkTransaction(Context.Database.BeginTransaction()));
-
-        /// <inheritdoc />
-        public void CommitTransaction() => CurrentTransaction?.Commit();
-
-        /// <inheritdoc />
-        public void RollbackTransaction() => CurrentTransaction.Rollback();
 
         /// <inheritdoc />
         public int SaveChanges() => Context.SaveChanges();

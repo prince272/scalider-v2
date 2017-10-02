@@ -15,12 +15,6 @@ namespace Scalider.Data.UnitOfWork
     /// </summary>
     public interface IUnitOfWork : IDisposable
     {
-        
-        /// <summary>
-        /// Gets the current transaction being used by the unit of work, or null
-        /// if no transaction is in use.
-        /// </summary>
-        IUnitOfWorkTransaction CurrentTransaction { get; }
 
         /// <summary>
         /// Starts a new transaction.
@@ -49,17 +43,6 @@ namespace Scalider.Data.UnitOfWork
         /// </returns>
         Task<IUnitOfWorkTransaction> BeginTransactionAsync(
             CancellationToken cancellationToken);
-
-        /// <summary>
-        /// Applies the outstanding operations in the current transaction to the
-        /// database.
-        /// </summary>
-        void CommitTransaction();
-
-        /// <summary>
-        /// Discards the outstanding operations in the current transaction.
-        /// </summary>
-        void RollbackTransaction();
 
         /// <summary>
         /// Saves all changes made in this unit of work to the database.
