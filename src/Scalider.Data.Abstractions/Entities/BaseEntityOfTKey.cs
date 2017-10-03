@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -36,21 +37,11 @@ namespace Scalider.Data.Entities
         public override string ToString() => $"{GetType().Name} {Id}";
 
         /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected sealed override bool Equals(BaseEntity other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-
-            // Must have a IS-A relation of type or must be the same type
-            var typeOfThis = GetType().GetTypeInfo();
-            var typeOfOther = other.GetType().GetTypeInfo();
-
-            if (!typeOfThis.IsAssignableFrom(typeOfOther) &&
-                !typeOfOther.IsAssignableFrom(typeOfThis))
-                return false;
-            
-            // Done
-            return Equals((BaseEntity<TKey>)other);
+            var entity = other as BaseEntity<TKey>;
+            return !ReferenceEquals(entity, null) && Equals(entity);
         }
 
         /// <inheritdoc />
@@ -77,8 +68,18 @@ namespace Scalider.Data.Entities
         protected virtual bool Equals(BaseEntity<TKey> other)
         {
             if (ReferenceEquals(null, other)) return false;
-            return ReferenceEquals(this, other) ||
-                   EqualityComparer<TKey>.Default.Equals(Id, other.Id);
+            if (ReferenceEquals(this, other)) return true;
+
+            // Must have a IS-A relation of type or must be the same type
+            var typeOfThis = GetType().GetTypeInfo();
+            var typeOfOther = other.GetType().GetTypeInfo();
+
+            if (!typeOfThis.IsAssignableFrom(typeOfOther) &&
+                !typeOfOther.IsAssignableFrom(typeOfThis))
+                return false;
+            
+            // Done
+            return EqualityComparer<TKey>.Default.Equals(Id, other.Id);
         }
 
         #endregion
@@ -88,7 +89,8 @@ namespace Scalider.Data.Entities
         #region # IEntity<TKey> #
 
         /// <inheritdoc />
-        [SuppressMessage("ReSharper", "MemberCanBeProtected.Global")]
+        [SuppressMessage("ReSharper", "MemberCanBeProtected.Global"),
+         SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global")]
         public virtual TKey Id { get; protected set; }
 
         #endregion
