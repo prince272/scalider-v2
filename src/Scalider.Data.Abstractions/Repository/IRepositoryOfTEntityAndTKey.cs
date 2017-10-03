@@ -1,6 +1,7 @@
 ﻿#region # using statements #
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -16,6 +17,7 @@ namespace Scalider.Data.Repository
     /// retrieve, update and delete entities of type <typeparamref name="TEntity"/>
     /// and with a primary key of <typeparamref name="TKey"/>.
     /// </summary>
+    [SuppressMessage("ReSharper", "UnusedMemberInSuper.Global")]
     public interface IRepository<TEntity, in TKey> : IRepository<TEntity>
         where TEntity : class, IEntity<TKey>
         where TKey : IEquatable<TKey>

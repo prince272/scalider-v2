@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,6 +18,8 @@ namespace Scalider.Data.Repository
     /// A repository represents a session with the database that can be used to
     /// retrieve, update and delete entities of <typeparamref name="TEntity"/>. 
     /// </summary>
+    [SuppressMessage("ReSharper", "UnusedMemberInSuper.Global"),
+     SuppressMessage("ReSharper", "UnusedParameter.Global")]
     public interface IRepository<TEntity> : IRepository
         where TEntity : class, IEntity
     {
@@ -219,6 +222,45 @@ namespace Scalider.Data.Repository
             CancellationToken cancellationToken);
 
         /// <summary>
+        /// Returns the first entity that satisfies a condition or throws an
+        /// exception if there is no entity that satisfies the condition.
+        /// </summary>
+        /// <param name="predicate">A function to test each element for a
+        /// condition.</param>
+        /// <returns>
+        /// The first entity that satisfies the condition.
+        /// </returns>
+        TEntity First([NotNull] Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// Asynchronously returns the first entity that satisfies a condition or
+        /// throws an exception if there is no entity that satisfies the condition.
+        /// </summary>
+        /// <param name="predicate">A function to test each element for a
+        /// condition.</param>
+        /// <returns>
+        /// The <see cref="Task"/> object representing the asynchronous
+        /// operation.
+        /// </returns>
+        Task<TEntity>
+            FirstAsync([NotNull] Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// Asynchronously returns the first entity that satisfies a condition or
+        /// throws an exception if there is no entity that satisfies the condition.
+        /// </summary>
+        /// <param name="predicate">A function to test each element for a
+        /// condition.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
+        /// observe while waiting for the task to complete.</param>
+        /// <returns>
+        /// The <see cref="Task"/> object representing the asynchronous
+        /// operation.
+        /// </returns>
+        Task<TEntity> FirstAsync([NotNull] Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken);
+
+        /// <summary>
         /// Returns the first entity that satisfies a condition or <c>null</c>
         /// if no such entity is found.
         /// </summary>
@@ -257,6 +299,45 @@ namespace Scalider.Data.Repository
         /// </returns>
         Task<TEntity> FirstOrDefaultAsync(
             [NotNull] Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns the last entity that satisfies a condition or throws an
+        /// exception if there is no entity that satisfies the condition.
+        /// </summary>
+        /// <param name="predicate">A function to test each element for a
+        /// condition.</param>
+        /// <returns>
+        /// The last entity that satisfies the condition.
+        /// </returns>
+        TEntity Last([NotNull] Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// Asynchronously returns the last entity that satisfies a condition or
+        /// throws an exception if there is no entity that satisfies the condition.
+        /// </summary>
+        /// <param name="predicate">A function to test each element for a
+        /// condition.</param>
+        /// <returns>
+        /// The <see cref="Task"/> object representing the asynchronous
+        /// operation.
+        /// </returns>
+        Task<TEntity>
+            LastAsync([NotNull] Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// Asynchronously returns the last entity that satisfies a condition or
+        /// throws an exception if there is no entity that satisfies the condition.
+        /// </summary>
+        /// <param name="predicate">A function to test each element for a
+        /// condition.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
+        /// observe while waiting for the task to complete.</param>
+        /// <returns>
+        /// The <see cref="Task"/> object representing the asynchronous
+        /// operation.
+        /// </returns>
+        Task<TEntity> LastAsync([NotNull] Expression<Func<TEntity, bool>> predicate,
             CancellationToken cancellationToken);
 
         /// <summary>

@@ -128,6 +128,21 @@ namespace Scalider.Data.Repository
             CancellationToken cancellationToken);
 
         /// <inheritdoc />
+        public abstract TEntity First(Expression<Func<TEntity, bool>> predicate);
+
+        /// <inheritdoc />
+        public Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            Check.NotNull(predicate, nameof(predicate));
+            return FirstAsync(predicate, CancellationToken.None);
+        }
+
+        /// <inheritdoc />
+        public abstract Task<TEntity> FirstAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken);
+
+        /// <inheritdoc />
         public abstract TEntity FirstOrDefault(
             Expression<Func<TEntity, bool>> predicate);
 
@@ -141,6 +156,21 @@ namespace Scalider.Data.Repository
 
         /// <inheritdoc />
         public abstract Task<TEntity> FirstOrDefaultAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken);
+
+        /// <inheritdoc />
+        public abstract TEntity Last(Expression<Func<TEntity, bool>> predicate);
+
+        /// <inheritdoc />
+        public Task<TEntity> LastAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            Check.NotNull(predicate, nameof(predicate));
+            return LastAsync(predicate, CancellationToken.None);
+        }
+
+        /// <inheritdoc />
+        public abstract Task<TEntity> LastAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken cancellationToken);
 

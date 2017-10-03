@@ -50,7 +50,7 @@ namespace Scalider.Data.Repository
         {
             return EqualityComparer<TKey>.Default.Equals(id, default(TKey))
                 ? default(TEntity)
-                : DbSet.Find(new {Id = id});
+                : DbSet.Find(id);
         }
 
         /// <inheritdoc />
@@ -63,7 +63,7 @@ namespace Scalider.Data.Repository
         {
             return EqualityComparer<TKey>.Default.Equals(id, default(TKey))
                 ? Task.FromResult(default(TEntity))
-                : DbSet.FindAsync(new {Id = id}, cancellationToken);
+                : DbSet.FindAsync(new object[]{id}, cancellationToken);
         }
 
         #endregion

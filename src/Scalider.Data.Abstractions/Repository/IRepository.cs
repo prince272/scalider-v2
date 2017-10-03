@@ -1,5 +1,6 @@
 ﻿#region # using statements #
 
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace Scalider.Data.Repository
     /// A repository represents a session with the database that can be used to
     /// retrieve, update and delete entities. 
     /// </summary>
+    [SuppressMessage("ReSharper", "UnusedMemberInSuper.Global")]
     public interface IRepository
     {
 

@@ -160,6 +160,22 @@ namespace Scalider.Data.Repository
         }
 
         /// <inheritdoc />
+        public override TEntity First(Expression<Func<TEntity, bool>> predicate)
+        {
+            Check.NotNull(predicate, nameof(predicate));
+            return DbSet.First(predicate);
+        }
+
+        /// <inheritdoc />
+        public override Task<TEntity> FirstAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken)
+        {
+            Check.NotNull(predicate, nameof(predicate));
+            return DbSet.FirstAsync(predicate, cancellationToken);
+        }
+
+        /// <inheritdoc />
         public override TEntity FirstOrDefault(
             Expression<Func<TEntity, bool>> predicate)
         {
@@ -174,6 +190,22 @@ namespace Scalider.Data.Repository
         {
             Check.NotNull(predicate, nameof(predicate));
             return DbSet.FirstOrDefaultAsync(predicate, cancellationToken);
+        }
+
+        /// <inheritdoc />
+        public override TEntity Last(Expression<Func<TEntity, bool>> predicate)
+        {
+            Check.NotNull(predicate, nameof(predicate));
+            return DbSet.Last(predicate);
+        }
+
+        /// <inheritdoc />
+        public override Task<TEntity> LastAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken)
+        {
+            Check.NotNull(predicate, nameof(predicate));
+            return DbSet.LastAsync(predicate, cancellationToken);
         }
 
         /// <inheritdoc />
