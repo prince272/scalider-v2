@@ -31,6 +31,12 @@ namespace Scalider.Data.Repository
         where TEntity : class, IEntity
     {
 
+        #region # Variables #
+
+        private DbSet<TEntity> _dbSet;
+
+        #endregion
+
         /// <summary>
         /// Initializes a new instance of the
         /// <see cref="EfRepository{TContext, TEntity}"/> class.
@@ -40,7 +46,7 @@ namespace Scalider.Data.Repository
         public EfRepository([NotNull] EfUnitOfWork<TContext> unitOfWork)
         {
             Check.NotNull(unitOfWork, nameof(unitOfWork));
-            DbSet = unitOfWork.Context.Set<TEntity>();
+            Context = unitOfWork.Context;
         }
 
         #region # Properties #
@@ -48,9 +54,16 @@ namespace Scalider.Data.Repository
         #region == Protected ==
 
         /// <summary>
+        /// Gets the database context being used by the repository.
+        /// </summary>
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+        protected TContext Context { get; }
+
+        /// <summary>
         /// Gets the <see cref="DbSet{T}"/> being used by the repository.
         /// </summary>
-        protected DbSet<TEntity> DbSet { get; }
+        protected DbSet<TEntity> DbSet =>
+            _dbSet ?? (_dbSet = Context.Set<TEntity>());
 
         #endregion
 
