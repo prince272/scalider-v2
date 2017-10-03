@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 
 #endregion
 
@@ -35,8 +36,22 @@ namespace Scalider.Data.Entities
         public override string ToString() => $"{GetType().Name} {Id}";
 
         /// <inheritdoc />
-        protected sealed override bool Equals(BaseEntity other) =>
-            Equals((BaseEntity<TKey>)other);
+        protected sealed override bool Equals(BaseEntity other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+
+            // Must have a IS-A relation of type or must be the same type
+            var typeOfThis = GetType().GetTypeInfo();
+            var typeOfOther = other.GetType().GetTypeInfo();
+
+            if (!typeOfThis.IsAssignableFrom(typeOfOther) &&
+                !typeOfOther.IsAssignableFrom(typeOfThis))
+                return false;
+            
+            // Done
+            return Equals((BaseEntity<TKey>)other);
+        }
 
         /// <inheritdoc />
         [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
@@ -59,8 +74,12 @@ namespace Scalider.Data.Entities
         /// true if the specified object is equal to the current object;
         /// otherwise, false.
         /// </returns>
-        protected virtual bool Equals(BaseEntity<TKey> other) =>
-            EqualityComparer<TKey>.Default.Equals(Id, other.Id);
+        protected virtual bool Equals(BaseEntity<TKey> other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            return ReferenceEquals(this, other) ||
+                   EqualityComparer<TKey>.Default.Equals(Id, other.Id);
+        }
 
         #endregion
 
