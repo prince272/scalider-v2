@@ -36,6 +36,22 @@ namespace Scalider
                 throw new ArgumentNullException(paramName);
         }
 
+        [ContractAnnotation("value:null => halt")]
+        public static void NotNullOrEmpty(string value,
+            [InvokerParameterName, NotNull] string paramName)
+        {
+            NameIsNotNullOrEmpty(paramName, nameof(paramName));
+            if (value == null)
+                throw new ArgumentNullException(paramName);
+            
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new ArgumentException(
+                    $"The string parameter {paramName} cannot be null or " +
+                    "contain only whitespaces.", paramName);
+            }
+        }
+
         private static void NameIsNotNullOrEmpty(string value, string name)
         {
             if (string.IsNullOrEmpty(value))
