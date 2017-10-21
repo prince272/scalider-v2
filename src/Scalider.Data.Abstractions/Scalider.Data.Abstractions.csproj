@@ -2,12 +2,13 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Scalider.Data</RootNamespace>
-    <Version>2.0.4</Version>
+    <Version>2.0.5</Version>
     <Description>Provides a Unit of Work and Repository abstraction layer.</Description>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="11.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />
+    <PackageReference Include="NETStandard.Library" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="../shared/Check.cs" />
