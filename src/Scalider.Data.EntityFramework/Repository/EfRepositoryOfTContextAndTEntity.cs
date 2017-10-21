@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Extensions.Internal;
 using Scalider.Data.Entities;
 using Scalider.Data.UnitOfWork;
 
@@ -119,12 +118,12 @@ namespace Scalider.Data.Repository
             DbSet.LongCountAsync(predicate, cancellationToken);
 
         /// <inheritdoc />
-        public override IEnumerable<TEntity> GetAll() => DbSet;
+        public override IEnumerable<TEntity> GetAll() => DbSet.ToList();
 
         /// <inheritdoc />
-        public override Task<IEnumerable<TEntity>> GetAllAsync(
+        public override async Task<IEnumerable<TEntity>> GetAllAsync(
             CancellationToken cancellationToken) =>
-            Task.FromResult(DbSet.AsAsyncEnumerable() as IEnumerable<TEntity>);
+            await DbSet.ToListAsync(cancellationToken);
 
         /// <inheritdoc />
         public override IEnumerable<TEntity> Find(
