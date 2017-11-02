@@ -24,14 +24,6 @@ namespace Scalider.Data.UnitOfWork
         /// transaction.
         /// </returns>
         IUnitOfWorkTransaction BeginTransaction();
-        
-        /// <summary>
-        /// Asynchronously starts a new transaction.
-        /// </summary>
-        /// <returns>
-        /// A task that represents the asynchronous transaction initialization.
-        /// </returns>
-        Task<IUnitOfWorkTransaction> BeginTransactionAsync();
 
         /// <summary>
         /// Asynchronously starts a new transaction.
@@ -42,7 +34,7 @@ namespace Scalider.Data.UnitOfWork
         /// A task that represents the asynchronous transaction initialization.
         /// </returns>
         Task<IUnitOfWorkTransaction> BeginTransactionAsync(
-            CancellationToken cancellationToken);
+            CancellationToken cancellationToken = new CancellationToken());
 
         /// <summary>
         /// Saves all changes made in this unit of work to the database.
@@ -56,21 +48,13 @@ namespace Scalider.Data.UnitOfWork
         /// Asynchronously saves all changes made in this unit of work to the
         /// database.
         /// </summary>
-        /// <returns>
-        /// A task that represents the asynchronous save operation.
-        /// </returns>
-        Task<int> SaveChangesAsync();
-        
-        /// <summary>
-        /// Asynchronously saves all changes made in this unit of work to the
-        /// database.
-        /// </summary>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
         /// observe while waiting for the task to complete.</param>
         /// <returns>
         /// A task that represents the asynchronous save operation.
         /// </returns>
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+        Task<int> SaveChangesAsync(
+            CancellationToken cancellationToken = new CancellationToken());
 
     }
 

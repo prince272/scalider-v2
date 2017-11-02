@@ -63,12 +63,8 @@ namespace Scalider.Data.UnitOfWork
             new EfUnitOfWorkTransaction(Context.Database.BeginTransaction());
 
         /// <inheritdoc />
-        public Task<IUnitOfWorkTransaction> BeginTransactionAsync() =>
-            BeginTransactionAsync(CancellationToken.None);
-
-        /// <inheritdoc />
-        public Task<IUnitOfWorkTransaction>
-            BeginTransactionAsync(CancellationToken cancellationToken) =>
+        public Task<IUnitOfWorkTransaction> BeginTransactionAsync(
+            CancellationToken cancellationToken = new CancellationToken()) =>
             Task.FromResult<IUnitOfWorkTransaction>(
                 new EfUnitOfWorkTransaction(Context.Database.BeginTransaction()));
 
@@ -76,11 +72,8 @@ namespace Scalider.Data.UnitOfWork
         public int SaveChanges() => Context.SaveChanges();
 
         /// <inheritdoc />
-        public Task<int> SaveChangesAsync() =>
-            SaveChangesAsync(CancellationToken.None);
-
-        /// <inheritdoc />
-        public Task<int> SaveChangesAsync(CancellationToken cancellationToken) =>
+        public Task<int> SaveChangesAsync(
+            CancellationToken cancellationToken = new CancellationToken()) =>
             Context.SaveChangesAsync(cancellationToken);
 
         #endregion

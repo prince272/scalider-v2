@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Scalider.Data</RootNamespace>
-    <Version>2.0.5</Version>
+    <Version>2.0.6</Version>
     <Description>Provides a Unit of Work and Repository abstraction layer.</Description>
   </PropertyGroup>
   <ItemGroup>

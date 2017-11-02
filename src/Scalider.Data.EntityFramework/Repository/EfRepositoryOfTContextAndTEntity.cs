@@ -77,7 +77,7 @@ namespace Scalider.Data.Repository
 
         /// <inheritdoc />
         public override Task<int> CountAsync(
-            CancellationToken cancellationToken) =>
+            CancellationToken cancellationToken = new CancellationToken()) =>
             DbSet.CountAsync(cancellationToken);
 
         /// <inheritdoc />
@@ -85,7 +85,7 @@ namespace Scalider.Data.Repository
 
         /// <inheritdoc />
         public override Task<long> LongCountAsync(
-            CancellationToken cancellationToken) =>
+            CancellationToken cancellationToken = new CancellationToken()) =>
             DbSet.LongCountAsync(cancellationToken);
 
         /// <inheritdoc />
@@ -98,7 +98,7 @@ namespace Scalider.Data.Repository
         /// <inheritdoc />
         public override Task<int> CountAsync(
             Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = new CancellationToken())
         {
             Check.NotNull(predicate, nameof(predicate));
             return DbSet.CountAsync(predicate, cancellationToken);
@@ -114,7 +114,7 @@ namespace Scalider.Data.Repository
         /// <inheritdoc />
         public override Task<long> LongCountAsync(
             Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken) =>
+            CancellationToken cancellationToken = new CancellationToken()) =>
             DbSet.LongCountAsync(predicate, cancellationToken);
 
         /// <inheritdoc />
@@ -122,7 +122,7 @@ namespace Scalider.Data.Repository
 
         /// <inheritdoc />
         public override async Task<IEnumerable<TEntity>> GetAllAsync(
-            CancellationToken cancellationToken) =>
+            CancellationToken cancellationToken = new CancellationToken()) =>
             await DbSet.ToListAsync(cancellationToken);
 
         /// <inheritdoc />
@@ -136,7 +136,7 @@ namespace Scalider.Data.Repository
         /// <inheritdoc />
         public override async Task<IEnumerable<TEntity>> FindAsync(
             Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = new CancellationToken())
         {
             Check.NotNull(predicate, nameof(predicate));
             return await DbSet.Where(predicate).ToListAsync(cancellationToken);
@@ -152,7 +152,7 @@ namespace Scalider.Data.Repository
         /// <inheritdoc />
         public override Task<TEntity> SingleAsync(
             Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = new CancellationToken())
         {
             Check.NotNull(predicate, nameof(predicate));
             return DbSet.SingleAsync(predicate, cancellationToken);
@@ -168,7 +168,7 @@ namespace Scalider.Data.Repository
         /// <inheritdoc />
         public override Task<TEntity> FirstAsync(
             Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = new CancellationToken())
         {
             Check.NotNull(predicate, nameof(predicate));
             return DbSet.FirstAsync(predicate, cancellationToken);
@@ -185,7 +185,7 @@ namespace Scalider.Data.Repository
         /// <inheritdoc />
         public override Task<TEntity> FirstOrDefaultAsync(
             Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = new CancellationToken())
         {
             Check.NotNull(predicate, nameof(predicate));
             return DbSet.FirstOrDefaultAsync(predicate, cancellationToken);
@@ -201,7 +201,7 @@ namespace Scalider.Data.Repository
         /// <inheritdoc />
         public override Task<TEntity> LastAsync(
             Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = new CancellationToken())
         {
             Check.NotNull(predicate, nameof(predicate));
             return DbSet.LastAsync(predicate, cancellationToken);
@@ -218,7 +218,7 @@ namespace Scalider.Data.Repository
         /// <inheritdoc />
         public override Task<TEntity> LastOrDefaultAsync(
             Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = new CancellationToken())
         {
             Check.NotNull(predicate, nameof(predicate));
             return DbSet.LastOrDefaultAsync(predicate, cancellationToken);
@@ -233,7 +233,7 @@ namespace Scalider.Data.Repository
 
         /// <inheritdoc />
         public override Task AddAsync(TEntity entity,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = new CancellationToken())
         {
             Check.NotNull(entity, nameof(entity));
             return DbSet.AddAsync(entity, cancellationToken);
@@ -248,7 +248,7 @@ namespace Scalider.Data.Repository
 
         /// <inheritdoc />
         public override Task UpdateAsync(TEntity entity,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = new CancellationToken())
         {
             Check.NotNull(entity, nameof(entity));
             DbSet.Update(entity);
@@ -265,7 +265,7 @@ namespace Scalider.Data.Repository
 
         /// <inheritdoc />
         public override Task RemoveAsync(TEntity entity,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = new CancellationToken())
         {
             Check.NotNull(entity, nameof(entity));
             DbSet.Remove(entity);

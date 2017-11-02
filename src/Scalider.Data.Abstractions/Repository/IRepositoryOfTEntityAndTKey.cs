@@ -39,17 +39,6 @@ namespace Scalider.Data.Repository
         /// <c>null</c> if no entity with the given primary key is found.
         /// </summary>
         /// <param name="id">The primary key of the entity to retrieve.</param>
-        /// <returns>
-        /// The <see cref="Task"/> object representing the asynchronous
-        /// operation.
-        /// </returns>
-        Task<TEntity> FindAsync([NotNull] TKey id);
-
-        /// <summary>
-        /// Asynchronously returns the entity with the given primary key or
-        /// <c>null</c> if no entity with the given primary key is found.
-        /// </summary>
-        /// <param name="id">The primary key of the entity to retrieve.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
         /// observe while waiting for the task to complete.</param>
         /// <returns>
@@ -57,7 +46,7 @@ namespace Scalider.Data.Repository
         /// operation.
         /// </returns>
         Task<TEntity> FindAsync([NotNull] TKey id,
-            CancellationToken cancellationToken);
+            CancellationToken cancellationToken = new CancellationToken());
 
     }
 

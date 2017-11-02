@@ -46,25 +46,17 @@ namespace Scalider.Data.Repository
         #region # IRepository<TEntity,TKey> #
 
         /// <inheritdoc />
-        public virtual TEntity Find(TKey id)
-        {
-            return EqualityComparer<TKey>.Default.Equals(id, default(TKey))
+        public virtual TEntity Find(TKey id) =>
+            EqualityComparer<TKey>.Default.Equals(id, default(TKey))
                 ? default(TEntity)
                 : DbSet.Find(id);
-        }
-
-        /// <inheritdoc />
-        public Task<TEntity> FindAsync(TKey id) =>
-            FindAsync(id, CancellationToken.None);
 
         /// <inheritdoc />
         public virtual Task<TEntity> FindAsync(TKey id,
-            CancellationToken cancellationToken)
-        {
-            return EqualityComparer<TKey>.Default.Equals(id, default(TKey))
+            CancellationToken cancellationToken = new CancellationToken()) =>
+            EqualityComparer<TKey>.Default.Equals(id, default(TKey))
                 ? Task.FromResult(default(TEntity))
-                : DbSet.FindAsync(new object[]{id}, cancellationToken);
-        }
+                : DbSet.FindAsync(new object[] {id}, cancellationToken);
 
         #endregion
 
