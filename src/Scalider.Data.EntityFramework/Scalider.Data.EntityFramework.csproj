@@ -1,17 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard1.6;netstandard2.0</TargetFrameworks>
     <RootNamespace>Scalider.Data</RootNamespace>
-    <Version>2.0.7</Version>
+    <Version>2.0.9</Version>
     <Description>Uses EntityFrameworkCore to provide a Unit of Work and Repository layer.</Description>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../shared/Check.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="11.0.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.3" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.0" />
-    <PackageReference Include="NETStandard.Library" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Scalider.Data.Abstractions\Scalider.Data.Abstractions.csproj" />

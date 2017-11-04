@@ -1,15 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard1.6;netstandard2.0</TargetFrameworks>
     <RootNamespace>Scalider</RootNamespace>
-    <Version>2.0.1</Version>
+    <Version>2.0.3</Version>
     <Description>Provides common extension and utility classes.</Description>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="11.0.0" />
-    <PackageReference Include="NETStandard.Library" Version="2.0.1" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
+    <PackageReference Include="System.Globalization.Extensions" Version="4.3.0"/>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="../shared/Check.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
   </ItemGroup>
 </Project>

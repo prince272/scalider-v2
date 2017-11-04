@@ -51,23 +51,29 @@ namespace Scalider.Data.Repository
             // Keep only the repositories
             var repositoryTypes = assemblyTypes
                 .Where(t => t != null)
+                .Select(t => t.GetTypeInfo())
                 .Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericType)
                 .Where(t => t.GetInterfaces().Contains(typeof(IRepository)));
 
             // Register all the repositories
             foreach (var type in repositoryTypes)
             {
-                services.TryAddScoped(type, type);
+                var asType = type.AsType();
+                services.TryAddScoped(asType, asType);
 
                 // Retrieve all the repository definitions
-                var interfaces = type.GetInterfaces().Where(i => i != null);
+                var interfaces = type.GetInterfaces()
+                                     .Where(i => i != null)
+                                     .Select(i => i.GetTypeInfo());
+                
                 foreach (var @interface in interfaces)
                 {
+                    var interfaceType = @interface.AsType();
                     if (!@interface.IsGenericType &&
                         @interface.GetInterfaces().Contains(typeof(IRepository)))
                     {
                         // Repository definition found, add as a service
-                        services.TryAddScoped(@interface, type);
+                        services.TryAddScoped(interfaceType, asType);
                     }
 
                 }
