@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Data.EntityFramewo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Common", "src\Scalider.Common\Scalider.Common.csproj", "{6E060F0E-CBD9-4C23-B2B2-1940C05818F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Password.Abstractions", "src\Scalider.Password.Abstractions\Scalider.Password.Abstractions.csproj", "{E6C126B6-6A8E-4A12-BE20-469D78AEE318}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Password.BCrypt", "src\Scalider.Password.BCrypt\Scalider.Password.BCrypt.csproj", "{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}"
 EndProject
 Global
@@ -31,10 +29,6 @@ Global
 		{6E060F0E-CBD9-4C23-B2B2-1940C05818F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E060F0E-CBD9-4C23-B2B2-1940C05818F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E060F0E-CBD9-4C23-B2B2-1940C05818F5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E6C126B6-6A8E-4A12-BE20-469D78AEE318}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E6C126B6-6A8E-4A12-BE20-469D78AEE318}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E6C126B6-6A8E-4A12-BE20-469D78AEE318}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E6C126B6-6A8E-4A12-BE20-469D78AEE318}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}.Release|Any CPU.ActiveCfg = Release|Any CPU
