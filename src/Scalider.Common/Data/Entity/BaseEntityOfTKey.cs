@@ -1,22 +1,19 @@
-﻿#region # using statements #
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using JetBrains.Annotations;
 
-#endregion
-
-namespace Scalider.Data.Entities
+namespace Scalider.Data.Entity
 {
 
     /// <summary>
     /// Provides a base class for implementations of the <see cref="IEntity{TKey}"/>
     /// generic interface.
     /// </summary>
-    /// <typeparam name="TKey">The type encapsulating the primary key of the
+    /// <typeparam name="TKey">The type encapsulating the identity of the
     /// entity.</typeparam>
     public abstract class BaseEntity<TKey> : BaseEntity, IEntity<TKey>
         where TKey : IEquatable<TKey>
@@ -29,20 +26,13 @@ namespace Scalider.Data.Entities
         {
         }
 
-        #region # Methods #
-
-        #region == Overrides ==
-
         /// <inheritdoc />
         public override string ToString() => $"{GetType().Name} {Id}";
 
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected sealed override bool Equals(BaseEntity other)
-        {
-            var entity = other as BaseEntity<TKey>;
-            return !ReferenceEquals(entity, null) && Equals(entity);
-        }
+        protected sealed override bool Equals(BaseEntity other) =>
+            other is BaseEntity<TKey> entity && Equals(entity);
 
         /// <inheritdoc />
         [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
@@ -51,10 +41,6 @@ namespace Scalider.Data.Entities
             Debug.Assert(Id != null, nameof(Id) + " != null");
             return EqualityComparer<TKey>.Default.GetHashCode(Id);
         }
-
-        #endregion
-
-        #region == Protected ==
 
         /// <summary>
         /// Determines whether the specified object is equal to the current
@@ -77,21 +63,15 @@ namespace Scalider.Data.Entities
             if (!typeOfThis.IsAssignableFrom(typeOfOther) &&
                 !typeOfOther.IsAssignableFrom(typeOfThis))
                 return false;
-            
+
             // Done
             return EqualityComparer<TKey>.Default.Equals(Id, other.Id);
         }
 
-        #endregion
-
-        #endregion
-
-        #region # IEntity<TKey> #
+        #region IEntity<TKey> Members
 
         /// <inheritdoc />
-        [SuppressMessage("ReSharper", "MemberCanBeProtected.Global"),
-         SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global")]
-        public virtual TKey Id { get; protected set; }
+        public virtual TKey Id { get; [UsedImplicitly] protected set; }
 
         #endregion
 

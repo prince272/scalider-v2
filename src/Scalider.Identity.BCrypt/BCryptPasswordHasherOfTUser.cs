@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
-namespace Scalider.Password
+namespace Scalider.Identity
 {
 
     /// <summary>
@@ -25,6 +25,7 @@ namespace Scalider.Password
         /// </summary>
         public BCryptPasswordHasher()
         {
+            _options = new BCryptPasswordHasherOptions();
         }
 
         /// <summary>

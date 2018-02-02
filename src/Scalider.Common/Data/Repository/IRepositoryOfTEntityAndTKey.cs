@@ -1,22 +1,22 @@
-﻿#region # using statements #
-
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
-using Scalider.Data.Entities;
-
-#endregion
+using Scalider.Data.Entity;
 
 namespace Scalider.Data.Repository
 {
 
     /// <summary>
-    /// A repository represents a session with the database that can be used to
-    /// retrieve, update and delete entities of type <typeparamref name="TEntity"/>
-    /// and with a primary key of <typeparamref name="TKey"/>.
+    /// A repository represents a session with the data access layer that can be
+    /// used to retrieve, update and delete entities of type
+    /// <typeparamref name="TEntity"/> and with a primary key of
+    /// <typeparamref name="TKey"/>.
     /// </summary>
+    /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
+    /// <typeparam name="TKey">The type encapsulating the identity of the
+    /// entity.</typeparam>
     [SuppressMessage("ReSharper", "UnusedMemberInSuper.Global")]
     public interface IRepository<TEntity, in TKey> : IRepository<TEntity>
         where TEntity : class, IEntity<TKey>
@@ -32,7 +32,7 @@ namespace Scalider.Data.Repository
         /// The entity matching the primary key or <c>null</c> if no entity is
         /// found.
         /// </returns>
-        TEntity Find([NotNull] TKey id);
+        TEntity FindById([NotNull] TKey id);
 
         /// <summary>
         /// Asynchronously returns the entity with the given primary key or
@@ -45,8 +45,8 @@ namespace Scalider.Data.Repository
         /// The <see cref="Task"/> object representing the asynchronous
         /// operation.
         /// </returns>
-        Task<TEntity> FindAsync([NotNull] TKey id,
-            CancellationToken cancellationToken = new CancellationToken());
+        Task<TEntity> FindByIdAsync([NotNull] TKey id,
+            CancellationToken cancellationToken = default);
 
     }
 

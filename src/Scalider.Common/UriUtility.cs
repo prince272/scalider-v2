@@ -1,10 +1,6 @@
-﻿#region # using statements #
-
-using System;
+﻿using System;
 using System.Text;
 using JetBrains.Annotations;
-
-#endregion
 
 namespace Scalider
 {

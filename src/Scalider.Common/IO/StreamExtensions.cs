@@ -1,11 +1,7 @@
-﻿#region # using statements #
-
-using System;
+﻿using System;
 using System.IO;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
-
-#endregion
 
 namespace Scalider.IO
 {

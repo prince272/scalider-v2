@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Scalider.Password
+namespace Scalider.Identity
 {
     
     /// <summary>
@@ -14,8 +14,8 @@ namespace Scalider.Password
     {
 
         /// <summary>
-        /// Register the <see cref="BCryptPasswordHasher"/> with the default options
-        /// as a service.
+        /// Register the <see cref="BCryptPasswordHasher{TUser}"/> with the default
+        /// options as a service.
         /// </summary>
         /// <typeparam name="TUser">The type used to represent a user.</typeparam>
         /// <param name="services">The <see cref="IServiceCollection"/> that
@@ -39,8 +39,8 @@ namespace Scalider.Password
         }
 
         /// <summary>
-        /// Register the <see cref="BCryptPasswordHasher"/> custom options as a
-        /// service with
+        /// Register the <see cref="BCryptPasswordHasher{TUser}"/> custom options
+        /// as a service with
         /// </summary>
         /// <typeparam name="TUser">The type used to represent a user.</typeparam>
         /// <param name="services">The <see cref="IServiceCollection"/> that

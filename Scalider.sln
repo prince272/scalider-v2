@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Data.Abstractions", "src\Scalider.Data.Abstractions\Scalider.Data.Abstractions.csproj", "{DB61FC13-8017-4292-8541-DAD0C64F29A9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Data.EntityFramework", "src\Scalider.Data.EntityFramework\Scalider.Data.EntityFramework.csproj", "{5AE06EA7-B8B1-41DD-B913-89D47DD0E5B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.EntityFrameworkCore", "src\Scalider.EntityFrameworkCore\Scalider.EntityFrameworkCore.csproj", "{5AE06EA7-B8B1-41DD-B913-89D47DD0E5B2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Common", "src\Scalider.Common\Scalider.Common.csproj", "{6E060F0E-CBD9-4C23-B2B2-1940C05818F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Password.BCrypt", "src\Scalider.Password.BCrypt\Scalider.Password.BCrypt.csproj", "{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Identity.BCrypt", "src\Scalider.Identity.BCrypt\Scalider.Identity.BCrypt.csproj", "{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.EntityFrameworkCore.Dapper", "src\Scalider.EntityFrameworkCore.Dapper\Scalider.EntityFrameworkCore.Dapper.csproj", "{F3184D0D-B89C-41FB-8C27-3845B1B37E1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Dapper", "src\Scalider.Dapper\Scalider.Dapper.csproj", "{C20C8A14-E51D-4948-AE41-BD916D54CE7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.TestApp", "src\Scalider.TestApp\Scalider.TestApp.csproj", "{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DB61FC13-8017-4292-8541-DAD0C64F29A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DB61FC13-8017-4292-8541-DAD0C64F29A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DB61FC13-8017-4292-8541-DAD0C64F29A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DB61FC13-8017-4292-8541-DAD0C64F29A9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5AE06EA7-B8B1-41DD-B913-89D47DD0E5B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5AE06EA7-B8B1-41DD-B913-89D47DD0E5B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AE06EA7-B8B1-41DD-B913-89D47DD0E5B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +33,18 @@ Global
 		{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3184D0D-B89C-41FB-8C27-3845B1B37E1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3184D0D-B89C-41FB-8C27-3845B1B37E1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3184D0D-B89C-41FB-8C27-3845B1B37E1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3184D0D-B89C-41FB-8C27-3845B1B37E1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C20C8A14-E51D-4948-AE41-BD916D54CE7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C20C8A14-E51D-4948-AE41-BD916D54CE7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C20C8A14-E51D-4948-AE41-BD916D54CE7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C20C8A14-E51D-4948-AE41-BD916D54CE7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

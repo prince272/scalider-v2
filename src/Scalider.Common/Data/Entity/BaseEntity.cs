@@ -1,10 +1,6 @@
-﻿#region # using statements #
+﻿using System.Reflection;
 
-using System.Reflection;
-
-#endregion
-
-namespace Scalider.Data.Entities
+namespace Scalider.Data.Entity
 {
 
     /// <summary>
@@ -20,10 +16,6 @@ namespace Scalider.Data.Entities
         protected BaseEntity()
         {
         }
-
-        #region # Methods #
-
-        #region == Overrides ==
 
         /// <inheritdoc />
         public override bool Equals(object obj)
@@ -49,10 +41,6 @@ namespace Scalider.Data.Entities
             throw new System.NotImplementedException();
         }
 
-        #endregion
-
-        #region == Public ==
-
         /// <summary>
         /// Indicates whether the values of two specified
         /// <see cref="BaseEntity" /> objects are equal.
@@ -64,7 +52,7 @@ namespace Scalider.Data.Entities
         /// <paramref name="right" /> are equal; otherwise, <c>false</c>.
         /// </returns>
         public static bool operator ==(BaseEntity left, BaseEntity right) =>
-            Equals(left, null) ? Equals(right, null) : left.Equals(right);
+            left?.Equals(right) ?? Equals(right, null);
 
         /// <summary>
         /// Indicates whether the values of two specified
@@ -79,10 +67,6 @@ namespace Scalider.Data.Entities
         public static bool operator !=(BaseEntity left, BaseEntity right) =>
             !(left == right);
 
-        #endregion
-
-        #region == Protected ==
-
         /// <summary>
         /// Determines whether the specified object is equal to the current
         /// object.
@@ -93,10 +77,6 @@ namespace Scalider.Data.Entities
         /// otherwise, false.
         /// </returns>
         protected abstract bool Equals(BaseEntity other);
-
-        #endregion
-
-        #endregion
 
     }
 

@@ -1,28 +1,24 @@
-﻿#region # using statements #
-
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
-using Scalider.Data.Entities;
-
-#endregion
+using Scalider.Data.Entity;
 
 namespace Scalider.Data.Repository
 {
 
     /// <summary>
-    /// A repository represents a session with the database that can be used to
-    /// retrieve, update and delete entities of <typeparamref name="TEntity"/>. 
+    /// A repository represents a session with the data access layer that can be
+    /// used to retrieve, update and delete entities of
+    /// <typeparamref name="TEntity"/>. 
     /// </summary>
+    /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
     [SuppressMessage("ReSharper", "UnusedMemberInSuper.Global"),
      SuppressMessage("ReSharper", "UnusedParameter.Global")]
     public interface IRepository<TEntity> : IRepository
         where TEntity : class, IEntity
-    {
+    {/*
 
         /// <summary>
         /// Gets the count of all entities in this repository.
@@ -46,7 +42,7 @@ namespace Scalider.Data.Repository
         /// operation.
         /// </returns>
         Task<int> CountAsync([NotNull] Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken = new CancellationToken());
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets the count of all entities in this repository.
@@ -79,7 +75,7 @@ namespace Scalider.Data.Repository
         /// </remarks>
         Task<long> LongCountAsync(
             [NotNull] Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken = new CancellationToken());
+            CancellationToken cancellationToken = default);*/
 
         /// <summary>
         /// Returns all the entities for this repository.
@@ -99,7 +95,7 @@ namespace Scalider.Data.Repository
         /// operation.
         /// </returns>
         Task<IEnumerable<TEntity>> GetAllAsync(
-            CancellationToken cancellationToken = new CancellationToken());
+            CancellationToken cancellationToken = default);/*
 
         /// <summary>
         /// Returns collection containing all the entities that satisfies a
@@ -128,7 +124,7 @@ namespace Scalider.Data.Repository
         /// </returns>
         Task<IEnumerable<TEntity>> FindAsync(
             [NotNull] Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken = new CancellationToken());
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Returns the only entity that satisfies a condition or throws an
@@ -157,7 +153,7 @@ namespace Scalider.Data.Repository
         /// </returns>
         Task<TEntity> SingleAsync(
             [NotNull] Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken = new CancellationToken());
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Returns the first entity that satisfies a condition or throws an
@@ -183,7 +179,7 @@ namespace Scalider.Data.Repository
         /// operation.
         /// </returns>
         Task<TEntity> FirstAsync([NotNull] Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken = new CancellationToken());
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Returns the first entity that satisfies a condition or <c>null</c>
@@ -211,70 +207,16 @@ namespace Scalider.Data.Repository
         /// </returns>
         Task<TEntity> FirstOrDefaultAsync(
             [NotNull] Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken = new CancellationToken());
+            CancellationToken cancellationToken = default);*/
 
         /// <summary>
-        /// Returns the last entity that satisfies a condition or throws an
-        /// exception if there is no entity that satisfies the condition.
-        /// </summary>
-        /// <param name="predicate">A function to test each element for a
-        /// condition.</param>
-        /// <returns>
-        /// The last entity that satisfies the condition.
-        /// </returns>
-        TEntity Last([NotNull] Expression<Func<TEntity, bool>> predicate);
-
-        /// <summary>
-        /// Asynchronously returns the last entity that satisfies a condition or
-        /// throws an exception if there is no entity that satisfies the condition.
-        /// </summary>
-        /// <param name="predicate">A function to test each element for a
-        /// condition.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
-        /// observe while waiting for the task to complete.</param>
-        /// <returns>
-        /// The <see cref="Task"/> object representing the asynchronous
-        /// operation.
-        /// </returns>
-        Task<TEntity> LastAsync([NotNull] Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken = new CancellationToken());
-
-        /// <summary>
-        /// Returns the last entity that satisfies a condition or <c>null</c>
-        /// if no such entity is found.
-        /// </summary>
-        /// <param name="predicate">A function to test each element for a
-        /// condition.</param>
-        /// <returns>
-        /// The entity that satisfies the condition or <c>null</c> if no such
-        /// entity is found.
-        /// </returns>
-        TEntity LastOrDefault([NotNull] Expression<Func<TEntity, bool>> predicate);
-
-        /// <summary>
-        /// Asynchronously returns the last entity that satisfies a
-        /// condition or <c>null</c> if no such entity is found.
-        /// </summary>
-        /// <param name="predicate">A function to test each element for a
-        /// condition.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
-        /// observe while waiting for the task to complete.</param>
-        /// <returns>
-        /// The <see cref="Task"/> object representing the asynchronous
-        /// operation.
-        /// </returns>
-        Task<TEntity> LastOrDefaultAsync(
-            [NotNull] Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken = new CancellationToken());
-
-        /// <summary>
-        /// Adds a new entity to the database.
+        /// Adds a new entity to the data access layer.
         /// </summary>
         /// <param name="entity">The entity to add.</param>
         void Add([NotNull] TEntity entity);
 
         /// <summary>
-        /// Asynchronously adds a new entity to the datasource.
+        /// Asynchronously adds a new entity to the data access layer.
         /// </summary>
         /// <param name="entity">The entity to add.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
@@ -283,16 +225,16 @@ namespace Scalider.Data.Repository
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
         Task AddAsync([NotNull] TEntity entity,
-            CancellationToken cancellationToken = new CancellationToken());
+            CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Updates an existing entity on the database.
+        /// Updates an existing entity on the data access layer.
         /// </summary>
         /// <param name="entity">The entity to update.</param>
         void Update([NotNull] TEntity entity);
 
         /// <summary>
-        /// Asynchronously pdates an existing entity on the database.
+        /// Asynchronously pdates an existing entity on the data access layer.
         /// </summary>
         /// <param name="entity">The entity to update.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
@@ -301,10 +243,10 @@ namespace Scalider.Data.Repository
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
         Task UpdateAsync([NotNull] TEntity entity,
-            CancellationToken cancellationToken = new CancellationToken());
+            CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Removes an entity from the database.
+        /// Removes an entity from the data access layer.
         /// </summary>
         /// <param name="entity">The entity to remove.</param>
         void Remove([NotNull] TEntity entity);
@@ -319,7 +261,7 @@ namespace Scalider.Data.Repository
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
         Task RemoveAsync([NotNull] TEntity entity,
-            CancellationToken cancellationToken = new CancellationToken());
+            CancellationToken cancellationToken = default);
 
     }
 

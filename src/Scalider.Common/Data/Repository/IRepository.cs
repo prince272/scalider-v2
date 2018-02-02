@@ -1,21 +1,17 @@
-﻿#region # using statements #
-
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-
-#endregion
 
 namespace Scalider.Data.Repository
 {
 
     /// <summary>
-    /// A repository represents a session with the database that can be used to
-    /// retrieve, update and delete entities. 
+    /// A repository represents a session with the data access layer that can be
+    /// used to retrieve, update and delete entities. 
     /// </summary>
     [SuppressMessage("ReSharper", "UnusedMemberInSuper.Global")]
     public interface IRepository
-    {
+    {/*
 
         /// <summary>
         /// Gets the count of all entities in this repository.
@@ -34,8 +30,7 @@ namespace Scalider.Data.Repository
         /// The <see cref="Task"/> object representing the asynchronous
         /// operation.
         /// </returns>
-        Task<int> CountAsync(
-            CancellationToken cancellationToken = new CancellationToken());
+        Task<int> CountAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets the count of all entities in this repository.
@@ -62,8 +57,7 @@ namespace Scalider.Data.Repository
         /// Use this method when the return value is expected to be greater
         /// than <see cref="int.MaxValue"/>.
         /// </remarks>
-        Task<long> LongCountAsync(
-            CancellationToken cancellationToken = new CancellationToken());
+        Task<long> LongCountAsync(CancellationToken cancellationToken = default);*/
 
     }
 

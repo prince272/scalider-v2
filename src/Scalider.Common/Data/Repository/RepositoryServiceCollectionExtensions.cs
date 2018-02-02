@@ -1,13 +1,11 @@
-﻿#region # using statements #
-
-using System;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-
-#endregion
+using Scalider.Reflection;
 
 namespace Scalider.Data.Repository
 {
@@ -37,50 +35,49 @@ namespace Scalider.Data.Repository
             Check.NotNull(services, nameof(services));
             Check.NotNull(assembly, nameof(assembly));
 
-            // Retrieve all the types defined by the assembly
-            Type[] assemblyTypes;
-            try
-            {
-                assemblyTypes = assembly.GetTypes();
-            }
-            catch (ReflectionTypeLoadException tlException)
-            {
-                assemblyTypes = tlException.Types;
-            }
-
             // Keep only the repositories
-            var repositoryTypes = assemblyTypes
-                .Where(t => t != null)
-                .Select(t => t.GetTypeInfo())
-                .Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericType)
-                .Where(t => t.GetInterfaces().Contains(typeof(IRepository)));
+            var repositoryTypes =
+                assembly.GetTypesOf<IRepository>()
+                        .Select(t => t.GetTypeInfo())
+                        .Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericType);
 
             // Register all the repositories
             foreach (var type in repositoryTypes)
             {
+#if NETSTANDARD2_0
+                services.TryAddScoped(type, type);
+                AddAllInterfacesAsServicesForType(services, type, type);
+#else
                 var asType = type.AsType();
                 services.TryAddScoped(asType, asType);
-
-                // Retrieve all the repository definitions
-                var interfaces = type.GetInterfaces()
-                                     .Where(i => i != null)
-                                     .Select(i => i.GetTypeInfo());
-                
-                foreach (var @interface in interfaces)
-                {
-                    var interfaceType = @interface.AsType();
-                    if (!@interface.IsGenericType &&
-                        @interface.GetInterfaces().Contains(typeof(IRepository)))
-                    {
-                        // Repository definition found, add as a service
-                        services.TryAddScoped(interfaceType, asType);
-                    }
-
-                }
+                AddAllInterfacesAsServicesForType(services, type, asType);
+    #endif
             }
 
             // Done
             return services;
+        }
+
+        [SuppressMessage("ReSharper", "SuggestBaseTypeForParameter")]
+        private static void AddAllInterfacesAsServicesForType(
+            IServiceCollection services, TypeInfo type, Type implementationType)
+        {
+            var interfaces =
+                type.GetInterfaces()
+                    .Where(i => i != null)
+                    .Select(i => new {clr = i.GetTypeInfo(), type = i});
+                
+            foreach (var @interface in interfaces)
+            {
+                var isRepositoryInterface =
+                    @interface.clr.GetInterfaces().Contains(typeof(IRepository));
+                
+                if (@interface.clr.IsGenericType || !isRepositoryInterface)
+                    continue;
+
+                // Repository definition found, add as a service
+                services.TryAddScoped(@interface.type, implementationType);
+            }
         }
 
     }

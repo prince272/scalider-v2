@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace Scalider.Password
+namespace Scalider.Identity
 {
 
     /// <summary>
@@ -26,7 +26,8 @@ namespace Scalider.Password
         /// Gets the log2 of the number of rounds of hashing to apply - the
         /// work factor therefore increases as 2^WorkFactor.
         /// </summary>
-        public int WorkFactor { get; [UsedImplicitly] set; } = DefaultWorkFactor;
+        [UsedImplicitly]
+        public int WorkFactor { get; set; } = DefaultWorkFactor;
 
     }
 }

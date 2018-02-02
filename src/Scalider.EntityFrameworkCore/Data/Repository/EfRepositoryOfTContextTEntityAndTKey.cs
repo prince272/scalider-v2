@@ -1,24 +1,19 @@
-﻿#region # using statements #
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
-using Scalider.Data.Entities;
-using Scalider.Data.UnitOfWork;
-
-#endregion
+using Scalider.Data.Entity;
 
 namespace Scalider.Data.Repository
 {
 
     /// <summary>
     /// Provides an implementation of the <see cref="IRepository{TEntity, TKey}"/>
-    /// generic interface that uses Entity Framework to read and write on the
-    /// database.
+    /// generic interface that uses Entity Framework Core to read and write on
+    /// the database.
     /// </summary>
     /// <typeparam name="TContext">The type encapsulating the database
     /// context.</typeparam>
@@ -37,26 +32,26 @@ namespace Scalider.Data.Repository
         /// Initializes a new instance of the
         /// <see cref="EfRepository{TContext, TEntity,TKey}"/> class.
         /// </summary>
-        /// <param name="unitOfWork"></param>
-        public EfRepository([NotNull] EfUnitOfWork<TContext> unitOfWork)
-            : base(unitOfWork)
+        /// <param name="context"></param>
+        public EfRepository([NotNull] TContext context)
+            : base(context)
         {
         }
 
-        #region # IRepository<TEntity,TKey> #
+        #region IRepository<TEntity,TKey> Members
 
         /// <inheritdoc />
-        public virtual TEntity Find(TKey id) =>
-            EqualityComparer<TKey>.Default.Equals(id, default(TKey))
-                ? default(TEntity)
-                : DbSet.Find(id);
+        public virtual TEntity FindById(TKey id) =>
+            EqualityComparer<TKey>.Default.Equals(id, default)
+                ? default
+                : DbSet.Value.Find(id);
 
         /// <inheritdoc />
-        public virtual Task<TEntity> FindAsync(TKey id,
-            CancellationToken cancellationToken = new CancellationToken()) =>
-            EqualityComparer<TKey>.Default.Equals(id, default(TKey))
+        public virtual Task<TEntity> FindByIdAsync(TKey id,
+            CancellationToken cancellationToken = default) =>
+            EqualityComparer<TKey>.Default.Equals(id, default)
                 ? Task.FromResult(default(TEntity))
-                : DbSet.FindAsync(new object[] {id}, cancellationToken);
+                : DbSet.Value.FindAsync(new object[] {id}, cancellationToken);
 
         #endregion
 
