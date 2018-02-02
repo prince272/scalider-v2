@@ -71,7 +71,7 @@ namespace Scalider.Data.Entity
         #region IEntity<TKey> Members
 
         /// <inheritdoc />
-        public virtual TKey Id { get; [UsedImplicitly] protected set; }
+        public virtual TKey Id { get; [UsedImplicitly] set; }
 
         #endregion
 
