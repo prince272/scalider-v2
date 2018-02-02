@@ -15,11 +15,29 @@ namespace Scalider.EntityFrameworkCore
     public static class ModelBuilderExtensions
     {
 
-        private static Lazy<MethodInfo> ApplyConfigurationMethod =
+        private static readonly Lazy<MethodInfo> ApplyConfigurationMethod =
             new Lazy<MethodInfo>(() =>
                 typeof(ModelBuilder)
                     .GetTypeInfo().DeclaredMethods
                     .First(t => t.Name == "ApplyConfiguration"));
+
+        /// <summary>
+        /// Scans the assembly of <typeparamref name="T"/> for types that
+        /// implement the <see cref="IEntityTypeConfiguration{TEntity}"/>
+        /// interface and applies them to the given
+        /// <paramref name="modelBuilder"/>.
+        /// </summary>
+        /// <param name="modelBuilder">The <see cref="ModelBuilder"/>.</param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>
+        /// The <see cref="ModelBuilder"/>.
+        /// </returns>
+        [UsedImplicitly]
+        public static ModelBuilder
+            ApplyConfigurationFromAssemblyOf<T>(
+                [NotNull] this ModelBuilder modelBuilder) =>
+            ApplyConfigurationFromAssembly(modelBuilder,
+                typeof(T).GetTypeInfo().Assembly);
         
         /// <summary>
         /// Scans an assembly for types that implement the
@@ -31,8 +49,9 @@ namespace Scalider.EntityFrameworkCore
         /// <returns>
         /// The <see cref="ModelBuilder"/>.
         /// </returns>
+        [UsedImplicitly]
         public static ModelBuilder ApplyConfigurationFromAssembly(
-            [NotNull] ModelBuilder modelBuilder, [NotNull] Assembly assembly)
+            [NotNull] this ModelBuilder modelBuilder, [NotNull] Assembly assembly)
         {
             Check.NotNull(modelBuilder, nameof(modelBuilder));
             Check.NotNull(assembly, nameof(assembly));
@@ -42,7 +61,7 @@ namespace Scalider.EntityFrameworkCore
             var assemblyTypes =
                 assembly.GetTypesOf(interfaceType)
                         .Select(t => t.GetTypeInfo())
-                        .Where(t => t.IsClass && !t.IsAbstract && t.IsGenericType);
+                        .Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericType);
             
             // Apply all the type configurations
             foreach (var type in assemblyTypes)
