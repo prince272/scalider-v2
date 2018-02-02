@@ -18,6 +18,23 @@ namespace Scalider.Data.Repository
     {
 
         /// <summary>
+        /// Scans a assembly of <typeparamref name="T"/> for types that
+        /// implement the <see cref="IRepository"/> interface, wether it be
+        /// directly or via inheritance, and adds the found types as services.
+        /// </summary>
+        /// <param name="services">The <see cref="IServiceCollection"/> that
+        /// services should be added to.</param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>
+        /// The <see cref="IServiceCollection"/>.
+        /// </returns>
+        [UsedImplicitly]
+        public static IServiceCollection
+            AddRepositoriesFromAssemblyOf<T>(
+                [NotNull] this IServiceCollection services) =>
+            AddRepositoriesFromAssembly(services, typeof(T).GetTypeInfo().Assembly);
+
+        /// <summary>
         /// Scans an assembly for types that implement the
         /// <see cref="IRepository"/> interface, wether it be directly or via
         /// inheritance, and adds the found types as services.
@@ -29,7 +46,8 @@ namespace Scalider.Data.Repository
         /// <returns>
         /// The <see cref="IServiceCollection"/>.
         /// </returns>
-        public static IServiceCollection AddAssemblyRepositories(
+        [UsedImplicitly]
+        public static IServiceCollection AddRepositoriesFromAssembly(
             [NotNull] this IServiceCollection services, [NotNull] Assembly assembly)
         {
             Check.NotNull(services, nameof(services));
