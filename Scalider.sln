@@ -9,11 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Common", "src\Scal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Identity.BCrypt", "src\Scalider.Identity.BCrypt\Scalider.Identity.BCrypt.csproj", "{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.EntityFrameworkCore.Dapper", "src\Scalider.EntityFrameworkCore.Dapper\Scalider.EntityFrameworkCore.Dapper.csproj", "{F3184D0D-B89C-41FB-8C27-3845B1B37E1C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Dapper", "src\Scalider.Dapper\Scalider.Dapper.csproj", "{C20C8A14-E51D-4948-AE41-BD916D54CE7D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.TestApp", "src\Scalider.TestApp\Scalider.TestApp.csproj", "{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Dapper", "src\Scalider.Dapper\Scalider.Dapper.csproj", "{20312C61-73AB-47DC-B2D8-190207F820CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,18 +31,14 @@ Global
 		{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F3184D0D-B89C-41FB-8C27-3845B1B37E1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F3184D0D-B89C-41FB-8C27-3845B1B37E1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F3184D0D-B89C-41FB-8C27-3845B1B37E1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F3184D0D-B89C-41FB-8C27-3845B1B37E1C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C20C8A14-E51D-4948-AE41-BD916D54CE7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C20C8A14-E51D-4948-AE41-BD916D54CE7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C20C8A14-E51D-4948-AE41-BD916D54CE7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C20C8A14-E51D-4948-AE41-BD916D54CE7D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20312C61-73AB-47DC-B2D8-190207F820CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20312C61-73AB-47DC-B2D8-190207F820CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20312C61-73AB-47DC-B2D8-190207F820CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20312C61-73AB-47DC-B2D8-190207F820CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

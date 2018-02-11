@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
 using Remotion.Linq.Parsing.Structure;
 using Scalider.Data.Entity;
+using Scalider.Reflection;
 
 namespace Scalider.EntityFrameworkCore
 {
@@ -68,6 +69,16 @@ namespace Scalider.EntityFrameworkCore
             where TEntity : class, IEntity
         {
             Check.NotNull(query, nameof(query));
+            
+            // Unwrap the IIncludedQueryable
+            var queryType = query.GetType();
+            if (queryType.ImplementsOrInherits(typeof(IIncludableQueryable<,>)))
+            {
+                var field = queryType.GetTypeInfo().DeclaredFields.First(t => t.Name == "_queryable");
+                query = field.GetValue(query) as IQueryable<TEntity>;
+            }
+
+            //
             if (!(query is EntityQueryable<TEntity>) &&
                 !(query is InternalDbSet<TEntity>))
             {
