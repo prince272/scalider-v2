@@ -5,7 +5,7 @@ namespace Scalider.Data.Entity
 {
 
     /// <summary>
-    /// Represents an entity that can be persisted using the data access layer and
+    /// Represents an entity that can be persisted using the data store and
     /// have an identifier of <typeparamref name="TKey" />.
     /// </summary>
     /// <typeparam name="TKey">The type encapsulating the identity of the

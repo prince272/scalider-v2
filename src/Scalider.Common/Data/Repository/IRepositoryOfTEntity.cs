@@ -9,7 +9,7 @@ namespace Scalider.Data.Repository
 {
 
     /// <summary>
-    /// A repository represents a session with the data access layer that can be
+    /// A repository represents a session with the data store that can be
     /// used to retrieve, update and delete entities of
     /// <typeparamref name="TEntity"/>. 
     /// </summary>
@@ -210,13 +210,13 @@ namespace Scalider.Data.Repository
             CancellationToken cancellationToken = default);*/
 
         /// <summary>
-        /// Adds a new entity to the data access layer.
+        /// Adds a new entity to the data store.
         /// </summary>
         /// <param name="entity">The entity to add.</param>
         void Add([NotNull] TEntity entity);
 
         /// <summary>
-        /// Asynchronously adds a new entity to the data access layer.
+        /// Asynchronously adds a new entity to the data store.
         /// </summary>
         /// <param name="entity">The entity to add.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
@@ -228,13 +228,13 @@ namespace Scalider.Data.Repository
             CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Updates an existing entity on the data access layer.
+        /// Updates an existing entity on the data store.
         /// </summary>
         /// <param name="entity">The entity to update.</param>
         void Update([NotNull] TEntity entity);
 
         /// <summary>
-        /// Asynchronously pdates an existing entity on the data access layer.
+        /// Asynchronously pdates an existing entity on the data store.
         /// </summary>
         /// <param name="entity">The entity to update.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
@@ -246,7 +246,7 @@ namespace Scalider.Data.Repository
             CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Removes an entity from the data access layer.
+        /// Removes an entity from the data store.
         /// </summary>
         /// <param name="entity">The entity to remove.</param>
         void Remove([NotNull] TEntity entity);

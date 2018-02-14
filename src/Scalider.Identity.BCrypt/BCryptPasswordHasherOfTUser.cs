@@ -45,7 +45,7 @@ namespace Scalider.Identity
         {
             Check.NotNull(user, nameof(user));
             return BCrypt.Net.BCrypt.HashPassword(password ?? string.Empty,
-                _options.WorkFactor);
+                _options.WorkFactor, _options.SaltRevision);
         }
 
         /// <inheritdoc />

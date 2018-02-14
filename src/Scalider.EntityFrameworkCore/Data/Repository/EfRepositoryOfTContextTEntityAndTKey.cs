@@ -33,6 +33,7 @@ namespace Scalider.Data.Repository
         /// <see cref="EfRepository{TContext, TEntity,TKey}"/> class.
         /// </summary>
         /// <param name="context"></param>
+        [UsedImplicitly]
         public EfRepository([NotNull] TContext context)
             : base(context)
         {

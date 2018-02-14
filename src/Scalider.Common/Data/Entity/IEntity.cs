@@ -2,7 +2,7 @@
 {
     
     /// <summary>
-    /// Represents an entity that can be persisted using the data access layer.
+    /// Represents an entity that can be persisted using the data store.
     /// </summary>
     public interface IEntity
     {

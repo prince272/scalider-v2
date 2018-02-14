@@ -12,13 +12,13 @@ namespace Scalider.Data.UnitOfWork
     {
 
         /// <summary>
-        /// Saves all changes made in this unit of work to the data access layer.
+        /// Saves all changes made in this unit of work to the data store.
         /// </summary>
         void SaveChanges();
 
         /// <summary>
         /// Asynchronously saves all changes made in this unit of work to the
-        /// data access layer.
+        /// data store.
         /// </summary>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
         /// observe while waiting for the task to complete.</param>

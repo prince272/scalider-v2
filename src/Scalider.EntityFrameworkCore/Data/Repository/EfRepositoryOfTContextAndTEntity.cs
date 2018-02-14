@@ -19,7 +19,7 @@ namespace Scalider.Data.Repository
     /// <typeparam name="TContext">The type encapsulating the database
     /// context.</typeparam>
     /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
-    public class EfRepository<TContext, TEntity> : IRepository<TEntity>
+    public class EfRepository<TContext, TEntity> : IEfRepository<TEntity>
         where TContext : DbContext
         where TEntity : class, IEntity
     {
@@ -33,7 +33,7 @@ namespace Scalider.Data.Repository
         public EfRepository([NotNull] TContext context)
         {
             Check.NotNull(context, nameof(context));
-            
+
             Context = context;
         }
 
@@ -49,52 +49,7 @@ namespace Scalider.Data.Repository
         protected Lazy<DbSet<TEntity>> DbSet =>
             new Lazy<DbSet<TEntity>>(() => Context.Set<TEntity>());
 
-        #region IRepository<TEntity> Members
-
-        /*// <inheritdoc />
-        public virtual int Count() => DbSet.Value.Count();
-
-        /// <inheritdoc />
-        public virtual Task<int> CountAsync(
-            CancellationToken cancellationToken = default) =>
-            DbSet.Value.CountAsync(cancellationToken);
-
-        /// <inheritdoc />
-        public virtual long LongCount() => DbSet.Value.LongCount();
-
-        /// <inheritdoc />
-        public virtual Task<long> LongCountAsync(
-            CancellationToken cancellationToken = default) =>
-            DbSet.Value.LongCountAsync(cancellationToken);
-
-        /// <inheritdoc />
-        public virtual int Count(Expression<Func<TEntity, bool>> predicate)
-        {
-            Check.NotNull(predicate, nameof(predicate));
-            return DbSet.Value.Count(predicate);
-        }
-
-        /// <inheritdoc />
-        public virtual Task<int> CountAsync(
-            Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken = default)
-        {
-            Check.NotNull(predicate, nameof(predicate));
-            return DbSet.Value.CountAsync(predicate, cancellationToken);
-        }
-
-        /// <inheritdoc />
-        public virtual long LongCount(Expression<Func<TEntity, bool>> predicate)
-        {
-            Check.NotNull(predicate, nameof(predicate));
-            return DbSet.Value.LongCount(predicate);
-        }
-
-        /// <inheritdoc />
-        public virtual Task<long> LongCountAsync(
-            Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken = default) =>
-            DbSet.Value.LongCountAsync(predicate, cancellationToken);*/
+        #region IEfRepository<TEntity> Members
 
         /// <inheritdoc />
         public virtual IEnumerable<TEntity> GetAll() => DbSet.Value.ToList();
@@ -103,72 +58,6 @@ namespace Scalider.Data.Repository
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync(
             CancellationToken cancellationToken = default) =>
             await DbSet.Value.ToListAsync(cancellationToken);
-
-        /*// <inheritdoc />
-        public virtual IEnumerable<TEntity> Find(
-            Expression<Func<TEntity, bool>> predicate)
-        {
-            Check.NotNull(predicate, nameof(predicate));
-            return DbSet.Value.Where(predicate).ToList();
-        }
-
-        /// <inheritdoc />
-        public virtual async Task<IEnumerable<TEntity>> FindAsync(
-            Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken = default)
-        {
-            Check.NotNull(predicate, nameof(predicate));
-            return await DbSet.Value.Where(predicate).ToListAsync(cancellationToken);
-        }
-
-        /// <inheritdoc />
-        public virtual TEntity Single(Expression<Func<TEntity, bool>> predicate)
-        {
-            Check.NotNull(predicate, nameof(predicate));
-            return DbSet.Value.Single(predicate);
-        }
-
-        /// <inheritdoc />
-        public virtual Task<TEntity> SingleAsync(
-            Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken = default)
-        {
-            Check.NotNull(predicate, nameof(predicate));
-            return DbSet.Value.SingleAsync(predicate, cancellationToken);
-        }
-
-        /// <inheritdoc />
-        public virtual TEntity First(Expression<Func<TEntity, bool>> predicate)
-        {
-            Check.NotNull(predicate, nameof(predicate));
-            return DbSet.Value.First(predicate);
-        }
-
-        /// <inheritdoc />
-        public virtual Task<TEntity> FirstAsync(
-            Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken = default)
-        {
-            Check.NotNull(predicate, nameof(predicate));
-            return DbSet.Value.FirstAsync(predicate, cancellationToken);
-        }
-
-        /// <inheritdoc />
-        public virtual TEntity FirstOrDefault(
-            Expression<Func<TEntity, bool>> predicate)
-        {
-            Check.NotNull(predicate, nameof(predicate));
-            return DbSet.Value.FirstOrDefault(predicate);
-        }
-
-        /// <inheritdoc />
-        public virtual Task<TEntity> FirstOrDefaultAsync(
-            Expression<Func<TEntity, bool>> predicate,
-            CancellationToken cancellationToken = default)
-        {
-            Check.NotNull(predicate, nameof(predicate));
-            return DbSet.Value.FirstOrDefaultAsync(predicate, cancellationToken);
-        }*/
 
         /// <inheritdoc />
         public virtual void Add(TEntity entity)
@@ -217,6 +106,21 @@ namespace Scalider.Data.Repository
             DbSet.Value.Remove(entity);
 
             return Task.FromResult(0);
+        }
+
+        /// <inheritdoc />
+        public virtual void AddRange(IEnumerable<TEntity> entities)
+        {
+            Check.NotNull(entities, nameof(entities));
+            DbSet.Value.AddRange(entities);
+        }
+
+        /// <inheritdoc />
+        public Task AddRangeAsync(IEnumerable<TEntity> entities,
+            CancellationToken cancellationToken = default)
+        {
+            Check.NotNull(entities, nameof(entities));
+            return DbSet.Value.AddRangeAsync(entities, cancellationToken);
         }
 
         #endregion

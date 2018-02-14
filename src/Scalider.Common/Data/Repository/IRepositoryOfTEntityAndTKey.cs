@@ -9,7 +9,7 @@ namespace Scalider.Data.Repository
 {
 
     /// <summary>
-    /// A repository represents a session with the data access layer that can be
+    /// A repository represents a session with the data store that can be
     /// used to retrieve, update and delete entities of type
     /// <typeparamref name="TEntity"/> and with a primary key of
     /// <typeparamref name="TKey"/>.
