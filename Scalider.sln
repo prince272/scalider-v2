@@ -11,6 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Identity.BCrypt", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.TestApp", "src\Scalider.TestApp\Scalider.TestApp.csproj", "{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{81CD7205-9FEA-4359-9D34-71F12F9D9A79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.AspNetCore", "src\Scalider.AspNetCore\Scalider.AspNetCore.csproj", "{E52EB523-6EC7-4E04-951A-B539A8AD5D01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Core", "src\Scalider.Core\Scalider.Core.csproj", "{DE9CE4CE-CF8C-4736-8553-ECE8A15D5CC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNetCore", "AspNetCore", "{FB0D5CDB-4D64-482A-8285-BCAD747353D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,11 +41,20 @@ Global
 		{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E52EB523-6EC7-4E04-951A-B539A8AD5D01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E52EB523-6EC7-4E04-951A-B539A8AD5D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E52EB523-6EC7-4E04-951A-B539A8AD5D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E52EB523-6EC7-4E04-951A-B539A8AD5D01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE9CE4CE-CF8C-4736-8553-ECE8A15D5CC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE9CE4CE-CF8C-4736-8553-ECE8A15D5CC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE9CE4CE-CF8C-4736-8553-ECE8A15D5CC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE9CE4CE-CF8C-4736-8553-ECE8A15D5CC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{E52EB523-6EC7-4E04-951A-B539A8AD5D01} = {FB0D5CDB-4D64-482A-8285-BCAD747353D0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4B223D4-16BF-4D43-A92B-142C9DD5CE76}
