@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard1.7;netstandard2.0</TargetFrameworks>
     <RootNamespace>Scalider.Identity</RootNamespace>
-    <Version>2.0.1</Version>
+    <Version>2.0.2</Version>
     <Description>Uses BCrypt to provide password hashing.</Description>
     <LangVersion>7.2</LangVersion>
   </PropertyGroup>

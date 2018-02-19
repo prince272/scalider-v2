@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using BCrypt.Net;
 using JetBrains.Annotations;
 
@@ -28,6 +29,14 @@ namespace Scalider.Identity
         /// </summary>
         [UsedImplicitly]
         public const int MaximumAllowedWorkFactor = 31;
+
+        private static readonly TimeSpan RegexTimeout =
+            TimeSpan.FromMilliseconds(50);
+
+        internal static readonly Regex HashInformation =
+            new Regex(
+                @"^\$(?<revision>2[a-z]{1}?)\$(?<rounds>\d\d?)\$(?<hash>[A-Za-z0-9\./]{53})$",
+                RegexOptions.Singleline, RegexTimeout);
 
         private int _workFactor = DefaultWorkFactor;
 
@@ -68,6 +77,7 @@ namespace Scalider.Identity
         /// <summary>
         /// Gets or sets the version of the salt.
         /// </summary>
+        [UsedImplicitly]
         public SaltRevision SaltRevision { get; set; } = SaltRevision.Revision2B;
 
     }
