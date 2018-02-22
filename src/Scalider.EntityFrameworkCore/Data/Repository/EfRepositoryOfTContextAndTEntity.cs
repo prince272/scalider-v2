@@ -49,15 +49,45 @@ namespace Scalider.Data.Repository
         protected Lazy<DbSet<TEntity>> DbSet =>
             new Lazy<DbSet<TEntity>>(() => Context.Set<TEntity>());
 
+        /// <summary>
+        /// Returns a <see cref="IQueryable{T}"/> with all the navigations for
+        /// the entity of the repository, if the entity defines any navigation.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IQueryable{T}"/> with the included navigations
+        /// (if any).
+        /// </returns>
+        [SuppressMessage("ReSharper", "VirtualMemberNeverOverridden.Global")]
+        protected virtual IQueryable<TEntity> GetDbSetWithIncludes()
+        {
+            IQueryable<TEntity> set = DbSet.Value;
+            var entityType = Context.Model.FindEntityType(typeof(TEntity));
+            if (entityType == null)
+                return set;
+
+            // Retrieve the navigations for the entity
+            var navigations = entityType.GetNavigations()?.ToArray();
+            if (navigations == null || navigations.Length == 0)
+            {
+                // The entity doesn't have any navigation
+                return set;
+            }
+
+            // Done
+            return navigations.Aggregate(set,
+                (current, nav) => current.Include(nav.Name));
+        }
+
         #region IEfRepository<TEntity> Members
 
         /// <inheritdoc />
-        public virtual IEnumerable<TEntity> GetAll() => DbSet.Value.ToList();
+        public virtual IEnumerable<TEntity> GetAll() =>
+            GetDbSetWithIncludes().ToList();
 
         /// <inheritdoc />
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync(
             CancellationToken cancellationToken = default) =>
-            await DbSet.Value.ToListAsync(cancellationToken);
+            await GetDbSetWithIncludes().ToListAsync(cancellationToken);
 
         /// <inheritdoc />
         public virtual void Add(TEntity entity)

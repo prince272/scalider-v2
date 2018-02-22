@@ -17,6 +17,12 @@ namespace Scalider.TestApp
         public static void Main(string[] args)
         {
             var db = new Db();
+            
+            var repo = new EfRepository<Db, Entity2, long>(db);
+
+            var all = repo.GetAll();
+            var one = repo.FindById(2);
+            
 //            db.Database.EnsureDeleted();
 //            db.Database.EnsureCreated();
 //            
