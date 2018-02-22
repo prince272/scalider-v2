@@ -46,7 +46,7 @@ namespace Scalider.Data.Repository
         public virtual TEntity FindById(TKey id) =>
             EqualityComparer<TKey>.Default.Equals(id, default)
                 ? default
-                : GetDbSetWithIncludes().FirstOrDefault(t =>
+                : GetQueryableWithIncludes().FirstOrDefault(t =>
                     EqualityComparer<TKey>.Default.Equals(t.Id, id));
 
         /// <inheritdoc />
@@ -54,7 +54,7 @@ namespace Scalider.Data.Repository
             CancellationToken cancellationToken = default) =>
             EqualityComparer<TKey>.Default.Equals(id, default)
                 ? Task.FromResult(default(TEntity))
-                : GetDbSetWithIncludes()
+                : GetQueryableWithIncludes()
                     .FirstOrDefaultAsync(
                         t => EqualityComparer<TKey>.Default.Equals(t.Id, id),
                         cancellationToken);

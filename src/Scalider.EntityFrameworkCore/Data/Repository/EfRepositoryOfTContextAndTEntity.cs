@@ -58,7 +58,7 @@ namespace Scalider.Data.Repository
         /// (if any).
         /// </returns>
         [SuppressMessage("ReSharper", "VirtualMemberNeverOverridden.Global")]
-        protected virtual IQueryable<TEntity> GetDbSetWithIncludes()
+        protected virtual IQueryable<TEntity> GetQueryableWithIncludes()
         {
             IQueryable<TEntity> set = DbSet.Value;
             var entityType = Context.Model.FindEntityType(typeof(TEntity));
@@ -82,12 +82,12 @@ namespace Scalider.Data.Repository
 
         /// <inheritdoc />
         public virtual IEnumerable<TEntity> GetAll() =>
-            GetDbSetWithIncludes().ToList();
+            GetQueryableWithIncludes().ToList();
 
         /// <inheritdoc />
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync(
             CancellationToken cancellationToken = default) =>
-            await GetDbSetWithIncludes().ToListAsync(cancellationToken);
+            await GetQueryableWithIncludes().ToListAsync(cancellationToken);
 
         /// <inheritdoc />
         public virtual void Add(TEntity entity)

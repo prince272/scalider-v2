@@ -1,3 +1,5 @@
+src/Scalider.TestApp/**
+tools/Scalider.Tools.LocalizationExtractor/**
 
 # Created by https://www.gitignore.io/api/jetbrains,aspnetcore,visualstudio,visualstudiocode,macos
 
