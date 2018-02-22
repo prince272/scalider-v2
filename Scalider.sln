@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Common", "src\Scal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Identity.BCrypt", "src\Scalider.Identity.BCrypt\Scalider.Identity.BCrypt.csproj", "{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.TestApp", "src\Scalider.TestApp\Scalider.TestApp.csproj", "{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{81CD7205-9FEA-4359-9D34-71F12F9D9A79}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.AspNetCore", "src\Scalider.AspNetCore\Scalider.AspNetCore.csproj", "{E52EB523-6EC7-4E04-951A-B539A8AD5D01}"
@@ -37,10 +35,6 @@ Global
 		{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F67C2AE6-0765-403D-B0CC-20F7347C6C8F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E52EB523-6EC7-4E04-951A-B539A8AD5D01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E52EB523-6EC7-4E04-951A-B539A8AD5D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E52EB523-6EC7-4E04-951A-B539A8AD5D01}.Release|Any CPU.ActiveCfg = Release|Any CPU

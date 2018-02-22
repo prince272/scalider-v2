@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿#if !NETSTANDARD2_0
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Scalider.EntityFrameworkCore
@@ -30,3 +31,4 @@ namespace Scalider.EntityFrameworkCore
     }
     
 }
+#endif
