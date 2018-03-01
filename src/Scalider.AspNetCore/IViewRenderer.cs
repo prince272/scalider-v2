@@ -23,8 +23,8 @@ namespace Scalider.AspNetCore
         /// The <see cref="Task"/> object representing the asynchronous
         /// operation.
         /// </returns>
-        Task<string> RenderViewToStringAsync([NotNull] string viewName,
-            [CanBeNull] object model, CancellationToken cancellationToken = default);
+        Task<string> RenderViewToStringAsync([NotNull, AspMvcView] string viewName, [CanBeNull] object model,
+            CancellationToken cancellationToken = default);
 
     }
 }
