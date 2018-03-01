@@ -24,15 +24,13 @@ namespace Scalider.AspNetCore
         /// The <see cref="Task"/> object representing the asynchronous
         /// operation.
         /// </returns>
-        public static Task<string> RenderViewToStringAsync(
-            [NotNull] this IViewRenderer renderer, [NotNull] string viewName,
-            CancellationToken cancellationToken = default)
+        public static Task<string> RenderViewToStringAsync([NotNull] this IViewRenderer renderer,
+            [NotNull, AspMvcView] string viewName, CancellationToken cancellationToken = default)
         {
             Check.NotNull(renderer, nameof(renderer));
             Check.NotNullOrEmpty(viewName, nameof(viewName));
 
-            return renderer.RenderViewToStringAsync(viewName, null,
-                cancellationToken);
+            return renderer.RenderViewToStringAsync(viewName, null, cancellationToken);
         }
 
     }

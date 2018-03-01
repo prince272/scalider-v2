@@ -93,8 +93,7 @@ namespace Scalider.AspNetCore
                         new EmptyModelMetadataProvider(),
                         new ModelStateDictionary()
                     ) {Model = model},
-                    new TempDataDictionary(actionContext.HttpContext,
-                        _tempDataProvider),
+                    new TempDataDictionary(actionContext.HttpContext, _tempDataProvider),
                     writer,
                     new HtmlHelperOptions()
                 );

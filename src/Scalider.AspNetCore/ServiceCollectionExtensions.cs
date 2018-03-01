@@ -20,8 +20,7 @@ namespace Scalider.AspNetCore
         /// <returns>
         /// The <see cref="IServiceCollection"/>.
         /// </returns>
-        public static IServiceCollection AddDefaultViewRenderer(
-            [NotNull] this IServiceCollection services)
+        public static IServiceCollection AddDefaultViewRenderer([NotNull] this IServiceCollection services)
         {
             Check.NotNull(services, nameof(services));
 
