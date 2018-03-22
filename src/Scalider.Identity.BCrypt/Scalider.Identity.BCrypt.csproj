@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard1.7;netstandard2.0</TargetFrameworks>
     <RootNamespace>Scalider.Identity</RootNamespace>
-    <Version>2.0.2</Version>
+    <Version>2.0.3</Version>
     <Description>Uses BCrypt to provide password hashing.</Description>
     <LangVersion>7.2</LangVersion>
   </PropertyGroup>
@@ -19,11 +19,10 @@
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.2" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
-    <PackageReference Include="BCrypt.Net-Core" Version="1.4.0" />
   </ItemGroup>
 </Project>
