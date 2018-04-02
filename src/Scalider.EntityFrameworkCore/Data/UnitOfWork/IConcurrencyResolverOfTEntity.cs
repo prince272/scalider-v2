@@ -20,8 +20,8 @@ namespace Scalider.Data.UnitOfWork
         /// <param name="entity"></param>
         /// <param name="original"></param>
         /// <param name="resolved"></param>
-        void Resolve([NotNull] EntityEntry entityEntry, [NotNull] TEntity entity,
-            [NotNull] TEntity original, [NotNull] TEntity resolved);
+        void Resolve([NotNull] EntityEntry entityEntry, [NotNull] TEntity entity, [NotNull] TEntity original,
+            [NotNull] TEntity resolved);
 
     }
     
