@@ -5,6 +5,7 @@
     <Version>2.0.1</Version>
     <Description>Provides core extension and utility classes with the bare minium package dependency.</Description>
     <LangVersion>7.2</LangVersion>
+    <RepositoryUrl>https://github.com/wilsonrivera/scalider-v2</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../shared/Check.cs" />
