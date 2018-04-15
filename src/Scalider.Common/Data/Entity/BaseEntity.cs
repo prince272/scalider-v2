@@ -4,8 +4,7 @@ namespace Scalider.Data.Entity
 {
 
     /// <summary>
-    /// Provides a base class for implementations of the <see cref="IEntity"/>
-    /// interface.
+    /// Provides a base class for implementations of the <see cref="IEntity"/> interface.
     /// </summary>
     public abstract class BaseEntity : IEntity
     {
@@ -42,39 +41,34 @@ namespace Scalider.Data.Entity
         }
 
         /// <summary>
-        /// Indicates whether the values of two specified
-        /// <see cref="BaseEntity" /> objects are equal.
+        /// Indicates whether the values of two specified <see cref="BaseEntity" /> objects are equal.
         /// </summary>
         /// <param name="left">The first object to compare.</param>
         /// <param name="right">The second object to compare.</param>
         /// <returns>
-        /// <c>true</c> if <paramref name="left" /> and
-        /// <paramref name="right" /> are equal; otherwise, <c>false</c>.
+        /// <c>true</c> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <c>false</c>.
         /// </returns>
         public static bool operator ==(BaseEntity left, BaseEntity right) =>
             left?.Equals(right) ?? Equals(right, null);
 
         /// <summary>
-        /// Indicates whether the values of two specified
-        /// <see cref="BaseEntity" /> objects are not equal.
+        /// Indicates whether the values of two specified <see cref="BaseEntity" /> objects are not equal.
         /// </summary>
         /// <param name="left">The first object to compare.</param>
         /// <param name="right">The second object to compare.</param>
         /// <returns>
-        /// <c>true</c> if <paramref name="left" /> and
-        /// <paramref name="right" /> are not equal; otherwise, <c>false</c>.
+        /// <c>true</c> if <paramref name="left" /> and <paramref name="right" /> are not equal; otherwise,
+        /// <c>false</c>.
         /// </returns>
         public static bool operator !=(BaseEntity left, BaseEntity right) =>
             !(left == right);
 
         /// <summary>
-        /// Determines whether the specified object is equal to the current
-        /// object.
+        /// Determines whether the specified object is equal to the current object.
         /// </summary>
         /// <param name="other"></param>
         /// <returns>
-        /// true if the specified object is equal to the current object;
-        /// otherwise, false.
+        /// true if the specified object is equal to the current object; otherwise, false.
         /// </returns>
         protected abstract bool Equals(BaseEntity other);
 

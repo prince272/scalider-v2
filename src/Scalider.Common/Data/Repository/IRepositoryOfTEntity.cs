@@ -9,9 +9,8 @@ namespace Scalider.Data.Repository
 {
 
     /// <summary>
-    /// A repository represents a session with the data store that can be
-    /// used to retrieve, update and delete entities of
-    /// <typeparamref name="TEntity"/>. 
+    /// A repository represents a session with the data store that can be used to retrieve, update and delete entities
+    /// of <typeparamref name="TEntity"/>. 
     /// </summary>
     /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
     [SuppressMessage("ReSharper", "UnusedMemberInSuper.Global"),
@@ -88,14 +87,12 @@ namespace Scalider.Data.Repository
         /// <summary>
         /// Asynchronously returns all the entities for this repository.
         /// </summary>
-        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
-        /// observe while waiting for the task to complete.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the
+        /// task to complete.</param>
         /// <returns>
-        /// The <see cref="Task"/> object representing the asynchronous
-        /// operation.
+        /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
-        Task<IEnumerable<TEntity>> GetAllAsync(
-            CancellationToken cancellationToken = default);/*
+        Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default);/*
 
         /// <summary>
         /// Returns collection containing all the entities that satisfies a
@@ -219,13 +216,12 @@ namespace Scalider.Data.Repository
         /// Asynchronously adds a new entity to the data store.
         /// </summary>
         /// <param name="entity">The entity to add.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
-        /// observe while waiting for the task to complete.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the
+        /// task to complete.</param>
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
-        Task AddAsync([NotNull] TEntity entity,
-            CancellationToken cancellationToken = default);
+        Task AddAsync([NotNull] TEntity entity, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Updates an existing entity on the data store.
@@ -237,13 +233,12 @@ namespace Scalider.Data.Repository
         /// Asynchronously pdates an existing entity on the data store.
         /// </summary>
         /// <param name="entity">The entity to update.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
-        /// observe while waiting for the task to complete.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the
+        /// task to complete.</param>
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
-        Task UpdateAsync([NotNull] TEntity entity,
-            CancellationToken cancellationToken = default);
+        Task UpdateAsync([NotNull] TEntity entity, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Removes an entity from the data store.
@@ -255,13 +250,12 @@ namespace Scalider.Data.Repository
         /// Asynchronously removes an existing entity.
         /// </summary>
         /// <param name="entity">The entity to remove.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
-        /// observe while waiting for the task to complete.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the
+        /// task to complete.</param>
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
-        Task RemoveAsync([NotNull] TEntity entity,
-            CancellationToken cancellationToken = default);
+        Task RemoveAsync([NotNull] TEntity entity, CancellationToken cancellationToken = default);
 
     }
 

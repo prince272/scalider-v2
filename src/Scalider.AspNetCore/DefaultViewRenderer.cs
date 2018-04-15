@@ -18,8 +18,7 @@ namespace Scalider.AspNetCore
 {
     
     /// <summary>
-    /// Provides a base implementation for the <see cref="IViewRenderer"/>
-    /// interface.
+    /// Provides a base implementation for the <see cref="IViewRenderer"/> interface.
     /// </summary>
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
     public class DefaultViewRenderer : IViewRenderer
@@ -30,8 +29,7 @@ namespace Scalider.AspNetCore
         private readonly IViewEngine _viewEngine;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DefaultViewRenderer"/>
-        /// class.
+        /// Initializes a new instance of the <see cref="DefaultViewRenderer"/> class.
         /// </summary>
         /// <param name="serviceProvider"></param>
         /// <param name="tempDataProvider"></param>

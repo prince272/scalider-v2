@@ -1,12 +1,12 @@
-﻿using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using JetBrains.Annotations;
 
 namespace Scalider
 {
 
     /// <summary>
-    /// Provides utility methods for calculating and validating the LUHN
-    /// algorithm.
+    /// Provides utility methods for calculating and validating the LUHN algorithm.
     /// </summary>
     public static class LuhnUtility
     {
@@ -15,12 +15,11 @@ namespace Scalider
 
         /// <summary>
         /// <para>
-        /// Calculates the corresponding validator character for the given
-        /// <paramref name="input" /> using the LUHN algorithm.
+        /// Calculates the corresponding validator character for the given <paramref name="input" /> using the
+        /// LUHN algorithm.
         /// </para>
         /// <para>
-        /// This will only take into consideration the digits (0-9) and will ignore
-        /// anything outside of that range.
+        /// This will only take into consideration the digits (0-9) and will ignore anything outside of that range.
         /// </para>
         /// </summary>
         /// <param name="input"></param>
@@ -30,6 +29,7 @@ namespace Scalider
         ///     CalculateMod10("4a1b3cd254") returns the character '4' 
         ///     CalculateMod10("abcd") returns the character '0' 
         /// </example>
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         public static char CalculateMod10([NotNull] string input)
         {
             Check.NotNullOrEmpty(input, nameof(input));
@@ -51,26 +51,21 @@ namespace Scalider
         }
 
         /// <summary>
-        /// Validates the given <paramref name="input"/> using the LUHN
-        /// algorithm.
+        /// Validates the given <paramref name="input"/> using the LUHN algorithm.
         /// </summary>
         /// <param name="input">The string to validate.</param>
         /// <returns>
-        /// true if the given <paramref name="input"/> is valid; otherwise,
-        /// false.
+        /// <c>true</c> if the given <paramref name="input"/> is valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsMod10(string input) =>
-            !string.IsNullOrEmpty(input) && input.Last() ==
-            CalculateMod10(input.Substring(0, input.Length - 1));
+            !string.IsNullOrEmpty(input) && input.Last() == CalculateMod10(input.Substring(0, input.Length - 1));
 
         /// <summary>
-        /// Validates the given <paramref name="input"/> using a fixed weight for
-        /// the LUHN algorithm.
+        /// Validates the given <paramref name="input"/> using a fixed weight for the LUHN algorithm.
         /// </summary>
         /// <param name="input">The string to validate.</param>
         /// <returns>
-        /// true if the given <paramref name="input"/> is valid; otherwise,
-        /// false.
+        /// <c>true</c> if the given <paramref name="input"/> is valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsMod9(string input)
         {

@@ -8,8 +8,7 @@ namespace Scalider.Security
 {
 
     /// <summary>
-    /// Computes the 33-bits Cyclic Redundancy Check (CRC) hash for the input
-    /// data.
+    /// Computes the 33-bits Cyclic Redundancy Check (CRC) hash for the input data.
     /// </summary>
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class CRC32 : HashAlgorithm
@@ -34,8 +33,7 @@ namespace Scalider.Security
         private uint _hash;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CRC32"/> class with
-        /// custom polynomial and seed.
+        /// Initializes a new instance of the <see cref="CRC32"/> class with custom polynomial and seed.
         /// </summary>
         public CRC32()
             : this(DefaultPolynomial)
@@ -43,8 +41,7 @@ namespace Scalider.Security
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CRC32"/> class with
-        /// custom polynomial and seed.
+        /// Initializes a new instance of the <see cref="CRC32"/> class with custom polynomial and seed.
         /// </summary>
         /// <param name="polynomial"></param>
         /// <param name="seed"></param>
@@ -80,16 +77,14 @@ namespace Scalider.Security
         }
 
         /// <summary>
-        /// Creates an instance of the <see cref="CRC32"/> hash algorithm with
-        /// the default values.
+        /// Creates an instance of the <see cref="CRC32"/> hash algorithm with the default values.
         /// </summary>
         /// <returns>
         /// </returns>
         public new static CRC32 Create() => new CRC32();
 
         /// <summary>
-        /// Creates an instance of the <see cref="CRC32"/> hash algorithm with
-        /// the default values.
+        /// Creates an instance of the <see cref="CRC32"/> hash algorithm with the default values.
         /// </summary>
         /// <param name="algorithmName">This parameter is ignored.</param>
         /// <returns>

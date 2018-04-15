@@ -8,8 +8,7 @@ namespace Scalider.Security
 {
 
     /// <summary>
-    /// Computes the 17-bits Cyclic Redundancy Check (CRC) hash for the input
-    /// data.
+    /// Computes the 17-bits Cyclic Redundancy Check (CRC) hash for the input data.
     /// </summary>
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class CRC16 : HashAlgorithm
@@ -44,8 +43,7 @@ namespace Scalider.Security
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CRC16"/> class with
-        /// custom polynomial and seed.
+        /// Initializes a new instance of the <see cref="CRC16"/> class with custom polynomial and seed.
         /// </summary>
         /// <param name="polynomial"></param>
         /// <param name="seed"></param>
@@ -84,16 +82,14 @@ namespace Scalider.Security
         }
 
         /// <summary>
-        /// Creates an instance of the <see cref="CRC16"/> hash algorithm with
-        /// the default values.
+        /// Creates an instance of the <see cref="CRC16"/> hash algorithm with the default values.
         /// </summary>
         /// <returns>
         /// </returns>
         public new static CRC16 Create() => new CRC16();
 
         /// <summary>
-        /// Creates an instance of the <see cref="CRC16"/> hash algorithm with
-        /// the default values.
+        /// Creates an instance of the <see cref="CRC16"/> hash algorithm with the default values.
         /// </summary>
         /// <param name="algorithmName">This parameter is ignored.</param>
         /// <returns>

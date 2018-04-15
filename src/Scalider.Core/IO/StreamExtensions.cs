@@ -15,8 +15,7 @@ namespace Scalider.IO
         /// <summary>
         /// Retrieves all the bytes from the given <paramref name="stream"/>.
         /// </summary>
-        /// <param name="stream">The <see cref="Stream"/> to retrieve the bytes
-        /// from.</param>
+        /// <param name="stream">The <see cref="Stream"/> to retrieve the bytes from.</param>
         /// <returns>
         /// The bytes from the given <paramref name="stream"/>.
         /// </returns>
@@ -52,11 +51,9 @@ namespace Scalider.IO
         /// Asynchronously retrieves all the bytes from the given
         /// <paramref name="stream"/>.
         /// </summary>
-        /// <param name="stream">The <see cref="Stream"/> to retrieve the bytes
-        /// from.</param>
+        /// <param name="stream">The <see cref="Stream"/> to retrieve the bytes from.</param>
         /// <returns>
-        /// The <see cref="Task"/> object representing the asynchronous
-        /// operation.
+        /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
         public static async Task<byte[]> ToArrayAsync([NotNull] this Stream stream)
         {

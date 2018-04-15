@@ -10,11 +10,9 @@ namespace Scalider.Data.Entity
 {
 
     /// <summary>
-    /// Provides a base class for implementations of the <see cref="IEntity{TKey}"/>
-    /// generic interface.
+    /// Provides a base class for implementations of the <see cref="IEntity{TKey}"/> generic interface.
     /// </summary>
-    /// <typeparam name="TKey">The type encapsulating the identity of the
-    /// entity.</typeparam>
+    /// <typeparam name="TKey">The type encapsulating the identity of the entity.</typeparam>
     public abstract class BaseEntity<TKey> : BaseEntity, IEntity<TKey>
         where TKey : IEquatable<TKey>
     {
@@ -43,13 +41,11 @@ namespace Scalider.Data.Entity
         }
 
         /// <summary>
-        /// Determines whether the specified object is equal to the current
-        /// object.
+        /// Determines whether the specified object is equal to the current object.
         /// </summary>
         /// <param name="other"></param>
         /// <returns>
-        /// true if the specified object is equal to the current object;
-        /// otherwise, false.
+        /// true if the specified object is equal to the current object; otherwise, false.
         /// </returns>
         protected virtual bool Equals(BaseEntity<TKey> other)
         {

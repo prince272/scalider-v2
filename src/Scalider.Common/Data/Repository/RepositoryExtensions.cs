@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Scalider.Data.Entity;
+using Scalider.Reflection;
 
 namespace Scalider.Data.Repository
 {
@@ -19,8 +20,7 @@ namespace Scalider.Data.Repository
         /// </summary>
         /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
         /// <param name="repository">The <see cref="IRepository{TEntity}"/>.</param>
-        /// <param name="entities">The collection of entities to add to the
-        /// data store.</param>
+        /// <param name="entities">The collection of entities to add to the data store.</param>
         public static void AddRange<TEntity>([NotNull] this IRepository<TEntity> repository,
             [NotNull] params TEntity[] entities)
             where TEntity : class, IEntity
@@ -28,13 +28,7 @@ namespace Scalider.Data.Repository
             Check.NotNull(repository, nameof(repository));
             Check.NotNull(entities, nameof(entities));
 
-            if (!(repository is IBatchRepository<TEntity> batchRepository))
-            {
-                // The type of the repository doesn't support
-                throw new ArgumentException();
-            }
-
-            batchRepository.AddRange(entities.AsEnumerable());
+            GetBatchRepositoryOrThrow(repository).AddRange(entities.AsEnumerable());
         }
 
         /// <summary>
@@ -53,13 +47,7 @@ namespace Scalider.Data.Repository
             Check.NotNull(repository, nameof(repository));
             Check.NotNull(entities, nameof(entities));
 
-            if (!(repository is IBatchRepository<TEntity> batchRepository))
-            {
-                // The type of the repository doesn't support
-                throw new ArgumentException();
-            }
-
-            return batchRepository.AddRangeAsync(entities.AsEnumerable());
+            return GetBatchRepositoryOrThrow(repository).AddRangeAsync(entities.AsEnumerable());
         }
 
         /// <summary>
@@ -68,8 +56,8 @@ namespace Scalider.Data.Repository
         /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
         /// <param name="repository">The <see cref="IRepository{TEntity}"/>.</param>
         /// <param name="entities">The collection of entities to add to the data store.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
-        /// observe while waiting for the task to complete.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the
+        /// task to complete.</param>
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
@@ -80,13 +68,7 @@ namespace Scalider.Data.Repository
             Check.NotNull(repository, nameof(repository));
             Check.NotNull(entities, nameof(entities));
 
-            if (!(repository is IBatchRepository<TEntity> batchRepository))
-            {
-                // The type of the repository doesn't support
-                throw new ArgumentException();
-            }
-
-            return batchRepository.AddRangeAsync(entities.AsEnumerable(), cancellationToken);
+            return GetBatchRepositoryOrThrow(repository).AddRangeAsync(entities.AsEnumerable(), cancellationToken);
         }
 
         /// <summary>
@@ -102,13 +84,7 @@ namespace Scalider.Data.Repository
             Check.NotNull(repository, nameof(repository));
             Check.NotNull(entities, nameof(entities));
 
-            if (!(repository is IBatchRepository<TEntity> batchRepository))
-            {
-                // The type of the repository doesn't support
-                throw new ArgumentException();
-            }
-
-            batchRepository.UpdateRange(entities);
+            GetBatchRepositoryOrThrow(repository).UpdateRange(entities);
         }
 
         /// <summary>
@@ -127,13 +103,7 @@ namespace Scalider.Data.Repository
             Check.NotNull(repository, nameof(repository));
             Check.NotNull(entities, nameof(entities));
 
-            if (!(repository is IBatchRepository<TEntity> batchRepository))
-            {
-                // The type of the repository doesn't support
-                throw new ArgumentException();
-            }
-
-            return batchRepository.UpdateRangeAsync(entities);
+            return GetBatchRepositoryOrThrow(repository).UpdateRangeAsync(entities);
         }
 
         /// <summary>
@@ -142,8 +112,8 @@ namespace Scalider.Data.Repository
         /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
         /// <param name="repository">The <see cref="IRepository{TEntity}"/>.</param>
         /// <param name="entities">The collection of entities to add to the data store.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
-        /// observe while waiting for the task to complete.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the
+        /// task to complete.</param>
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
@@ -154,13 +124,7 @@ namespace Scalider.Data.Repository
             Check.NotNull(repository, nameof(repository));
             Check.NotNull(entities, nameof(entities));
 
-            if (!(repository is IBatchRepository<TEntity> batchRepository))
-            {
-                // The type of the repository doesn't support
-                throw new ArgumentException();
-            }
-
-            return batchRepository.UpdateRangeAsync(entities, cancellationToken);
+            return GetBatchRepositoryOrThrow(repository).UpdateRangeAsync(entities, cancellationToken);
         }
 
         /// <summary>
@@ -176,13 +140,7 @@ namespace Scalider.Data.Repository
             Check.NotNull(repository, nameof(repository));
             Check.NotNull(entities, nameof(entities));
 
-            if (!(repository is IBatchRepository<TEntity> batchRepository))
-            {
-                // The type of the repository doesn't support
-                throw new ArgumentException();
-            }
-
-            batchRepository.RemoveRange(entities);
+            GetBatchRepositoryOrThrow(repository).RemoveRange(entities);
         }
 
         /// <summary>
@@ -201,13 +159,7 @@ namespace Scalider.Data.Repository
             Check.NotNull(repository, nameof(repository));
             Check.NotNull(entities, nameof(entities));
 
-            if (!(repository is IBatchRepository<TEntity> batchRepository))
-            {
-                // The type of the repository doesn't support
-                throw new ArgumentException();
-            }
-
-            return batchRepository.UpdateRangeAsync(entities);
+            return GetBatchRepositoryOrThrow(repository).UpdateRangeAsync(entities);
         }
 
         /// <summary>
@@ -228,13 +180,18 @@ namespace Scalider.Data.Repository
             Check.NotNull(repository, nameof(repository));
             Check.NotNull(entities, nameof(entities));
 
-            if (!(repository is IBatchRepository<TEntity> batchRepository))
-            {
-                // The type of the repository doesn't support
-                throw new ArgumentException();
-            }
+            return GetBatchRepositoryOrThrow(repository).UpdateRangeAsync(entities, cancellationToken);
+        }
 
-            return batchRepository.UpdateRangeAsync(entities, cancellationToken);
+        private static IBatchRepository<TEntity> GetBatchRepositoryOrThrow<TEntity>(IRepository<TEntity> repository)
+            where TEntity : class, IEntity
+        {
+            if (repository is IBatchRepository<TEntity> batchRepository)
+                return batchRepository;
+
+            // The type of the repository doesn't support batch
+            var typeName = typeof(IBatchRepository<TEntity>).GetReadableName();
+            throw new ArgumentException($"The repository must implement the {typeName} interface", nameof(repository));
         }
 
     }

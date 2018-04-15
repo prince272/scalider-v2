@@ -6,8 +6,7 @@ namespace Scalider
 {
 
     /// <summary>
-    /// Provides some utility methods for dealing with Uris and Uris related
-    /// operations.
+    /// Provides some utility methods for dealing with Uris and Uris related operations.
     /// </summary>
     public static class UriUtility
     {

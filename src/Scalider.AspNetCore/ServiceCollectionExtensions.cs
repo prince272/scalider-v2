@@ -5,15 +5,13 @@ namespace Scalider.AspNetCore
 {
 
     /// <summary>
-    /// Provides extension methods for the <see cref="IServiceCollection"/>
-    /// class.
+    /// Provides extension methods for the <see cref="IServiceCollection"/> class.
     /// </summary>
     public static class ServiceCollectionExtensions
     {
 
         /// <summary>
-        /// Adds the base <see cref="IViewRenderer"/> implementation as a
-        /// service.
+        /// Adds the base <see cref="IViewRenderer"/> implementation as a service.
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/> that
         /// services should be added to.</param>

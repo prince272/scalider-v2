@@ -7,7 +7,7 @@ namespace Scalider.Identity
 {
 
     /// <summary>
-    /// Options used for <see cref="BCryptPasswordHasher{TUser}"/>.
+    /// Options used by the <see cref="BCryptPasswordHasher{TUser}"/> class.
     /// </summary>
     public class BCryptPasswordHasherOptions
     {
@@ -41,16 +41,15 @@ namespace Scalider.Identity
         private int _workFactor = DefaultWorkFactor;
 
         /// <summary>
-        /// Initializes a new instance of the
-        /// <see cref="BCryptPasswordHasherOptions"/> class.
+        /// Initializes a new instance of the <see cref="BCryptPasswordHasherOptions"/> class.
         /// </summary>
         public BCryptPasswordHasherOptions()
         {
         }
 
         /// <summary>
-        /// Gets the log2 of the number of rounds of hashing to apply - the
-        /// work factor therefore increases as 2^WorkFactor.
+        /// Gets the log2 of the number of rounds of hashing to apply - the work factor therefore increases
+        /// as 2 ^ WorkFactor.
         /// </summary>
         [UsedImplicitly]
         public int WorkFactor

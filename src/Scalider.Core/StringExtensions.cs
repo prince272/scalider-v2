@@ -17,13 +17,11 @@ namespace Scalider
     {
 
         /// <summary>
-        /// Encodes all the characters in the specified string into a sequence
-        /// of bytes.
+        /// Encodes all the characters in the specified string into a sequence of bytes.
         /// </summary>
         /// <param name="s">The string to encode</param>
         /// <returns>
-        /// A byte array containing the results of encoding the specified set
-        /// of characters.
+        /// A byte array containing the results of encoding the specified set of characters.
         /// </returns>
         [SuppressMessage("ReSharper", "ReturnTypeCanBeEnumerable.Global")]
         public static byte[] ToByteArray([NotNull] this string s) =>
@@ -36,8 +34,7 @@ namespace Scalider
         /// </summary>
         /// <param name="bytes">The byte array to decode.</param>
         /// <returns>
-        /// A string that contains the results of decoding the specified
-        /// sequence of bytes.
+        /// A string that contains the results of decoding the specified sequence of bytes.
         /// </returns>
         public static string GetString([NoEnumeration] this IEnumerable<byte> bytes)
         {
@@ -48,13 +45,11 @@ namespace Scalider
         }
 
         /// <summary>
-        /// Converts the given <paramref name="bytes"/> to its hexadecimal
-        /// representation.
+        /// Converts the given <paramref name="bytes"/> to its hexadecimal representation.
         /// </summary>
         /// <param name="bytes">The bytes to convert to a hexadecimal string.</param>
         /// <returns>
-        /// The hexadecimal representation of the given
-        /// <paramref name="bytes"/>.
+        /// The hexadecimal representation of the given <paramref name="bytes"/>.
         /// </returns>
         public static string ToHexString(
             [NoEnumeration] this IEnumerable<byte> bytes)
@@ -66,13 +61,11 @@ namespace Scalider
         }
 
         /// <summary>
-        /// Encodes all the hexadecimal pair of characters in the specified
-        /// string into a sequence of bytes.
+        /// Encodes all the hexadecimal pair of characters in the specified string into a sequence of bytes.
         /// </summary>
         /// <param name="s">The string to encode</param>
         /// <returns>
-        /// A byte array containing the results of encoding the specified set
-        /// of characters.
+        /// A byte array containing the results of encoding the specified set of characters.
         /// </returns>
         public static byte[] FromHexString(this string s)
         {
@@ -86,8 +79,7 @@ namespace Scalider
         }
 
         /// <summary>
-        /// Replaces the non-ascii characters with the encoded representation
-        /// of the same character.
+        /// Replaces the non-ascii characters with the encoded representation of the same character.
         /// </summary>
         /// <param name="str">The string to encode.</param>
         /// <returns>
@@ -114,8 +106,8 @@ namespace Scalider
         }
 
         /// <summary>
-        /// Replaces the encoded representation of non-ascii characters with
-        /// the ascii representation of the same character.
+        /// Replaces the encoded representation of non-ascii characters with the ascii representation of the same
+        /// character.
         /// </summary>
         /// <param name="str">The string to decode.</param>
         /// <returns>
@@ -129,16 +121,16 @@ namespace Scalider
             if (string.IsNullOrWhiteSpace(str))
                 return string.Empty;
 
-            return Regex.Replace(str, @"\\u(?<Value>[a-z0-9]{4})",
-                m =>
-                    ((char)int.Parse(m.Groups["Value"].Value,
-                        NumberStyles.HexNumber))
-                    .ToString(), RegexOptions.IgnoreCase);
+            return Regex.Replace(
+                str,
+                @"\\u(?<Value>[a-z0-9]{4})",
+                m => ((char)int.Parse(m.Groups["Value"].Value, NumberStyles.HexNumber)).ToString(),
+                RegexOptions.IgnoreCase
+            );
         }
 
         /// <summary>
-        /// Gets a substring of a string from beginning of the string if it
-        /// exceeds maximum length.
+        /// Gets a substring of a string from beginning of the string if it exceeds maximum length.
         /// </summary>
         /// <param name="str">The string to truncate.</param>
         /// <param name="maxLength">The maximum length of the truncated string.</param>
@@ -151,17 +143,17 @@ namespace Scalider
             if (string.IsNullOrEmpty(str) || maxLength <= 0)
                 return string.Empty;
 
-            return str.Length <= maxLength
-                ? str
-                : str.Substring(0, maxLength).Trim();
+            return str.Length <= maxLength ? str : str.Substring(0, maxLength).Trim();
         }
 
         /// <summary>
-        /// Gets a substring of a string from beginning of the string if it
-        /// exceeds maximum length. It adds a "..." postfix to end of the
-        /// string if it's truncated.
-        /// 
+        /// <para>
+        /// Gets a substring of a string from beginning of the string if it exceeds maximum length. It adds a "..."
+        /// postfix to end of the string if it's truncated.
+        /// </para>
+        /// <para>
         /// Returning string can not be longer than
+        /// </para>
         /// <paramref name="maxLength"/>.
         /// </summary>
         /// <param name="str">The string to truncate.</param>
@@ -170,21 +162,22 @@ namespace Scalider
         /// The truncated string.
         /// </returns>
         [NotNull]
-        public static string TruncateWithPostfix(this string str, int maxLength)
-            => TruncateWithPostfix(str, maxLength, "...");
+        public static string TruncateWithPostfix(this string str, int maxLength) =>
+            TruncateWithPostfix(str, maxLength, "...");
 
         /// <summary>
-        /// Gets a substring of a string from beginning of the string if it
-        /// exceeds maximum length. It adds given <paramref name="postfix"/>
-        /// to end of the string if it's truncated.
-        /// 
+        /// <para>
+        /// Gets a substring of a string from beginning of the string if it exceeds maximum length. It adds given
+        /// <paramref name="postfix"/> to end of the string if it's truncated.
+        /// </para>
+        /// <para>
         /// Returning string can not be longer than
+        /// </para>
         /// <paramref name="maxLength"/>.
         /// </summary>
         /// <param name="str">The string to truncate.</param>
         /// <param name="maxLength">The maximum length of the truncated string.</param>
-        /// <param name="postfix">The string to append to the truncated string,
-        /// if the string is truncated.</param>
+        /// <param name="postfix">The string to append to the truncated string, if the string is truncated.</param>
         /// <returns>
         /// The truncated string.
         /// </returns>

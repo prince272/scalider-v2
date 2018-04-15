@@ -20,8 +20,8 @@ namespace Scalider.Data.UnitOfWork
         /// Asynchronously saves all changes made in this unit of work to the
         /// data store.
         /// </summary>
-        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
-        /// observe while waiting for the task to complete.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the
+        /// task to complete.</param>
         /// <returns>
         /// A task that represents the asynchronous save operation.
         /// </returns>

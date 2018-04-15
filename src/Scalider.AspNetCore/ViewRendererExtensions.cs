@@ -6,23 +6,20 @@ namespace Scalider.AspNetCore
 {
 
     /// <summary>
-    /// Provides extension methods for the <see cref="IViewRenderer"/>
-    /// interface.
+    /// Provides extension methods for the <see cref="IViewRenderer"/> interface.
     /// </summary>
     public static class ViewRendererExtensions
     {
 
         /// <summary>
-        /// Renders the given <paramref name="viewName"/> and returns the
-        /// generated string.
+        /// Renders the given <paramref name="viewName"/> and returns the generated string.
         /// </summary>
         /// <param name="renderer">The <see cref="IViewRenderer"/>.</param>
         /// <param name="viewName">The name of the view to render</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to
-        /// observe while waiting for the task to complete.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the
+        /// task to complete.</param>
         /// <returns>
-        /// The <see cref="Task"/> object representing the asynchronous
-        /// operation.
+        /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
         public static Task<string> RenderViewToStringAsync([NotNull] this IViewRenderer renderer,
             [NotNull, AspMvcView] string viewName, CancellationToken cancellationToken = default)

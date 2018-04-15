@@ -30,8 +30,7 @@ namespace Scalider.Identity
         }
 
         /// <summary>
-        /// Initializes a new instance of the
-        /// <see cref="BCryptPasswordHasher{TUser}"/> class.
+        /// Initializes a new instance of the <see cref="BCryptPasswordHasher{TUser}"/> class.
         /// </summary>
         /// <param name="options"></param>
         public BCryptPasswordHasher(IOptions<BCryptPasswordHasherOptions> options)
@@ -68,8 +67,7 @@ namespace Scalider.Identity
         public string HashPassword(TUser user, string password)
         {
             Check.NotNull(user, nameof(user));
-            return BCrypt.Net.BCrypt.HashPassword(password ?? string.Empty,
-                _options.WorkFactor, _options.SaltRevision);
+            return BCrypt.Net.BCrypt.HashPassword(password ?? string.Empty, _options.WorkFactor, _options.SaltRevision);
         }
 
         /// <inheritdoc />
@@ -81,9 +79,7 @@ namespace Scalider.Identity
             Check.NotNullOrEmpty(providedPassword, nameof(providedPassword));
 
             // Determine if the hashedPassword is valid
-            var hashInfo = BCryptPasswordHasherOptions
-                           .HashInformation.Match(hashedPassword);
-
+            var hashInfo = BCryptPasswordHasherOptions.HashInformation.Match(hashedPassword);
             if (!hashInfo.Success)
             {
                 // The hashed password is invalid
@@ -91,9 +87,7 @@ namespace Scalider.Identity
             }
 
             // Verify the password
-            var verifyResult =
-                BCrypt.Net.BCrypt.Verify(providedPassword, hashedPassword);
-
+            var verifyResult = BCrypt.Net.BCrypt.Verify(providedPassword, hashedPassword);
             if (!verifyResult)
             {
                 // The password is invalid
@@ -114,8 +108,7 @@ namespace Scalider.Identity
             // Determine if the password needs rehashing
             if (int.TryParse(hashInfo.Groups["rounds"].Value, out var rounds) &&
                 (rounds != _options.WorkFactor ||
-                 !IsSameSaltRevision(hashInfo.Groups["revision"].Value,
-                     _options.SaltRevision)))
+                 !IsSameSaltRevision(hashInfo.Groups["revision"].Value, _options.SaltRevision)))
             {
                 // The hashed password needs rehashing
                 return PasswordVerificationResult.SuccessRehashNeeded;
