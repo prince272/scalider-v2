@@ -24,7 +24,7 @@ namespace Scalider.Net.Mail.Smtp
         /// <summary>
         /// Gets or sets the port number for the SMTP server. The default value is 25.
         /// </summary>
-        public short Port { get; [UsedImplicitly] set; } = 25;
+        public ushort Port { get; [UsedImplicitly] set; } = 25;
         
         /// <summary>
         /// Gets or sets a value indicating whether SSL is enabled for delivering the email messages.
