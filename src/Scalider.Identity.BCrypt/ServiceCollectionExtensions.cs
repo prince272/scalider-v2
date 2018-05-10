@@ -22,15 +22,13 @@ namespace Scalider.Identity
         /// The <see cref="IServiceCollection"/>.
         /// </returns>
         [UsedImplicitly]
-        public static IServiceCollection AddBCryptPasswordHasher<TUser>(
-            [NotNull] this IServiceCollection services)
+        public static IServiceCollection AddBCryptPasswordHasher<TUser>([NotNull] this IServiceCollection services)
             where TUser : class
         {
             Check.NotNull(services, nameof(services));
 
             // Register services
-            services
-                .AddSingleton<IPasswordHasher<TUser>, BCryptPasswordHasher<TUser>>();
+            services.AddSingleton<IPasswordHasher<TUser>, BCryptPasswordHasher<TUser>>();
             
             // Done
             return services;
@@ -45,8 +43,7 @@ namespace Scalider.Identity
         /// <returns>
         /// The <see cref="IServiceCollection"/>.
         /// </returns>
-        public static IServiceCollection AddBCryptPasswordHasher<TUser>(
-            [NotNull] this IServiceCollection services,
+        public static IServiceCollection AddBCryptPasswordHasher<TUser>([NotNull] this IServiceCollection services,
             Action<BCryptPasswordHasherOptions> configureAction)
             where TUser : class
         {
