@@ -1,6 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Scalider.Data.Repository
 {
@@ -10,7 +8,9 @@ namespace Scalider.Data.Repository
     /// </summary>
     [SuppressMessage("ReSharper", "UnusedMemberInSuper.Global")]
     public interface IRepository
-    {/*
+    {
+
+        /*
 
         /// <summary>
         /// Gets the count of all entities in this repository.

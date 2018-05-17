@@ -6,7 +6,7 @@ using MimeKit;
 
 namespace Scalider.Net.Mail
 {
-    
+
     /// <summary>
     /// Defines the basic functionality of a service used to deliver email messages.
     /// </summary>
@@ -17,6 +17,7 @@ namespace Scalider.Net.Mail
         /// Delivers an email message.
         /// </summary>
         /// <param name="message">The message to be delivered.</param>
+        [UsedImplicitly]
         void Send([NotNull] MimeMessage message);
 
         /// <summary>
@@ -28,9 +29,10 @@ namespace Scalider.Net.Mail
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
+        [UsedImplicitly]
         Task SendAsync([NotNull] MimeMessage message, CancellationToken cancellationToken = default);
 
     }
-    
+
 }
 #endif

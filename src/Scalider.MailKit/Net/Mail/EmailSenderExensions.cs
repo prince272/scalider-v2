@@ -9,7 +9,7 @@ using Scalider.Reflection;
 
 namespace Scalider.Net.Mail
 {
-    
+
     /// <summary>
     /// Provides extension methods for the <see cref="IEmailSender"/> interface.
     /// </summary>
@@ -58,8 +58,8 @@ namespace Scalider.Net.Mail
             throw new ArgumentException($"The email sender must be an instance of the {typeName} class",
                 nameof(sender));
         }
-        
+
     }
-    
+
 }
 #endif

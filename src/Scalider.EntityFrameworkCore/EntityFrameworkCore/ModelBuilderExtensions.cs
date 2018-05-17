@@ -7,15 +7,14 @@ using Scalider.Reflection;
 
 namespace Scalider.EntityFrameworkCore
 {
-    
+
     /// <summary>
     /// Provides extension methods for the <see cref="ModelBuilder"/> class.
     /// </summary>
     public static class ModelBuilderExtensions
     {
-        
-#if NETSTANDARD2_0
 
+#if NETSTANDARD2_0
         private static readonly Lazy<MethodInfo> ApplyConfigurationMethod = new Lazy<MethodInfo>(() =>
             typeof(ModelBuilder).GetTypeInfo().DeclaredMethods.First(t => t.Name == "ApplyConfiguration"));
     
@@ -59,10 +58,9 @@ namespace Scalider.EntityFrameworkCore
 
             // Retrieve all the type configuration
             var interfaceType = typeof(IEntityTypeConfiguration<>);
-            var assemblyTypes =
-                assembly.GetTypesOf(interfaceType)
-                        .Select(t => t.GetTypeInfo())
-                        .Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericType);
+            var assemblyTypes = assembly.GetTypesOf(interfaceType)
+                                        .Select(t => t.GetTypeInfo())
+                                        .Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericType);
 
             // Apply all the type configurations
             foreach (var type in assemblyTypes)
@@ -121,7 +119,7 @@ namespace Scalider.EntityFrameworkCore
         }
 
 #endif
-        
+
     }
-    
+
 }

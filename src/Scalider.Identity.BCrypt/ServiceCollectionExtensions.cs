@@ -2,11 +2,10 @@
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using Scalider.Identity;
 
 namespace Scalider.Identity
 {
-    
+
     /// <summary>
     /// Provides extension methods for the <see cref="IServiceCollection"/> interface.
     /// </summary>
@@ -29,7 +28,7 @@ namespace Scalider.Identity
 
             // Register services
             services.AddSingleton<IPasswordHasher<TUser>, BCryptPasswordHasher<TUser>>();
-            
+
             // Done
             return services;
         }
@@ -53,10 +52,10 @@ namespace Scalider.Identity
             // Register services
             AddBCryptPasswordHasher<TUser>(services);
             services.Configure(configureAction);
-            
+
             // Done
             return services;
         }
-        
+
     }
 }

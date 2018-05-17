@@ -15,20 +15,17 @@ namespace Scalider.Identity
         /// <summary>
         /// The default work factor.
         /// </summary>
-        [UsedImplicitly]
-        public const int DefaultWorkFactor = 10;
+        [UsedImplicitly] public const int DefaultWorkFactor = 10;
 
         /// <summary>
         /// Gets a value indicating the minimum work factor allowed.
         /// </summary>
-        [UsedImplicitly]
-        public const int MinimumAllowedWorkFactor = 4;
-        
+        [UsedImplicitly] public const int MinimumAllowedWorkFactor = 4;
+
         /// <summary>
         /// Gets a value indicating the maximum work factor allowed.
         /// </summary>
-        [UsedImplicitly]
-        public const int MaximumAllowedWorkFactor = 31;
+        [UsedImplicitly] public const int MaximumAllowedWorkFactor = 31;
 
         private static readonly TimeSpan RegexTimeout =
             TimeSpan.FromMilliseconds(50);

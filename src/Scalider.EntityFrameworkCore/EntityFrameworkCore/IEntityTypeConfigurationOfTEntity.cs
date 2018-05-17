@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Scalider.EntityFrameworkCore
 {
-    
+
     /// <summary>
     /// Allows configuration for an entity type to be factored into a separate
     /// class, rather than in-line in
@@ -29,6 +29,6 @@ namespace Scalider.EntityFrameworkCore
         void Configure([NotNull] EntityTypeBuilder<TEntity> builder);
 
     }
-    
+
 }
 #endif

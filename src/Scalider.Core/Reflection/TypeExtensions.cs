@@ -84,11 +84,11 @@ namespace Scalider.Reflection
         public static string GetReadableName([NotNull] this Type type)
         {
             Check.NotNull(type, nameof(type));
-            
+
             var typeInfo = type.GetTypeInfo();
             var sb = new StringBuilder();
             var name = type.Name;
-            
+
             // Determine if the type is generic
             if (typeInfo.IsGenericType)
             {
@@ -122,14 +122,14 @@ namespace Scalider.Reflection
         {
             if (!type.IsGenericType)
                 return false;
-            
+
             // Determine if the base type definition is the same
             var clrType = otherType.GetGenericTypeDefinition().GetTypeInfo();
             var actualType = type.GetGenericTypeDefinition().GetTypeInfo();
 
             if (!Equals(actualType, clrType))
                 return false;
-            
+
             // Determine if the generic arguments are the same
             if (otherType.IsGenericTypeDefinition)
                 return true;
@@ -164,7 +164,7 @@ namespace Scalider.Reflection
                     nameof(otherType)
                 );
             }
-            
+
             // Determine if the type inherits the required type
             var isGeneric = otherType.IsGenericType;
             var baseType = type.BaseType;

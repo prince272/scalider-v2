@@ -7,7 +7,7 @@ using Scalider.Net.Mail.Smtp;
 
 namespace Scalider.Net.Mail
 {
-    
+
     /// <summary>
     /// Provides extension methods for the <see cref="IServiceCollection"/> interface.
     /// </summary>
@@ -48,8 +48,8 @@ namespace Scalider.Net.Mail
 
             return services;
         }
-        
+
     }
-    
+
 }
 #endif

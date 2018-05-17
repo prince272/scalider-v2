@@ -75,14 +75,14 @@ namespace Scalider.Data.Repository
                 (current, nav) => current.Include(nav.Name));
         }
 
-        #region IEfRepository<TEntity> Members
+        #region IBatchRepository<TEntity> Members
 
         /// <inheritdoc />
         public virtual IEnumerable<TEntity> GetAll() =>
             GetQueryableWithIncludes().ToList();
 
         /// <inheritdoc />
-        public virtual async Task<IEnumerable<TEntity>> GetAllAsync( CancellationToken cancellationToken = default) =>
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default) =>
             await GetQueryableWithIncludes().ToListAsync(cancellationToken);
 
         /// <inheritdoc />

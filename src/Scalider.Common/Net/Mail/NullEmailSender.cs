@@ -31,7 +31,7 @@ namespace Scalider.Net.Mail
         {
             _logger.LogWarning($"Using {nameof(NullEmailSender)}. The message will not be delivered!");
             _logger.LogDebug(callingMethod);
-            
+
             _logger.LogDebug($"\tTo: {message.To}");
             _logger.LogDebug($"\tCC: {message.CC}");
             _logger.LogDebug($"\tBCC: {message.Bcc}");
@@ -54,7 +54,7 @@ namespace Scalider.Net.Mail
         {
             Check.NotNull(message, nameof(message));
 
-            LogMessage("SendAsync", message);            
+            LogMessage("SendAsync", message);
             return Task.CompletedTask;
         }
 

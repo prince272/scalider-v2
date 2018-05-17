@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 
 namespace Scalider.Reflection
 {
-    
+
     /// <summary>
     /// Provides extension methods for the <see cref="Assembly"/> class.
     /// </summary>
@@ -64,7 +64,7 @@ namespace Scalider.Reflection
 
             // Retrieve the assembly types
             var assemblyTypes = GetAvailableTypes(assembly).ToArray();
-            
+
             if (!assemblyTypes.Any())
                 return Enumerable.Empty<Type>();
 
@@ -75,5 +75,5 @@ namespace Scalider.Reflection
         }
 
     }
-    
+
 }

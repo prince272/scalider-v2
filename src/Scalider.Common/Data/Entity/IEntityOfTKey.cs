@@ -1,5 +1,4 @@
 ﻿using System;
-using JetBrains.Annotations;
 
 namespace Scalider.Data.Entity
 {
@@ -16,7 +15,6 @@ namespace Scalider.Data.Entity
         /// <summary>
         /// Gets a value indicating the primary key of the entity in the database.
         /// </summary>
-        [UsedImplicitly]
         TKey Id { get; }
 
     }

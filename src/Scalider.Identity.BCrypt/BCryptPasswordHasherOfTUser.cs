@@ -21,8 +21,7 @@ namespace Scalider.Identity
         private readonly BCryptPasswordHasherOptions _options;
 
         /// <summary>
-        /// Initializes a new instance of the
-        /// <see cref="BCryptPasswordHasher{TUser}"/> class.
+        /// Initializes a new instance of the <see cref="BCryptPasswordHasher{TUser}"/> class.
         /// </summary>
         public BCryptPasswordHasher()
         {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -6,7 +7,7 @@ using Scalider.Data.Entity;
 
 namespace Scalider.Data.Repository
 {
- 
+
     /// <summary>
     /// Provides aditional methods to the repository pattern for supporting batched operations.
     /// </summary>
@@ -47,6 +48,7 @@ namespace Scalider.Data.Repository
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
+        [SuppressMessage("ReSharper", "UnusedParameter.Global")]
         Task UpdateRangeAsync([NotNull] IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 
         /// <summary>
@@ -64,8 +66,9 @@ namespace Scalider.Data.Repository
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
+        [SuppressMessage("ReSharper", "UnusedParameter.Global")]
         Task RemoveRangeAsync([NotNull] IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 
     }
-    
+
 }

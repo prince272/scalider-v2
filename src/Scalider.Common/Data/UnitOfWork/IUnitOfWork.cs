@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Scalider.Data.UnitOfWork
 {
-    
+
     /// <summary>
     /// Defines the basic functionality of a unit of work.
     /// </summary>
@@ -28,5 +28,5 @@ namespace Scalider.Data.UnitOfWork
         Task SaveChangesAsync(CancellationToken cancellationToken = default);
 
     }
-    
+
 }

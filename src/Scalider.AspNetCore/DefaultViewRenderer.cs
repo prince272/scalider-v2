@@ -16,7 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Scalider.AspNetCore
 {
-    
+
     /// <summary>
     /// Provides a base implementation for the <see cref="IViewRenderer"/> interface.
     /// </summary>
@@ -54,6 +54,8 @@ namespace Scalider.AspNetCore
                 );
             }
         }
+
+        #region IViewRenderer Members
 
         /// <inheritdoc />
         public virtual async Task<string> RenderViewToStringAsync(string viewName, object model,
@@ -104,6 +106,8 @@ namespace Scalider.AspNetCore
             }
         }
 
+        #endregion
+
     }
-    
+
 }

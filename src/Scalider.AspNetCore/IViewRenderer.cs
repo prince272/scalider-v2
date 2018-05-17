@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 
 namespace Scalider.AspNetCore
 {
-    
+
     /// <summary>
     /// Defines the basic functionality of a view renderer.
     /// </summary>

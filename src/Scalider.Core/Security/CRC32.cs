@@ -60,7 +60,7 @@ namespace Scalider.Security
         {
             var hash = _seed;
             for (var i = ibStart; i < ibStart + cbSize; i++)
-                hash = (hash >> 8) ^ _table[array[i] ^ hash & 0xff];
+                hash = (hash >> 8) ^ _table[array[i] ^ (hash & 0xff)];
 
             _hash = hash;
         }

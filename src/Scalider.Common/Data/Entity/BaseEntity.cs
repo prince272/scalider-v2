@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 
 namespace Scalider.Data.Entity
 {
@@ -35,10 +36,7 @@ namespace Scalider.Data.Entity
         }
 
         /// <inheritdoc />
-        public override int GetHashCode()
-        {
-            throw new System.NotImplementedException();
-        }
+        public override int GetHashCode() => throw new NotImplementedException();
 
         /// <summary>
         /// Indicates whether the values of two specified <see cref="BaseEntity" /> objects are equal.
@@ -48,8 +46,7 @@ namespace Scalider.Data.Entity
         /// <returns>
         /// <c>true</c> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <c>false</c>.
         /// </returns>
-        public static bool operator ==(BaseEntity left, BaseEntity right) =>
-            left?.Equals(right) ?? Equals(right, null);
+        public static bool operator ==(BaseEntity left, BaseEntity right) => left?.Equals(right) ?? Equals(right, null);
 
         /// <summary>
         /// Indicates whether the values of two specified <see cref="BaseEntity" /> objects are not equal.
@@ -60,8 +57,7 @@ namespace Scalider.Data.Entity
         /// <c>true</c> if <paramref name="left" /> and <paramref name="right" /> are not equal; otherwise,
         /// <c>false</c>.
         /// </returns>
-        public static bool operator !=(BaseEntity left, BaseEntity right) =>
-            !(left == right);
+        public static bool operator !=(BaseEntity left, BaseEntity right) => !(left == right);
 
         /// <summary>
         /// Determines whether the specified object is equal to the current object.

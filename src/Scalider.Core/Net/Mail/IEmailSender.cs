@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 
 namespace Scalider.Net.Mail
 {
-    
+
     /// <summary>
     /// Defines the basic functionality of a service used to deliver email messages.
     /// </summary>
@@ -31,6 +31,6 @@ namespace Scalider.Net.Mail
         Task SendAsync([NotNull] MailMessage message, CancellationToken cancellationToken = default);
 
     }
-    
+
 }
 #endif

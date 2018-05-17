@@ -13,11 +13,12 @@ namespace Scalider.Data.Repository
     /// of <typeparamref name="TEntity"/>. 
     /// </summary>
     /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
-    [SuppressMessage("ReSharper", "UnusedMemberInSuper.Global"),
-     SuppressMessage("ReSharper", "UnusedParameter.Global")]
+    [SuppressMessage("ReSharper", "UnusedMemberInSuper.Global")]
     public interface IRepository<TEntity> : IRepository
         where TEntity : class, IEntity
-    {/*
+    {
+
+        /*
 
         /// <summary>
         /// Gets the count of all entities in this repository.
@@ -92,7 +93,7 @@ namespace Scalider.Data.Repository
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
-        Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default);/*
+        Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default); /*
 
         /// <summary>
         /// Returns collection containing all the entities that satisfies a
@@ -238,6 +239,7 @@ namespace Scalider.Data.Repository
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
+        [SuppressMessage("ReSharper", "UnusedParameter.Global")]
         Task UpdateAsync([NotNull] TEntity entity, CancellationToken cancellationToken = default);
 
         /// <summary>
@@ -255,6 +257,7 @@ namespace Scalider.Data.Repository
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
+        [SuppressMessage("ReSharper", "UnusedParameter.Global")]
         Task RemoveAsync([NotNull] TEntity entity, CancellationToken cancellationToken = default);
 
     }

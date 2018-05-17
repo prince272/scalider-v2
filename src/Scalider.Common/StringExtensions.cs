@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Scalider
 {
-    
+
     /// <summary>
     /// Provides extension methods for the <see cref="string"/> class.
     /// </summary>

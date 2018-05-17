@@ -12,7 +12,7 @@ using ContentType = MimeKit.ContentType;
 
 namespace Scalider.Net.Mail
 {
-    
+
     /// <summary>
     /// Provides extension methods for the <see cref="MailMessage"/> class.
     /// </summary>
@@ -33,15 +33,15 @@ namespace Scalider.Net.Mail
         public static MimeMessage ToMimeMessage([NotNull] this MailMessage mail)
         {
             Check.NotNull(mail, nameof(mail));
-            
+
             // Convert all the message headers to the required type
             var headers = from field in mail.Headers.AllKeys
                           from value in mail.Headers.GetValues(field)
                           select new Header(field, value);
-            
+
             // Create the mime message
             var message = new MimeMessage(headers);
-            
+
             // Note: If the user has already sent their MailMessage via System.Net.Mail.SmtpClient,
             // then the following MailMessage properties will have been merged into the Headers, so
             // check to make sure our MimeMessage properties are empty before adding them.
@@ -64,17 +64,17 @@ namespace Scalider.Net.Mail
                 message.Headers.Replace(HeaderId.Subject, mail.SubjectEncoding, mail.Subject ?? string.Empty);
             else
                 message.Subject = mail.Subject ?? string.Empty;
-            
+
             // Adjust the message priority
             AdjustMessagePriority(mail.Priority, message);
-            
+
             // Set the message body, with alternative views and attachments (if any)
             var body = GetBodyOrNull(mail);
             body = AppendAlternativeViews(mail, body) ?? body;
             body = AppendAttachments(mail, body) ?? body;
-            
+
             message.Body = body ?? new TextPart(mail.IsBodyHtml ? "html" : "plain");
-            
+
             // Done
             return message;
         }
@@ -122,16 +122,15 @@ namespace Scalider.Net.Mail
         {
             if (string.IsNullOrEmpty(mail.Body))
                 return null;
-            
+
             var text = new TextPart(mail.IsBodyHtml ? "html" : "plain");
             text.SetText(mail.BodyEncoding ?? Encoding.UTF8, mail.Body);
             return text;
-
         }
 
         private static MimeEntity AppendAlternativeViews(MailMessage mail, MimeEntity originalBody)
         {
-            if (mail.AlternateViews == null || mail.AlternateViews.Count == 0)
+            if (mail.AlternateViews.Count == 0)
                 return null;
 
             var body = new MultipartAlternative();
@@ -145,7 +144,7 @@ namespace Scalider.Net.Mail
                     part.ContentLocation = alternativeView.BaseUri;
 
                 // Determine if the alternative view have linked resources
-                if (alternativeView.LinkedResources == null || alternativeView.LinkedResources.Count == 0)
+                if (alternativeView.LinkedResources.Count == 0)
                 {
                     body.Add(part);
                     continue;
@@ -160,7 +159,7 @@ namespace Scalider.Net.Mail
                     related.ContentLocation = alternativeView.BaseUri;
 
                 related.Add(part);
-                
+
                 // Add all the linked resources to the relation
                 foreach (var resource in alternativeView.LinkedResources)
                 {
@@ -170,19 +169,19 @@ namespace Scalider.Net.Mail
 
                     related.Add(part);
                 }
-                
+
                 // Append the linked resource to the alternative view
                 body.Add(related);
             }
-            
+
             return body;
         }
 
         private static MimeEntity AppendAttachments(MailMessage mail, MimeEntity originalBody)
         {
-            if (mail.Attachments == null || mail.Attachments.Count == 0)
+            if (mail.Attachments.Count == 0)
                 return null;
-            
+
             var body = new Multipart("mixed");
             if (originalBody != null)
                 body.Add(originalBody);
@@ -198,26 +197,15 @@ namespace Scalider.Net.Mail
             var mimeType = item.ContentType.ToString();
             var contentType = ContentType.Parse(mimeType);
             var attachment = item as Attachment;
-            MimePart part;
-            
-            // Determine what kind of mime we should create
-            if (string.Equals(contentType.MediaType, "text", StringComparison.OrdinalIgnoreCase))
-            {
-                // Original: part = new TextPart(contentType);
-                // Due to constructor of TextPart(ContentType contentType) being internal, 
-                // mimic the instantiation by using MimePart(ContentType contentType)
-                part = new MimePart(contentType);
-            }
-            else
-                part = new MimePart(contentType);
-            
+            var part = new MimePart(contentType);
+
             //
             if (attachment != null)
             {
                 var disposition = attachment.ContentDisposition.ToString();
                 part.ContentDisposition = ContentDisposition.Parse(disposition);
             }
-            
+
             // Adjust the transfer encoding
             switch (item.TransferEncoding)
             {
@@ -238,11 +226,11 @@ namespace Scalider.Net.Mail
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
+
             // Adjust the attachment content identifier
             if (item.ContentId != null)
                 part.ContentId = item.ContentId;
-            
+
             // Copy the content of the attachment
             var stream = new MemoryBlockStream();
             item.ContentStream.CopyTo(stream);
@@ -255,6 +243,6 @@ namespace Scalider.Net.Mail
         }
 
     }
-    
+
 }
 #endif

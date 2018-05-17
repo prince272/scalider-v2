@@ -12,7 +12,7 @@ using Scalider.Reflection;
 
 namespace Scalider.EntityFrameworkCore
 {
-    
+
     /// <summary>
     /// Provides extension methods for the <see cref="IQueryable{T}"/> interface.
     /// </summary>
@@ -33,7 +33,7 @@ namespace Scalider.EntityFrameworkCore
 
         private static readonly Lazy<FieldInfo> DataBaseField = new Lazy<FieldInfo>(() =>
             QueryCompilerTypeInfo.Value.DeclaredFields.Single(x => x.Name == "_database"));
-        
+
 #if NETSTANDARD2_0
         private static readonly Lazy<PropertyInfo> DatabaseDependenciesField = new Lazy<PropertyInfo>(() =>
             typeof(Database).GetTypeInfo().DeclaredProperties.Single(x => x.Name == "Dependencies"));
@@ -55,7 +55,7 @@ namespace Scalider.EntityFrameworkCore
             where TEntity : class, IEntity
         {
             Check.NotNull(query, nameof(query));
-            
+
             // Unwrap the IIncludedQueryable
             var queryType = query.GetType();
             if (queryType.ImplementsOrInherits(typeof(IIncludableQueryable<,>)))
@@ -74,36 +74,34 @@ namespace Scalider.EntityFrameworkCore
                     nameof(query)
                 );
             }
-            
+
             // Retrieve the query compiler
             var queryCompiler = (IQueryCompiler)QueryCompilerField.Value.GetValue(query.Provider);
-            
+
             // Parse the query
             var queryParser = GetQueryParser(queryCompiler);
             var queryModel = queryParser.GetParsedQuery(query.Expression);
             var database = DataBaseField.Value.GetValue(queryCompiler);
-            
+
             // Retrieve the model visitor and create the executor
             var queryCompilationContextFactory = GetQueryCompilationContextFactory(database);
             var queryCompilationContext = queryCompilationContextFactory.Create(false);
             var modelVisitor = (RelationalQueryModelVisitor)queryCompilationContext.CreateQueryModelVisitor();
-            
+
             modelVisitor.CreateQueryExecutor<TEntity>(queryModel);
 
             // Done
             return modelVisitor.Queries.First().ToString();
         }
 
-        private static IQueryParser GetQueryParser(IQueryCompiler queryCompiler)
-        {
-            return (IQueryParser)CreateQueryParserMethod.Value.Invoke(
+        private static IQueryParser GetQueryParser(IQueryCompiler queryCompiler) =>
+            (IQueryParser)CreateQueryParserMethod.Value.Invoke(
                 queryCompiler,
                 new[]
                 {
                     NodeTypeProviderField.Value.GetValue(queryCompiler)
                 }
             );
-        }
 
         private static IQueryCompilationContextFactory
             GetQueryCompilationContextFactory(object database)
