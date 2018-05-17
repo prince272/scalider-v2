@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNetCore", "AspNetCore", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.MailKit", "src\Scalider.MailKit\Scalider.MailKit.csproj", "{83F6C1B2-B6B6-4248-ACE7-675EC8F08A7F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Security", "src\Scalider.Security\Scalider.Security.csproj", "{9D82DCF6-1CB4-47B6-8042-5B09BC62B205}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{83F6C1B2-B6B6-4248-ACE7-675EC8F08A7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83F6C1B2-B6B6-4248-ACE7-675EC8F08A7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83F6C1B2-B6B6-4248-ACE7-675EC8F08A7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D82DCF6-1CB4-47B6-8042-5B09BC62B205}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D82DCF6-1CB4-47B6-8042-5B09BC62B205}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D82DCF6-1CB4-47B6-8042-5B09BC62B205}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D82DCF6-1CB4-47B6-8042-5B09BC62B205}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
