@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.EntityFrameworkCor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Common", "src\Scalider.Common\Scalider.Common.csproj", "{6E060F0E-CBD9-4C23-B2B2-1940C05818F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Identity.BCrypt", "src\Scalider.Identity.BCrypt\Scalider.Identity.BCrypt.csproj", "{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{81CD7205-9FEA-4359-9D34-71F12F9D9A79}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.AspNetCore", "src\Scalider.AspNetCore\Scalider.AspNetCore.csproj", "{E52EB523-6EC7-4E04-951A-B539A8AD5D01}"
@@ -25,6 +23,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CDA4FE44
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.Security.Test", "test\Scalider.Security.Test\Scalider.Security.Test.csproj", "{0889B6AC-2D92-42AE-965E-D726A2C4505C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.BCrypt", "src\Scalider.BCrypt\Scalider.BCrypt.csproj", "{822668BD-61EB-4419-B994-BDC169B0AB65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.AspNetCore.Identity.BCrypt", "src\Scalider.AspNetCore.Identity.BCrypt\Scalider.AspNetCore.Identity.BCrypt.csproj", "{39B27D48-1E0B-471C-B0B5-00FAD030FFB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,10 +41,6 @@ Global
 		{6E060F0E-CBD9-4C23-B2B2-1940C05818F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E060F0E-CBD9-4C23-B2B2-1940C05818F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E060F0E-CBD9-4C23-B2B2-1940C05818F5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CACC22A5-F7D0-4E90-8B64-FD3C139E7425}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E52EB523-6EC7-4E04-951A-B539A8AD5D01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E52EB523-6EC7-4E04-951A-B539A8AD5D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E52EB523-6EC7-4E04-951A-B539A8AD5D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,6 +61,14 @@ Global
 		{0889B6AC-2D92-42AE-965E-D726A2C4505C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0889B6AC-2D92-42AE-965E-D726A2C4505C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0889B6AC-2D92-42AE-965E-D726A2C4505C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{822668BD-61EB-4419-B994-BDC169B0AB65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{822668BD-61EB-4419-B994-BDC169B0AB65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{822668BD-61EB-4419-B994-BDC169B0AB65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{822668BD-61EB-4419-B994-BDC169B0AB65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39B27D48-1E0B-471C-B0B5-00FAD030FFB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39B27D48-1E0B-471C-B0B5-00FAD030FFB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39B27D48-1E0B-471C-B0B5-00FAD030FFB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39B27D48-1E0B-471C-B0B5-00FAD030FFB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +77,8 @@ Global
 		{E52EB523-6EC7-4E04-951A-B539A8AD5D01} = {FB0D5CDB-4D64-482A-8285-BCAD747353D0}
 		{83F6C1B2-B6B6-4248-ACE7-675EC8F08A7F} = {81CD7205-9FEA-4359-9D34-71F12F9D9A79}
 		{0889B6AC-2D92-42AE-965E-D726A2C4505C} = {CDA4FE44-57E4-4862-B842-2EB7025D41E0}
+		{39B27D48-1E0B-471C-B0B5-00FAD030FFB6} = {FB0D5CDB-4D64-482A-8285-BCAD747353D0}
+		{822668BD-61EB-4419-B994-BDC169B0AB65} = {81CD7205-9FEA-4359-9D34-71F12F9D9A79}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4B223D4-16BF-4D43-A92B-142C9DD5CE76}

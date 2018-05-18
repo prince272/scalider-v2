@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
-namespace Scalider.Identity
+namespace Scalider.AspNetCore.Identity
 {
 
     /// <summary>
@@ -37,29 +37,6 @@ namespace Scalider.Identity
             _options = options?.Value ?? new BCryptPasswordHasherOptions();
         }
 
-        private static bool IsSameSaltRevision(string revision,
-            SaltRevision expectedRevision)
-        {
-            if (revision.Length != 2)
-                return expectedRevision == SaltRevision.Revision2;
-
-            // Validate the salt revision suffix
-            switch (revision[1])
-            {
-                case 'a':
-                    return expectedRevision == SaltRevision.Revision2A;
-                case 'b':
-                    return expectedRevision == SaltRevision.Revision2B;
-                case 'x':
-                    return expectedRevision == SaltRevision.Revision2X;
-                case 'y':
-                    return expectedRevision == SaltRevision.Revision2Y;
-            }
-
-            // Unknown salt revision
-            return false;
-        }
-
         #region IPasswordHasher<TUser> Members
 
         /// <inheritdoc />
@@ -70,48 +47,25 @@ namespace Scalider.Identity
         }
 
         /// <inheritdoc />
-        public PasswordVerificationResult VerifyHashedPassword(TUser user,
-            string hashedPassword, string providedPassword)
+        public PasswordVerificationResult VerifyHashedPassword(TUser user, string hashedPassword,
+            string providedPassword)
         {
             Check.NotNull(user, nameof(user));
             Check.NotNullOrEmpty(hashedPassword, nameof(hashedPassword));
             Check.NotNullOrEmpty(providedPassword, nameof(providedPassword));
 
             // Determine if the hashedPassword is valid
-            var hashInfo = BCryptPasswordHasherOptions.HashInformation.Match(hashedPassword);
-            if (!hashInfo.Success)
-            {
-                // The hashed password is invalid
+            if (!HashInformation.TryParse(hashedPassword, out var hashInfo))
                 return PasswordVerificationResult.Failed;
-            }
 
             // Verify the password
             var verifyResult = BCrypt.Net.BCrypt.Verify(providedPassword, hashedPassword);
-            if (!verifyResult)
-            {
-                // The password is invalid
-                return PasswordVerificationResult.Failed;
-            }
-
-            // Retrieve the salt information
-            //            var saltInfo =
-            //                BCryptPasswordHasherOptions.SettingsInformation.Match(
-            //                    hashInfo.Groups["settings"].Value);
-            //
-            //            if (!saltInfo.Success)
-            //            {
-            //                // Could not retrieve the version of the hash
-            //                return PasswordVerificationResult.Success;
-            //            }
+            if (!verifyResult) return PasswordVerificationResult.Failed;
 
             // Determine if the password needs rehashing
-            if (int.TryParse(hashInfo.Groups["rounds"].Value, out var rounds) &&
-                (rounds != _options.WorkFactor ||
-                 !IsSameSaltRevision(hashInfo.Groups["revision"].Value, _options.SaltRevision)))
-            {
-                // The hashed password needs rehashing
+            if (hashInfo.WorkFactor != _options.WorkFactor || hashInfo.Revision != _options.SaltRevision ||
+                hashInfo.Revision == SaltRevision.Revision2)
                 return PasswordVerificationResult.SuccessRehashNeeded;
-            }
 
             // Done
             return PasswordVerificationResult.Success;

@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 using BCrypt.Net;
 using JetBrains.Annotations;
 
-namespace Scalider.Identity
+namespace Scalider.AspNetCore.Identity
 {
 
     /// <summary>
@@ -26,14 +25,6 @@ namespace Scalider.Identity
         /// Gets a value indicating the maximum work factor allowed.
         /// </summary>
         [UsedImplicitly] public const int MaximumAllowedWorkFactor = 31;
-
-        private static readonly TimeSpan RegexTimeout =
-            TimeSpan.FromMilliseconds(50);
-
-        internal static readonly Regex HashInformation =
-            new Regex(
-                @"^\$(?<revision>2[a-z]{1}?)\$(?<rounds>\d\d?)\$(?<hash>[A-Za-z0-9\./]{53})$",
-                RegexOptions.Singleline, RegexTimeout);
 
         private int _workFactor = DefaultWorkFactor;
 

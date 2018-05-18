@@ -1,19 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard1.7;netstandard2.0</TargetFrameworks>
-    <RootNamespace>Scalider</RootNamespace>
-    <Version>2.0.2</Version>
-    <Description>Provides core extension and utility classes with the bare minium package dependency.</Description>
+    <RootNamespace>BCrypt.Net</RootNamespace>
+    <Version>2.0.0</Version>
+    <Description>Provides BCrypt and some utilities for it.</Description>
     <LangVersion>7.2</LangVersion>
     <RepositoryUrl>https://github.com/wilsonrivera/scalider-v2</RepositoryUrl>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DocumentationFile>bin\Release\Scalider.Core.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../shared/Check.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Core" Version="1.4.0" />
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
   </ItemGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DocumentationFile>bin\Release\Scalider.BCrypt.xml</DocumentationFile>
+  </PropertyGroup>
 </Project>

@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard1.7;netstandard2.0</TargetFrameworks>
-    <RootNamespace>Scalider.Identity</RootNamespace>
-    <Version>2.0.5</Version>
+    <RootNamespace>Scalider.AspNetCore.Identity</RootNamespace>
+    <Version>2.0.0</Version>
     <Description>Uses BCrypt to provide password hashing.</Description>
     <LangVersion>7.2</LangVersion>
     <RepositoryUrl>https://github.com/wilsonrivera/scalider-v2</RepositoryUrl>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DocumentationFile>bin\Release\Scalider.Identity.BCrypt.xml</DocumentationFile>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\Scalider.AspNetCore.Identity.BCrypt.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../shared/Check.cs" />
@@ -24,6 +24,6 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="2.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
+    <ProjectReference Include="..\Scalider.BCrypt\Scalider.BCrypt.csproj" />
   </ItemGroup>
 </Project>
