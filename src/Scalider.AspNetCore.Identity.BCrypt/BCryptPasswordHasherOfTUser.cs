@@ -63,7 +63,7 @@ namespace Scalider.AspNetCore.Identity
             if (!verifyResult) return PasswordVerificationResult.Failed;
 
             // Determine if the password needs rehashing
-            if (hashInfo.WorkFactor != _options.WorkFactor || hashInfo.Revision != _options.SaltRevision ||
+            if (hashInfo.WorkFactor < _options.WorkFactor || hashInfo.Revision != _options.SaltRevision ||
                 hashInfo.Revision == SaltRevision.Revision2)
                 return PasswordVerificationResult.SuccessRehashNeeded;
 

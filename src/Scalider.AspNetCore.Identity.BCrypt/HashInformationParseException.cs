@@ -1,13 +1,12 @@
 ﻿ using System;
 
- // ReSharper disable once CheckNamespace
- namespace BCrypt.Net
+ namespace Scalider.AspNetCore.Identity
  {
 
      /// <summary>
      /// Exception for signalling parse errors.
      /// </summary>
-     public class HashInformationParseException : Exception
+     internal class HashInformationParseException : Exception
      {
 
          /// <summary>

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using BCrypt.Net;
 using JetBrains.Annotations;
-using Scalider;
 
-namespace BCrypt.Net
+namespace Scalider.AspNetCore.Identity
 {
     
     [UsedImplicitly]
-    public sealed class HashInformation
+    internal sealed class HashInformation
     {
 
         private static readonly TimeSpan RegexTimeout =
@@ -15,14 +15,13 @@ namespace BCrypt.Net
 
         private static readonly Regex HashInformationRegex =
             new Regex(
-                @"^\$(?<revision>2[a-z]{1}?)\$(?<workFactor>\d\d?)\$(?<salt>[A-Za-z0-9\./]{53})$",
+                @"^\$(?<revision>2[a-z]{1}?)\$(?<workFactor>\d\d?)\$(?<hash>[A-Za-z0-9\./]{53})$",
                 RegexOptions.Singleline, RegexTimeout);
 
-        private HashInformation(SaltRevision revision, int workFactor, string salt, string rawHash)
+        private HashInformation(SaltRevision revision, int workFactor, string rawHash)
         {
             Revision = revision;
             WorkFactor = workFactor;
-            Salt = salt;
             RawHash = rawHash;
         }
         
@@ -37,12 +36,6 @@ namespace BCrypt.Net
         /// </summary>
         [UsedImplicitly]
         public int WorkFactor { get; }
-        
-        /// <summary>
-        /// Gets a value indicating the salt of the hash.
-        /// </summary>
-        [UsedImplicitly]
-        public string Salt { get; }
         
         /// <summary>
         /// Gets a value indicating the hash.
@@ -66,7 +59,7 @@ namespace BCrypt.Net
             }
             
             // Done
-            return new HashInformation(saltRevision, workFactor, matchResult.Groups["salt"].Value, hash);
+            return new HashInformation(saltRevision, workFactor, matchResult.Groups["hash"].Value);
         }
 
         [UsedImplicitly]
@@ -98,20 +91,7 @@ namespace BCrypt.Net
         /// <returns>
         /// <c>true</c> if the passwords match; otherwise <c>false</c>.
         /// </returns>
-        public bool Verify(string text) => BCrypt.Verify(text, RawHash);
-
-        /// <summary>
-        /// Hash a password using the OpenBSD bcrypt scheme.
-        /// </summary>
-        /// <param name="input">The password to hash.</param>
-        /// <returns>
-        /// The hashed password.
-        /// </returns>
-        public string HashPassword(string input) =>
-            BCrypt.HashPassword(
-                input,
-                string.Format("${0}${1:00}${2}", GetSaltRevisionString(Revision), WorkFactor, Salt)
-            );
+        public bool Verify(string text) => BCrypt.Net.BCrypt.Verify(text, RawHash);
 
         private static bool TryGetSaltRevision(string value, out SaltRevision result)
         {
@@ -143,25 +123,6 @@ namespace BCrypt.Net
             
             // Got the salt revision successfully
             return true;
-        }
-
-        private static string GetSaltRevisionString(SaltRevision saltSaltRevision)
-        {
-            switch (saltSaltRevision)
-            {
-                case SaltRevision.Revision2:
-                    return "2";
-                case SaltRevision.Revision2A:
-                    return "2a";
-                case SaltRevision.Revision2B:
-                    return "2b";
-                case SaltRevision.Revision2X:
-                    return "2x";
-                case SaltRevision.Revision2Y:
-                    return "2y";
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(saltSaltRevision), saltSaltRevision, null);
-            }
         }
 
     }
