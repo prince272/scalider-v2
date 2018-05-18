@@ -16,7 +16,7 @@
     <PackageReference Include="Microsoft.Extensions.Options" Version="1.1.2" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.0.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.0.1" />
   </ItemGroup>
@@ -24,7 +24,7 @@
     <Compile Include="../shared/Check.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="2.0.2" />
+    <PackageReference Include="MailKit" Version="2.0.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Scalider.Core\Scalider.Core.csproj" />
