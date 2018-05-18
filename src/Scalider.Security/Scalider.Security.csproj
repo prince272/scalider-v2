@@ -11,6 +11,6 @@
     <Compile Include="../shared/Check.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Scalider.Core\Scalider.Core.csproj" />
+    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
   </ItemGroup>
 </Project>
