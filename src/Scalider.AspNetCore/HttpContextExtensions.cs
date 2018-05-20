@@ -23,6 +23,11 @@ namespace Scalider.AspNetCore
             "X-Forwarded-Ssl"
         };
 
+        private static readonly string[] PossibleHostHeaders =
+        {
+            "X-Forwarded-Host" // This is usually used by proxies
+        };
+
         private static readonly string[] PossibleRemoteIpAddressHeaders =
         {
             "True-Client-IP", // This is a feature of Cloudflare Enterprise and for SSR requests
@@ -72,6 +77,40 @@ namespace Scalider.AspNetCore
         }
 
         /// <summary>
+        /// Retrieves the true requested host. This will also take into account the forwarded headers.
+        /// </summary>
+        /// <param name="httpContext">The <see cref="HttpContext"/>.</param>
+        /// <param name="resultOutput">An out variable where the result will be set.</param>
+        /// <returns>
+        /// <c>true</c> if could retrieve the host; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool TryGetTrueHost(this HttpContext httpContext, out string resultOutput)
+        {
+            resultOutput = null;
+            if (httpContext == null)
+            {
+                return false;
+            }
+            
+            // Try to retrieve the forwarded header
+            foreach (var headerName in PossibleHostHeaders)
+            {
+                if (!TryGetFirstNotEmptyHeaderValue(httpContext.Request, headerName, out var headerValue))
+                    continue;
+                
+                resultOutput = headerValue;
+                return true;
+            }
+            
+            // Could not retrieve the host from the forwarded headers
+            if (!httpContext.Request.Host.HasValue)
+                return false;
+
+            resultOutput = httpContext.Request.Host.Value;
+            return true;
+        }
+
+        /// <summary>
         /// Tries to to retrieve the true client IP address.
         /// </summary>
         /// <param name="httpContext">The <see cref="HttpContext"/>.</param>
@@ -118,7 +157,7 @@ namespace Scalider.AspNetCore
                 return true;
             }
             
-            // Could not retrieve the remote IP address from the headers
+            // Could not retrieve the remote IP address from the forwarded headers
             if (httpContext.Connection?.RemoteIpAddress == null)
                 return false;
 
