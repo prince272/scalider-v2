@@ -28,7 +28,8 @@ namespace Scalider.AspNetCore
             "True-Client-IP", // This is a feature of Cloudflare Enterprise and for SSR requests
             "CF-Connecting-IP", // This is a feature of Cloudflare
             "X-Forwarded-For", // This is usually used by proxies
-            "X-ProxyUser-Ip" // This is a non-standard form
+            "X-ProxyUser-Ip", // This is a non-standard form
+            "X-Real-IP" // This is a non-standard form
         };
 
         /// <summary>
