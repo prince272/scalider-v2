@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using JetBrains.Annotations;
+using Scalider.Reflection;
 
 namespace Scalider.Data.Entity
 {
@@ -49,19 +49,11 @@ namespace Scalider.Data.Entity
         /// </returns>
         protected virtual bool Equals(BaseEntity<TKey> other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-
-            // Must have a IS-A relation of type or must be the same type
-            var typeOfThis = GetType().GetTypeInfo();
-            var typeOfOther = other.GetType().GetTypeInfo();
-
-            if (!typeOfThis.IsAssignableFrom(typeOfOther) &&
-                !typeOfOther.IsAssignableFrom(typeOfThis))
+            if (ReferenceEquals(null, other))
                 return false;
-
-            // Done
-            return EqualityComparer<TKey>.Default.Equals(Id, other.Id);
+            
+            return ReferenceEquals(this, other) ||
+                   EqualityComparer<TKey>.Default.Equals(Id, other.Id);
         }
 
         #region IEntity<TKey> Members

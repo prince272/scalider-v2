@@ -11,15 +11,20 @@
     <DocumentationFile>bin\Release\Scalider.EntityFrameworkCore.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="../shared/Check.cs" />
+    <Compile Include="..\shared\Check.cs">
+      <Link>Check.cs</Link>
+    </Compile>
+    <Compile Include="..\shared\JetBrainsAnnotations.cs">
+      <Link>JetBrainsAnnotations.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.7'">
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="1.1.5" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../Scalider.Common/Scalider.Common.csproj" />

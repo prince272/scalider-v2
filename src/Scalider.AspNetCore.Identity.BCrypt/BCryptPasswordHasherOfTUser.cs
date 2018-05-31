@@ -43,7 +43,8 @@ namespace Scalider.AspNetCore.Identity
         public string HashPassword(TUser user, string password)
         {
             Check.NotNull(user, nameof(user));
-            return BCrypt.Net.BCrypt.HashPassword(password ?? string.Empty, _options.WorkFactor, _options.SaltRevision);
+            return BCrypt.Net.BCrypt.HashPassword(password ?? string.Empty, _options.WorkFactor,
+                _options.SaltRevision);
         }
 
         /// <inheritdoc />

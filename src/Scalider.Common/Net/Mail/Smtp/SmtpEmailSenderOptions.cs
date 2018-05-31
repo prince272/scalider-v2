@@ -6,6 +6,7 @@ namespace Scalider.Net.Mail.Smtp
     /// <summary>
     /// Options used by the <see cref="SmtpEmailSender"/> class.
     /// </summary>
+    [UsedImplicitly]
     public class SmtpEmailSenderOptions
     {
 
@@ -19,37 +20,44 @@ namespace Scalider.Net.Mail.Smtp
         /// <summary>
         /// Gets or sets the host for the SMTP server.
         /// </summary>
-        public string Host { get; [UsedImplicitly] set; }
+        [UsedImplicitly]
+        public string Host { get; set; }
 
         /// <summary>
         /// Gets or sets the port number for the SMTP server. The default value is 25.
         /// </summary>
-        public ushort Port { get; [UsedImplicitly] set; } = 25;
+        [UsedImplicitly]
+        public ushort Port { get; set; } = 25;
 
         /// <summary>
         /// Gets or sets a value indicating whether SSL is enabled for delivering the email messages.
         /// </summary>
-        public bool? EnableSsl { get; [UsedImplicitly] set; }
+        [UsedImplicitly]
+        public bool? EnableSsl { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the default credentials should be used.
         /// </summary>
-        public bool UseDefaultCredentials { get; [UsedImplicitly] set; }
+        [UsedImplicitly]
+        public bool UseDefaultCredentials { get; set; }
 
         /// <summary>
         /// Gets or sets the user name used to login on the SMTP server.
         /// </summary>
-        public string UserName { get; [UsedImplicitly] set; }
+        [UsedImplicitly]
+        public string UserName { get; set; }
 
         /// <summary>
         /// Gets or sets the password used to login on the SMTP server.
         /// </summary>
-        public string Password { get; [UsedImplicitly] set; }
+        [UsedImplicitly]
+        public string Password { get; set; }
 
         /// <summary>
         /// Gets or sets the domain or computer name that verifies the credentials.
         /// </summary>
-        public string Domain { get; [UsedImplicitly] set; }
+        [UsedImplicitly]
+        public string Domain { get; set; }
 
     }
 

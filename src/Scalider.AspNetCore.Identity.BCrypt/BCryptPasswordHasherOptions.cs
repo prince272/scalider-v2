@@ -51,8 +51,7 @@ namespace Scalider.AspNetCore.Identity
                     throw new ArgumentOutOfRangeException(
                         nameof(value),
                         value,
-                        "The work factor must be between " +
-                        $"${MinimumAllowedWorkFactor} and " +
+                        $"The work factor must be between ${MinimumAllowedWorkFactor} and " +
                         $"${MaximumAllowedWorkFactor} (inclusive)"
                     );
                 }

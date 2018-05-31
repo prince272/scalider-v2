@@ -10,12 +10,9 @@ namespace Scalider.AspNetCore.Identity
     internal sealed class HashInformation
     {
 
-        private static readonly TimeSpan RegexTimeout =
-            TimeSpan.FromMilliseconds(50);
-
+        private static readonly TimeSpan RegexTimeout =TimeSpan.FromMilliseconds(50);
         private static readonly Regex HashInformationRegex =
-            new Regex(
-                @"^\$(?<revision>2[a-z]{1}?)\$(?<workFactor>\d\d?)\$(?<hash>[A-Za-z0-9\./]{53})$",
+            new Regex(@"^\$(?<revision>2[a-z]{1}?)\$(?<workFactor>\d\d?)\$(?<hash>[A-Za-z0-9\./]{53})$",
                 RegexOptions.Singleline, RegexTimeout);
 
         private HashInformation(SaltRevision revision, int workFactor, string rawHash)

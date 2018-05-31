@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Reflection;
+using Scalider.Reflection;
 
 namespace Scalider.Data.Entity
 {
@@ -23,39 +23,31 @@ namespace Scalider.Data.Entity
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
 
-            // Must have a IS-A relation of type or must be the same type
-            var typeOfThis = GetType().GetTypeInfo();
-            var typeOfOther = obj.GetType().GetTypeInfo();
-
-            if (!typeOfThis.IsAssignableFrom(typeOfOther) &&
-                !typeOfOther.IsAssignableFrom(typeOfThis))
-                return false;
-
-            // Done
-            return Equals((BaseEntity)obj);
+            return obj.GetType().ImplementsOrInherits(GetType()) && Equals((BaseEntity)obj);
         }
 
         /// <inheritdoc />
         public override int GetHashCode() => throw new NotImplementedException();
 
         /// <summary>
-        /// Indicates whether the values of two specified <see cref="BaseEntity" /> objects are equal.
+        /// Indicates whether the values of two specified <see cref="BaseEntity" /> have the same value.
         /// </summary>
         /// <param name="left">The first object to compare.</param>
         /// <param name="right">The second object to compare.</param>
         /// <returns>
-        /// <c>true</c> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <c>false</c>.
+        /// <c>true</c> if the value of <paramref name="left" /> is the same as the value of <paramref name="right" />;
+        /// otherwise, <c>false</c>.
         /// </returns>
         public static bool operator ==(BaseEntity left, BaseEntity right) => left?.Equals(right) ?? Equals(right, null);
 
         /// <summary>
-        /// Indicates whether the values of two specified <see cref="BaseEntity" /> objects are not equal.
+        /// Indicates whether the values of two specified <see cref="BaseEntity" /> have different values.
         /// </summary>
         /// <param name="left">The first object to compare.</param>
         /// <param name="right">The second object to compare.</param>
         /// <returns>
-        /// <c>true</c> if <paramref name="left" /> and <paramref name="right" /> are not equal; otherwise,
-        /// <c>false</c>.
+        /// <c>true</c> if the value of <paramref name="left" /> is different from the value of
+        /// <paramref name="right" />; otherwise, <c>false</c>.
         /// </returns>
         public static bool operator !=(BaseEntity left, BaseEntity right) => !(left == right);
 
