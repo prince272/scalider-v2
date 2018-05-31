@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard1.7;netstandard2.0</TargetFrameworks>
     <RootNamespace>Scalider</RootNamespace>
-    <Version>2.0.1</Version>
+    <Version>2.0.2</Version>
     <LangVersion>7.2</LangVersion>
     <Description>Provides some security utilities.</Description>
     <RepositoryUrl>https://github.com/wilsonrivera/scalider-v2</RepositoryUrl>
