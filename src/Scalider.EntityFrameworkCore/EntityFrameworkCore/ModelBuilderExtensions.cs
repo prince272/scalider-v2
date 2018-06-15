@@ -50,8 +50,8 @@ namespace Scalider.EntityFrameworkCore
             var interfaceType = typeof(IEntityTypeConfiguration<>);
             var assemblyTypes =
                 ReflectionUtils.GetAvailableTypesFromAssembly(assembly)
-                               .Where(t => t.IsGenericTypeDefinition || interfaceType.IsAssignableFrom(t))
-                               .Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericType);
+                               .Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericType)
+                               .Where(t => ReflectionUtils.IsAssignableFrom(interfaceType, t));
 
             // Apply all the type configurations
             foreach (var type in assemblyTypes)
