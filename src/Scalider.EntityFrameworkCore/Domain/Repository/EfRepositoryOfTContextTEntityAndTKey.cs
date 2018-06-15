@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -38,15 +37,14 @@ namespace Scalider.Domain.Repository
         #region IRepository<TEntity,TKey> Members
 
         /// <inheritdoc />
-        public virtual TEntity FindById(TKey id) => EqualityComparer<TKey>.Default.Equals(id, default)
-            ? default
-            : DbSet.FirstOrDefault(t => EqualityComparer<TKey>.Default.Equals(t.Id, id));
+        public virtual TEntity FindById(TKey id) =>
+            EqualityComparer<TKey>.Default.Equals(id, default) ? default : DbSet.Find(id);
 
         /// <inheritdoc />
         public virtual Task<TEntity> FindByIdAsync(TKey id, CancellationToken cancellationToken = default) =>
             EqualityComparer<TKey>.Default.Equals(id, default)
                 ? Task.FromResult(default(TEntity))
-                : DbSet.FirstOrDefaultAsync(t => EqualityComparer<TKey>.Default.Equals(t.Id, id), cancellationToken);
+                : DbSet.FindAsync(new object[] {id}, cancellationToken);
 
         #endregion
 
