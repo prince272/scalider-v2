@@ -84,7 +84,7 @@ namespace Scalider.Security
         [UsedImplicitly]
         public bool ReflectOut { get; }
 
-        internal void ThrowIfParametersAreInvalid(int width, ulong polynomial, ulong initialValue, ulong xorOutValue)
+        private void ThrowIfParametersAreInvalid(int width, ulong polynomial, ulong initialValue, ulong xorOutValue)
         {
             var maxValue = ulong.MaxValue >> (64 - width);
             if (polynomial > maxValue)

@@ -15,6 +15,8 @@ namespace Scalider.Security
         
         private static readonly ConcurrentDictionary<string, ulong[]> LookupTableCache =
             new ConcurrentDictionary<string, ulong[]>();
+        
+        #region CrcAlgorithmParameters
 
         private static readonly IDictionary<string, CrcParameters> CrcAlgorithmParameters =
             new Dictionary<string, CrcParameters>(StringComparer.OrdinalIgnoreCase)
@@ -67,6 +69,8 @@ namespace Scalider.Security
                 {"CRC32/Q", new CrcParameters(32, 0x814141AB, 0x00000000, 0x00000000, false, false)},
                 {"CRC32/XFER", new CrcParameters(32, 0x000000AF, 0x00000000, 0x00000000, false, false)}
             };
+        
+        #endregion
 
         private readonly CrcParameters _parameters;
         private ulong _hash;
@@ -133,31 +137,28 @@ namespace Scalider.Security
             Array.Copy(hashBuffer, hashBuffer.Length - leftover, newHashBuffer, 0, leftover);
             hashBuffer = newHashBuffer;
 
-#if NETSTANDARD2_0
+            // Done
             HashValue = hashBuffer;
-#endif
-
             return hashBuffer;
         }
         
-#if NETSTANDARD2_0
+        /// <summary>
+        /// Creates an instance of the default implementation of the <see cref="Crc"/> hash algorithm.
+        /// </summary>
+        /// <returns>
+        /// A new instance of the <see cref="Crc"/>.
+        /// </returns>
         public new static Crc Create()
-#else
-        public static Crc Create()
-#endif
             => new Crc(CrcAlgorithmParameters["CRC32"]);
 
         /// <summary>
-        /// 
+        /// Creates an instance of the specified implementation of the <see cref="Crc"/> hash algorithm.
         /// </summary>
-        /// <param name="algorithmName"></param>
+        /// <param name="algorithmName">The name of the specific implementation of <see cref="Crc"/> to use.</param>
         /// <returns>
+        /// A new instance of the specified implementation of <see cref="Crc"/>.
         /// </returns>
-#if NETSTANDARD2_0
         public new static Crc Create(string algorithmName)
-#else
-        public static Crc Create(string algorithmName)
-#endif
         {
             Check.NotNullOrEmpty(algorithmName, nameof(algorithmName));
             if (!CrcAlgorithmParameters.TryGetValue(algorithmName, out var parameters) ||
@@ -182,6 +183,8 @@ namespace Scalider.Security
 
             return result;
         }
+        
+        #region GetOrCreateLookupTable
 
         private static ulong[] GetOrCreateLookupTable(CrcParameters p)
         {
@@ -220,6 +223,8 @@ namespace Scalider.Security
                 }
             );
         }
+        
+        #endregion
 
         /// <summary>
         /// Reflects the bits of a provided numeric value.

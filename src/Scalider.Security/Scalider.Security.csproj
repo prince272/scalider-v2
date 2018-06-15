@@ -1,18 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.7;netstandard2.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Scalider</RootNamespace>
-    <Version>2.0.2</Version>
+    <Version>2.1.0</Version>
     <LangVersion>7.2</LangVersion>
     <Description>Provides some security utilities.</Description>
     <RepositoryUrl>https://github.com/wilsonrivera/scalider-v2</RepositoryUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\netstandard2.0\Scalider.Security.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\shared\Check.cs">
       <Link>Check.cs</Link>
     </Compile>
-    <Compile Include="..\shared\JetBrainsAnnotations.cs">
-      <Link>JetBrainsAnnotations.cs</Link>
-    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Scalider.Core\Scalider.Core.csproj" />
   </ItemGroup>
 </Project>
