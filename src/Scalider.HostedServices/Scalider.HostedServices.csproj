@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Scalider.Hosting</RootNamespace>
+    <Version>2.1.0</Version>
+    <Description>Provides a base implementation of the IHostedService interface as well as a hosted service for executing scheduled and queued tasks.</Description>
+    <LangVersion>7.2</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\netstandard2.0\Scalider.HostedServices.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="2.1.0" />
+    <PackageReference Include="ncrontab" Version="3.3.0" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\shared\Check.cs">
+      <Link>Check.cs</Link>
+    </Compile>
+    <Compile Remove="__Scheduling\**" />
+    <Compile Remove="Scheduling\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="__Scheduling\**" />
+    <EmbeddedResource Remove="Scheduling\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="__Scheduling\**" />
+    <None Remove="Scheduling\**" />
+  </ItemGroup>
+</Project>
