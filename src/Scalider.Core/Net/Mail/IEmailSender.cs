@@ -1,5 +1,4 @@
-﻿#if NETSTANDARD2_0
-using System.Net.Mail;
+﻿using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -33,4 +32,3 @@ namespace Scalider.Net.Mail
     }
 
 }
-#endif

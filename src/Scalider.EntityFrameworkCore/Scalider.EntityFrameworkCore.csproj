@@ -1,32 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.7;netstandard2.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Scalider</RootNamespace>
-    <Version>2.0.11</Version>
+    <Version>2.1.0</Version>
     <Description>Uses Entity Framework Core to provide a Unit of Work and Repository layer.</Description>
     <LangVersion>7.2</LangVersion>
     <RepositoryUrl>https://github.com/wilsonrivera/scalider-v2</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DocumentationFile>bin\Release\Scalider.EntityFrameworkCore.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.0\Scalider.EntityFrameworkCore.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\shared\Check.cs">
       <Link>Check.cs</Link>
     </Compile>
-    <Compile Include="..\shared\JetBrainsAnnotations.cs">
-      <Link>JetBrainsAnnotations.cs</Link>
+    <Compile Include="..\shared\ReflectionUtils.cs">
+      <Link>ReflectionUtils.cs</Link>
     </Compile>
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.7'">
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="1.1.5" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="../Scalider.Common/Scalider.Common.csproj" />
+    <ProjectReference Include="../Scalider.Core/Scalider.Core.csproj" />
   </ItemGroup>
 </Project>

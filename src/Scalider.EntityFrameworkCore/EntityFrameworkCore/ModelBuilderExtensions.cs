@@ -3,7 +3,6 @@ using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
-using Scalider.Reflection;
 
 namespace Scalider.EntityFrameworkCore
 {
@@ -14,17 +13,8 @@ namespace Scalider.EntityFrameworkCore
     public static class ModelBuilderExtensions
     {
 
-#if NETSTANDARD2_0
         private static readonly Lazy<MethodInfo> ApplyConfigurationMethod = new Lazy<MethodInfo>(() =>
             typeof(ModelBuilder).GetTypeInfo().DeclaredMethods.First(t => t.Name == "ApplyConfiguration"));
-    
-#else
-
-        private static readonly Lazy<MethodInfo> ApplyConfigurationMethod = new Lazy<MethodInfo>(() =>
-            typeof(ModelBuilderExtensions).GetTypeInfo().DeclaredMethods
-                                          .First(t => t.Name == nameof(ApplyConfiguration)));
-
-#endif
 
         /// <summary>
         /// Scans the assembly of <typeparamref name="T"/> for types that implement the
@@ -58,9 +48,10 @@ namespace Scalider.EntityFrameworkCore
 
             // Retrieve all the type configuration
             var interfaceType = typeof(IEntityTypeConfiguration<>);
-            var assemblyTypes = assembly.GetTypesOf(interfaceType)
-                                        .Select(t => t.GetTypeInfo())
-                                        .Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericType);
+            var assemblyTypes =
+                ReflectionUtils.GetAvailableTypesFromAssembly(assembly)
+                               .Where(t => t.IsGenericTypeDefinition || interfaceType.IsAssignableFrom(t))
+                               .Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericType);
 
             // Apply all the type configurations
             foreach (var type in assemblyTypes)
@@ -70,7 +61,7 @@ namespace Scalider.EntityFrameworkCore
                         .Select(t => t.GetTypeInfo())
                         .Where(t => t.IsGenericType && t.GetGenericTypeDefinition() == interfaceType);
 
-                var instance = Activator.CreateInstance(type.AsType());
+                var instance = Activator.CreateInstance(type);
                 foreach (var ci in configurationInterfaces)
                 {
                     var args = ci.GetGenericArguments();
@@ -84,41 +75,13 @@ namespace Scalider.EntityFrameworkCore
                     ApplyConfigurationMethod
                         .Value
                         .MakeGenericMethod(args[0])
-#if NETSTANDARD2_0
                         .Invoke(modelBuilder, new[] {instance});
-#else
-                        .Invoke(null, new[] {modelBuilder, instance});
-#endif
                 }
             }
 
             // Done
             return modelBuilder;
         }
-
-#if !NETSTANDARD2_0
-
-        /// <summary>
-        /// Applies configuration that is defined in an <see cref="IEntityTypeConfiguration{TEntity}" /> instance.
-        /// </summary>
-        /// <param name="modelBuilder">The <see cref="ModelBuilder"/>.</param>
-        /// <param name="configuration">The configuration to be applied.</param>
-        /// <typeparam name="TEntity">The entity type to be configured.</typeparam>
-        /// <returns>
-        /// The same <see cref="ModelBuilder" /> instance so that additional configuration calls can be chained.
-        /// </returns>
-        public static ModelBuilder ApplyConfiguration<TEntity>([NotNull] this ModelBuilder modelBuilder,
-            [NotNull] IEntityTypeConfiguration<TEntity> configuration)
-            where TEntity : class
-        {
-            Check.NotNull(modelBuilder, nameof(modelBuilder));
-            Check.NotNull(configuration, nameof(configuration));
-
-            configuration.Configure(modelBuilder.Entity<TEntity>());
-            return modelBuilder;
-        }
-
-#endif
 
     }
 

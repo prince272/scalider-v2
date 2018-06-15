@@ -30,7 +30,8 @@ namespace Scalider.Net.Mail
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
-        Task<bool> IsValidAsync([NotNull] string value, [UsedImplicitly] CancellationToken cancellationToken = default);
+        Task<bool> IsValidAsync([NotNull] string value,
+            [UsedImplicitly] CancellationToken cancellationToken = default);
 
     }
     

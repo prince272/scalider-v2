@@ -7,8 +7,7 @@ using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
 using Remotion.Linq.Parsing.Structure;
-using Scalider.Data.Entity;
-using Scalider.Reflection;
+using Scalider.Domain.Entity;
 
 namespace Scalider.EntityFrameworkCore
 {
@@ -34,13 +33,8 @@ namespace Scalider.EntityFrameworkCore
         private static readonly Lazy<FieldInfo> DataBaseField = new Lazy<FieldInfo>(() =>
             QueryCompilerTypeInfo.Value.DeclaredFields.Single(x => x.Name == "_database"));
 
-#if NETSTANDARD2_0
         private static readonly Lazy<PropertyInfo> DatabaseDependenciesField = new Lazy<PropertyInfo>(() =>
             typeof(Database).GetTypeInfo().DeclaredProperties.Single(x => x.Name == "Dependencies"));
-#else
-        private static readonly Lazy<FieldInfo> QueryCompilationContextFactoryField = new Lazy<FieldInfo>(() =>
-            typeof(Database).GetTypeInfo().DeclaredFields.First(x => x.Name == "_queryCompilationContextFactory"));
-#endif
 
         /// <summary>
         /// Parses a Linq2Sql query to a string.
@@ -58,7 +52,7 @@ namespace Scalider.EntityFrameworkCore
 
             // Unwrap the IIncludedQueryable
             var queryType = query.GetType();
-            if (queryType.ImplementsOrInherits(typeof(IIncludableQueryable<,>)))
+            if (ReflectionUtils.IsAssignableFrom(typeof(IIncludableQueryable<,>), queryType))
             {
                 var field = queryType.GetTypeInfo().DeclaredFields.First(t => t.Name == "_queryable");
                 query = field.GetValue(query) as IQueryable<TEntity>;
@@ -106,13 +100,8 @@ namespace Scalider.EntityFrameworkCore
         private static IQueryCompilationContextFactory
             GetQueryCompilationContextFactory(object database)
         {
-#if NETSTANDARD2_0
             var databaseDependencies = (DatabaseDependencies)DatabaseDependenciesField.Value.GetValue(database);
-
             return databaseDependencies.QueryCompilationContextFactory;
-#else
-            return (IQueryCompilationContextFactory)QueryCompilationContextFactoryField.Value.GetValue(database);
-#endif
         }
 
     }
