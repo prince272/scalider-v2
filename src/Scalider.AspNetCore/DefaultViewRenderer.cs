@@ -50,7 +50,7 @@ namespace Scalider.AspNetCore
             {
                 // No view engine service registered on the service provider
                 throw new InvalidOperationException(
-                    $"No {typeof(ICompositeViewEngine).FullName} or {typeof(IViewEngine).FullName} available"
+                    $"No {typeof(ICompositeViewEngine).FullName} or {typeof(IViewEngine).FullName} available."
                 );
             }
         }

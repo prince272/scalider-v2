@@ -1,34 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.7;netstandard2.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Scalider.AspNetCore.Identity</RootNamespace>
-    <Version>2.0.1</Version>
+    <Version>2.1.0</Version>
     <Description>Uses BCrypt to provide password hashing.</Description>
     <LangVersion>7.2</LangVersion>
     <RepositoryUrl>https://github.com/wilsonrivera/scalider-v2</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DocumentationFile>bin\Release\Scalider.AspNetCore.Identity.BCrypt.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.0\Scalider.AspNetCore.Identity.BCrypt.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\shared\Check.cs">
       <Link>Check.cs</Link>
     </Compile>
-    <Compile Include="..\shared\JetBrainsAnnotations.cs">
-      <Link>JetBrainsAnnotations.cs</Link>
-    </Compile>
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.7'">
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="1.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="1.1.5" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.0" />
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="2.1.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="BCrypt.Net-Core" Version="1.4.0" />
+    <PackageReference Include="BCrypt.Net-Core" Version="1.4.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>
