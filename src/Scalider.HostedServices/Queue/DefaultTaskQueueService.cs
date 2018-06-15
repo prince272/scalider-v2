@@ -40,8 +40,15 @@ namespace Scalider.Hosting.Queue
         {
             Check.NotNull(queuedTasks, nameof(queuedTasks));
 
-            // Enqueue all the tasks
+            // Determine if we received any queued tasks
             var queuedTasksArray = queuedTasks.ToArray();
+            if (queuedTasksArray.Length == 0)
+            {
+                // We didn't receive any queued tasks, no need to enqueue anything
+                return;
+            }
+
+            // Enqueue all the received tasks
             foreach (var task in queuedTasksArray)
                 _queuedTasks.Enqueue(task);
 
