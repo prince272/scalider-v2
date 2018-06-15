@@ -1,11 +1,9 @@
-﻿#if NETSTANDARD2_0
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MimeKit;
 using Scalider.MailKit;
-using Scalider.Reflection;
 
 namespace Scalider.Net.Mail
 {
@@ -54,7 +52,7 @@ namespace Scalider.Net.Mail
                 return kitEmailSender;
 
             // The type of the sender doesn't support MailKit
-            var typeName = typeof(MailKitEmailSender).GetReadableName();
+            var typeName = ReflectionUtils.GetTypeReadableName(typeof(MailKitEmailSender));
             throw new ArgumentException($"The email sender must be an instance of the {typeName} class",
                 nameof(sender));
         }
@@ -62,4 +60,3 @@ namespace Scalider.Net.Mail
     }
 
 }
-#endif

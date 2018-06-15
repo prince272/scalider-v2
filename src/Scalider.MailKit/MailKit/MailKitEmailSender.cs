@@ -7,9 +7,7 @@ using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using Scalider.Net.Mail;
-#if NETSTANDARD2_0
 using MailMessage = System.Net.Mail.MailMessage;
-#endif
 
 namespace Scalider.MailKit
 {
@@ -116,8 +114,6 @@ namespace Scalider.MailKit
             }
         }
 
-#if NETSTANDARD2_0
-
         void IEmailSender.Send(MailMessage message)
         {
             Check.NotNull(message, nameof(message));
@@ -131,8 +127,6 @@ namespace Scalider.MailKit
 
             return SendAsync(message.Normalize().ToMimeMessage(), cancellationToken);
         }
-
-#endif
 
     }
 

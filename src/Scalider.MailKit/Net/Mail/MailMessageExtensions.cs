@@ -1,5 +1,4 @@
-﻿#if NETSTANDARD2_0
-using System;
+﻿using System;
 using System.Linq;
 using System.Net.Mail;
 using System.Net.Mime;
@@ -22,6 +21,8 @@ namespace Scalider.Net.Mail
     /// </remarks>
     public static class MailMessageExtensions
     {
+        
+        #region ToMimeMessage
 
         /// <summary>
         /// Converts a <see cref="MailMessage"/> to a <see cref="MimeMessage"/>.
@@ -78,6 +79,8 @@ namespace Scalider.Net.Mail
             // Done
             return message;
         }
+        
+        #endregion
 
         private static void CopyAddressList(MailAddressCollection sourceList, InternetAddressList targetList,
             MimeMessage message, HeaderId headerId)
@@ -92,6 +95,8 @@ namespace Scalider.Net.Mail
         private static MailboxAddress ToMailboxAddress(MailAddress mailAddress) => mailAddress == null
             ? null
             : new MailboxAddress(mailAddress.DisplayName, mailAddress.Address);
+        
+        #region AdjustMessagePriority
 
         private static void AdjustMessagePriority(MailPriority priority, MimeMessage message)
         {
@@ -117,6 +122,8 @@ namespace Scalider.Net.Mail
                     throw new ArgumentOutOfRangeException();
             }
         }
+        
+        #endregion
 
         private static MimeEntity GetBodyOrNull(MailMessage mail)
         {
@@ -127,6 +134,8 @@ namespace Scalider.Net.Mail
             text.SetText(mail.BodyEncoding ?? Encoding.UTF8, mail.Body);
             return text;
         }
+        
+        #region AppendAlternativeViews
 
         private static MimeEntity AppendAlternativeViews(MailMessage mail, MimeEntity originalBody)
         {
@@ -176,6 +185,8 @@ namespace Scalider.Net.Mail
 
             return body;
         }
+        
+        #endregion
 
         private static MimeEntity AppendAttachments(MailMessage mail, MimeEntity originalBody)
         {
@@ -191,6 +202,8 @@ namespace Scalider.Net.Mail
 
             return body;
         }
+        
+        #region GetMimePart
 
         private static MimePart GetMimePart(AttachmentBase item)
         {
@@ -241,8 +254,9 @@ namespace Scalider.Net.Mail
             // Done
             return part;
         }
+        
+        #endregion
 
     }
 
 }
-#endif
