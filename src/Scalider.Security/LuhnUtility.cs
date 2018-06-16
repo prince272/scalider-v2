@@ -54,6 +54,42 @@ namespace Scalider
         }
 
         /// <summary>
+        /// Calculates the LUHN check digit of the given <paramref name="input"/>. A return value indicates
+        /// whether the checksum calculation succeeded.
+        /// </summary>
+        /// <param name="input">The value to calculate the LUHN check digit for.</param>
+        /// <param name="result">When this method returns, contains the 32-bit signed integer value representing
+        /// the check digit for the given <paramref name="input"/>, if the conversion succeeded, or -1 if the
+        /// checksum calculation failed.</param>
+        /// <returns>
+        /// <c>true</c> if the <paramref name="input"/> was valid; otherwise, <c>false</c>.
+        /// </returns>
+        [UsedImplicitly]
+        public static bool TryCalculateCheckDigit([NotNull] string input, out int result)
+        {
+            result = -1;
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                // The input was null or blank, we won't be able to calculate the check digit
+                return false;
+            }
+
+            // Try to calculate the check digit
+            try
+            {
+                result = CalculateCheckDigit(input);
+                return true;
+            }
+            catch
+            {
+                // ignore
+            }
+            
+            // Failed to calculate the check digit, maybe invalid input?
+            return false;
+        }
+
+        /// <summary>
         /// Determines wether the last character of the given <paramref name="input"/> is the valid
         /// LUHN check digit for the value.
         /// </summary>
@@ -65,7 +101,7 @@ namespace Scalider
         [UsedImplicitly]
         public static bool Validate(string input)
         {
-            if (string.IsNullOrEmpty(input))
+            if (string.IsNullOrWhiteSpace(input))
                 return false;
 
             // Remove special characters from the input string
@@ -80,7 +116,8 @@ namespace Scalider
                 return false;
 
             // Done
-            return lastDigit == CalculateCheckDigit(input.Substring(0, input.Length - 1));
+            return TryCalculateCheckDigit(input.Substring(0, input.Length - 1), out var checkDigit) &&
+                   lastDigit == checkDigit;
         }
 
     }
