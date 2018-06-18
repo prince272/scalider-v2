@@ -47,6 +47,12 @@ namespace Scalider.Domain.Repository
         #region IBatchRepository<TEntity> Members
 
         /// <inheritdoc />
+        public virtual int Count() => DbSet.Count();
+
+        /// <inheritdoc />
+        public Task<int> CountAsync(CancellationToken cancellationToken) => DbSet.CountAsync(cancellationToken);
+
+        /// <inheritdoc />
         public virtual IEnumerable<TEntity> GetAll() => DbSet.ToList();
 
         /// <inheritdoc />

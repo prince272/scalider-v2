@@ -9,21 +9,21 @@ namespace Scalider.Domain.Repository
 {
 
     /// <summary>
-    /// Provides aditional methods to the repository pattern for supporting batched operations.
+    /// Represents a repository that provides batched CRUD operations for the speicified entity type.
     /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
     public interface IBatchRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IEntity
     {
 
         /// <summary>
-        /// Adds a collection of new entities to the data store.
+        /// Adds a collection of new entities.
         /// </summary>
         /// <param name="entities">The collection of entities to add to the data store.</param>
         void AddRange([NotNull] IEnumerable<TEntity> entities);
 
         /// <summary>
-        /// Asynchronously adds a collection of new entities to the data store.
+        /// Asynchronously adds a collection of new entities.
         /// </summary>
         /// <param name="entities">The collection of entities to add to the data store.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for
@@ -34,13 +34,13 @@ namespace Scalider.Domain.Repository
         Task AddRangeAsync([NotNull] IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Updates a collection of entities in the data store.
+        /// Updates a collection of entities.
         /// </summary>
         /// <param name="entities">The collection of entities to update in the data store.</param>
         void UpdateRange([NotNull] IEnumerable<TEntity> entities);
 
         /// <summary>
-        /// Asynchronously updates a collection of entities in the data store.
+        /// Asynchronously updates a collection of entities.
         /// </summary>
         /// <param name="entities">The collection of entities to update in the data store.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the
@@ -52,13 +52,13 @@ namespace Scalider.Domain.Repository
         Task UpdateRangeAsync([NotNull] IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Removes a collection of entities from the data store.
+        /// Removes a collection of entities.
         /// </summary>
         /// <param name="entities">The collection of entities to remove from the data store.</param>
         void RemoveRange([NotNull] IEnumerable<TEntity> entities);
 
         /// <summary>
-        /// Asynchronously removes a collection of entities from the data store.
+        /// Asynchronously removes a collection of entities.
         /// </summary>
         /// <param name="entities">The collection of entities to remove from the data store.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the
