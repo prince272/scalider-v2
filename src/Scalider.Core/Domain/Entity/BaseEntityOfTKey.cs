@@ -46,11 +46,9 @@ namespace Scalider.Domain.Entity
         /// <returns>
         /// true if the specified object is equal to the current object; otherwise, false.
         /// </returns>
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-        protected bool Equals(BaseEntity<TKey> other)
-        {
-            return other != null && EqualityComparer<TKey>.Default.Equals(Id, other.Id);
-        }
+        private bool Equals(BaseEntity<TKey> other) =>
+            other != null &&
+            EqualityComparer<TKey>.Default.Equals(Id, other.Id);
 
         /// <summary>
         /// Indicates whether the values of two specified <see cref="BaseEntity{TKey}" /> have the same value.
