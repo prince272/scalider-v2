@@ -58,6 +58,12 @@ namespace Scalider.Hosting
         /// <inheritdoc />
         public virtual Task StartAsync(CancellationToken cancellationToken)
         {
+            if (_disposed)
+            {
+                // The hosted service has been disposed
+                throw new ObjectDisposedException(GetType().Name);
+            }
+            
             _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
             _executingTask = ExecuteAsync(_cancellationTokenSource.Token);
 

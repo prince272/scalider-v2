@@ -41,7 +41,7 @@ namespace Scalider.Hosting.Queue
             Check.NotNull(queuedTasks, nameof(queuedTasks));
 
             // Determine if we received any queued tasks
-            var queuedTasksArray = queuedTasks.ToArray();
+            var queuedTasksArray = queuedTasks.Where(t => t != null).ToArray();
             if (queuedTasksArray.Length == 0)
             {
                 // We didn't receive any queued tasks, no need to enqueue anything
@@ -68,7 +68,6 @@ namespace Scalider.Hosting.Queue
             }
 
             _disposed = true;
-            GC.SuppressFinalize(this);
         }
 
         #region IDisposable Members
@@ -91,15 +90,6 @@ namespace Scalider.Hosting.Queue
 
             _queuedTasks.Enqueue(queueableTask);
             _semaphore.Release();
-        }
-
-        /// <inheritdoc />
-        public virtual Task EnqueueAsync(IQueueableTask queueableTask, CancellationToken cancellationToken)
-        {
-            Check.NotNull(queueableTask, nameof(queueableTask));
-
-            Enqueue(queueableTask);
-            return Task.CompletedTask;
         }
 
         /// <inheritdoc />

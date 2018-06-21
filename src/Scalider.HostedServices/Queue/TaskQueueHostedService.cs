@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Scalider.Hosting.Queue
 {
@@ -19,15 +21,17 @@ namespace Scalider.Hosting.Queue
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly ITaskQueueService _taskQueueService;
         private readonly ITaskExceptionHandler _taskExceptionHandler;
+        private readonly ILogger<TaskQueueHostedService> _logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TaskQueueHostedService"/> class.
         /// </summary>
         /// <param name="serviceScopeFactory"></param>
         /// <param name="taskQueueService"></param>
+        /// <param name="logger"></param>
         public TaskQueueHostedService([NotNull] IServiceScopeFactory serviceScopeFactory,
-            [NotNull] ITaskQueueService taskQueueService)
-            : this(serviceScopeFactory, taskQueueService, NullTaskExceptionHandler.Instance)
+            [NotNull] ITaskQueueService taskQueueService, ILogger<TaskQueueHostedService> logger)
+            : this(serviceScopeFactory, taskQueueService, NullTaskExceptionHandler.Instance, logger)
         {
         }
 
@@ -37,16 +41,20 @@ namespace Scalider.Hosting.Queue
         /// <param name="serviceScopeFactory"></param>
         /// <param name="taskQueueService"></param>
         /// <param name="taskExceptionHandler"></param>
+        /// <param name="logger"></param>
         public TaskQueueHostedService([NotNull] IServiceScopeFactory serviceScopeFactory,
-            [NotNull] ITaskQueueService taskQueueService, [NotNull] ITaskExceptionHandler taskExceptionHandler)
+            [NotNull] ITaskQueueService taskQueueService, [NotNull] ITaskExceptionHandler taskExceptionHandler,
+            [NotNull] ILogger<TaskQueueHostedService> logger)
         {
             Check.NotNull(serviceScopeFactory, nameof(serviceScopeFactory));
             Check.NotNull(taskQueueService, nameof(taskQueueService));
             Check.NotNull(taskExceptionHandler, nameof(taskExceptionHandler));
+            Check.NotNull(logger, nameof(logger));
             
             _serviceScopeFactory = serviceScopeFactory;
             _taskQueueService = taskQueueService;
             _taskExceptionHandler = taskExceptionHandler;
+            _logger = logger;
         }
 
         /// <inheritdoc />
@@ -58,6 +66,7 @@ namespace Scalider.Hosting.Queue
                 if (task == null)
                 {
                     // For some reason, the service returned a null task
+                    _logger.LogDebug("Got a NULL task, will ignore and wait for a valid task");
                     continue;
                 }
                 
@@ -73,50 +82,41 @@ namespace Scalider.Hosting.Queue
         #region ExecuteQueuedTaskAsync
         
         [SuppressMessage("ReSharper", "SuspiciousTypeConversion.Global")]
-        private async Task ExecuteQueuedTaskAsync(IQueueableTask queueableTask,
+        private async Task ExecuteQueuedTaskAsync(IQueueableTask queuedTask,
             IServiceProvider serviceProvider, CancellationToken cancellationToken)
         {
-            var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-                        
+            var taskName = TaskExecutionHelper.GetTaskName(queuedTask);
+
             // Try to execute the task
             Exception exception = null;
-            try
+            using (var ctx = new QueuedTaskExecutionContext(serviceProvider, cancellationToken))
             {
-                await queueableTask.RunAsync(serviceProvider, cancellationToken);
-            }
-            catch (Exception e)
-            {
-                if (!(e is OperationCanceledException))
-                    exception = e;
-            }
-            finally
-            {
-                // Release the cancellation token source
-                cts.Dispose();
-            }
-            
-            // Report to the exception handler
-            if (exception == null)
-            {
-                // There was no exception to report
-                return;
-            }
-            
-            var context = new UnhandledTaskExceptionContext(exception, serviceProvider);
-            if (queueableTask is ITaskExceptionHandler queueableTaskExceptionHandler)
-            {
-                // The task implements an exception handler, we will let it handle the exception by itself
-                queueableTaskExceptionHandler.OnUnhandledException(context);
+                _logger.LogDebug($"Executing task \"{taskName}\"");
+                var sw = Stopwatch.StartNew();
+                try
+                {
+                    await queuedTask.RunAsync(ctx);
+                }
+                catch (Exception e)
+                {
+                    if (!(e is OperationCanceledException))
+                        exception = e;
+                }
+
+                sw.Stop();
+                _logger.LogDebug($"Executed task \"{taskName}\" in {sw.Elapsed.TotalMilliseconds}ms");
             }
 
-            // Determine if the task handled the exception
-            if (!context.IsHandled)
-            {
-                // The task did not handle the exception, we will notify the global exception handler
-                _taskExceptionHandler?.OnUnhandledException(context);
-                if (!context.IsHandled)
-                    throw exception;
-            }
+            // Report to the exception handler
+
+            // Report to the exception handler
+            TaskExecutionHelper.ReportUnhandledTaskException(
+                exception,
+                queuedTask,
+                _taskExceptionHandler,
+                serviceProvider,
+                _logger
+            );
         }
         
         #endregion

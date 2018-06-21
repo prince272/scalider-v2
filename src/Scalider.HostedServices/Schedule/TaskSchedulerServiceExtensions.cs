@@ -3,48 +3,53 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
-using Scalider.Hosting.Queue.Internal;
+using Scalider.Hosting.Schedule.Internal;
 
-namespace Scalider.Hosting.Queue
+namespace Scalider.Hosting.Schedule
 {
     
     /// <summary>
-    /// Provides extension methods for the <see cref="ITaskQueueService"/> interface.
+    /// Provides extension methods for the <see cref="ITaskSchedulerService"/> interface.
     /// </summary>
-    public static class TaskQueueServiceExtensions
+    public static class TaskSchedulerServiceExtensions
     {
-        
-        /// <summary>
-        /// Adds a function delegate to the end of the queue. 
-        /// </summary>
-        /// <param name="queueService">The <see cref="ITaskQueueService"/>.</param>
-        /// <param name="func">The function to add to the queue.</param>
-        public static void Enqueue([NotNull] this ITaskQueueService queueService, [NotNull] Func<Task> func)
-        {
-            Check.NotNull(queueService, nameof(queueService));
-            Check.NotNull(func, nameof(func));
 
-            queueService.Enqueue(new DelegateQueueableTask(ctx => func()));
+        /// <summary>
+        /// Schedules the execution of a function delegate.
+        /// </summary>
+        /// <param name="schedulerService">The <see cref="ITaskSchedulerService"/>.</param>
+        /// <param name="func">The function to add to the queue.</param>
+        /// <param name="taskTrigger">The <see cref="ITrigger"/> for the task.</param>
+        public static void Schedule([NotNull] this ITaskSchedulerService schedulerService,
+            [NotNull] Func<Task> func, [NotNull] ITrigger taskTrigger)
+        {
+            Check.NotNull(schedulerService, nameof(schedulerService));
+            Check.NotNull(func, nameof(func));
+            Check.NotNull(taskTrigger, nameof(taskTrigger));
+
+            schedulerService.Schedule(new DelegateSchedulableTask(ctx => func(), taskTrigger));
         }
 
         /// <summary>
-        /// Adds a function delegate to the end of the queue. 
+        /// Schedules the execution of a function delegate.
         /// </summary>
-        /// <param name="queueService">The <see cref="ITaskQueueService"/>.</param>
+        /// <param name="schedulerService">The <see cref="ITaskSchedulerService"/>.</param>
         /// <param name="func">The function to add to the queue.</param>
-        public static void Enqueue([NotNull] this ITaskQueueService queueService,
-            [NotNull] Func<QueuedTaskExecutionContext, Task> func)
+        /// <param name="taskTrigger">The <see cref="ITrigger"/> for the task.</param>
+        public static void Schedule([NotNull] this ITaskSchedulerService schedulerService,
+            [NotNull] Func<ScheduledTaskExecutionContext, Task> func, [NotNull] ITrigger taskTrigger)
         {
-            Check.NotNull(queueService, nameof(queueService));
+            Check.NotNull(schedulerService, nameof(schedulerService));
             Check.NotNull(func, nameof(func));
+            Check.NotNull(taskTrigger, nameof(taskTrigger));
 
-            queueService.Enqueue(new DelegateQueueableTask(func));
+            schedulerService.Schedule(new DelegateSchedulableTask(func, taskTrigger));
         }
         
-        #region Enqueue<T>
+        #region Schedule<T>
 
         /// <summary>
-        /// Adds a queued task that queries or create a service of <typeparamref name="T"/> and executes the
+        /// Schedules a task that queries or create a service of <typeparamref name="T"/> and executes the
         /// method or retrieves and executes the delegate using the member accessor.
         ///
         /// If <typeparamref name="T" /> is not registered as a service, then a new instance is created when the
@@ -52,15 +57,18 @@ namespace Scalider.Hosting.Queue
         /// </summary>
         /// <typeparam name="T">The type of the delegate that the <see cref="Expression{TDelegate}"/>
         /// represents.</typeparam>
-        /// <param name="queueService">The <see cref="ITaskQueueService"/>.</param>
+        /// <param name="schedulerService">The <see cref="ITaskSchedulerService"/>.</param>
         /// <param name="expression">The expression.</param>
+        /// <param name="taskTrigger">The <see cref="ITrigger"/> for the task.</param>
         /// <exception cref="ArgumentException">When the <paramref name="expression"/> is invalid.</exception>
-        public static void Enqueue<T>([NotNull] this ITaskQueueService queueService,
-            [NotNull] Expression<Func<T, Func<QueuedTaskExecutionContext, Task>>> expression)
+        public static void Schedule<T>([NotNull] this ITaskSchedulerService schedulerService,
+            [NotNull] Expression<Func<T, Func<ScheduledTaskExecutionContext, Task>>> expression,
+            [NotNull] ITrigger taskTrigger)
             where T : class
         {
-            Check.NotNull(queueService, nameof(queueService));
+            Check.NotNull(schedulerService, nameof(schedulerService));
             Check.NotNull(expression, nameof(expression));
+            Check.NotNull(taskTrigger, nameof(taskTrigger));
             
             // Retrieve the real expression
             var exp = expression.Body;
@@ -83,11 +91,13 @@ namespace Scalider.Hosting.Queue
                     if (memberExpression.Member is PropertyInfo propertyInfo && propertyInfo.GetMethod != null &&
                         propertyInfo.GetMethod.IsStatic)
                     {
-                        queueService.Enqueue(new StaticMemberAccessQueueableTask(memberExpression.Member));
+                        schedulerService.Schedule(
+                            new StaticMemberAccessSchedulableTask(memberExpression.Member, taskTrigger));
                         return;
                     }
 
-                    queueService.Enqueue(new CompiledExpressionQueueableTask<T>(expression.Compile()));
+                    schedulerService.Schedule(
+                        new CompiledExpressionSchedulableTask<T>(expression.Compile(), taskTrigger));
                     break;
                 case MethodCallExpression methodCallExpression:
                     if (methodCallExpression.Object is ConstantExpression methodConstantExpression &&
@@ -95,11 +105,12 @@ namespace Scalider.Hosting.Queue
                         methodInfo.IsStatic)
                     {
                         // The method call is to a static method, no need to compile the expression
-                        queueService.Enqueue(new StaticMethodInvokationQueueableTask(methodInfo));
+                        schedulerService.Schedule(new StaticMethodInvokationSchedulableTask(methodInfo, taskTrigger));
                         return;
                     }
 
-                    queueService.Enqueue(new CompiledExpressionQueueableTask<T>(expression.Compile()));
+                    schedulerService.Schedule(
+                        new CompiledExpressionSchedulableTask<T>(expression.Compile(), taskTrigger));
                     break;
                 default:
                     throw new ArgumentException(
@@ -110,7 +121,7 @@ namespace Scalider.Hosting.Queue
         }
         
         #endregion
-
+        
     }
     
 }

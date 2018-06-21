@@ -36,6 +36,8 @@ namespace Scalider.AspNetCore
             "X-ProxyUser-Ip", // This is a non-standard form
             "X-Real-IP" // This is a non-standard form
         };
+        
+        #region IsHttps
 
         /// <summary>
         /// Determines whether the request protocol used by the client is HTTPS. This will also take into account the
@@ -75,6 +77,10 @@ namespace Scalider.AspNetCore
             // The request doesn't seem to be HTTPS
             return false;
         }
+        
+        #endregion
+        
+        #region TryGetTrueHost
 
         /// <summary>
         /// Retrieves the true requested host. This will also take into account the forwarded headers.
@@ -109,6 +115,10 @@ namespace Scalider.AspNetCore
             resultOutput = httpContext.Request.Host.Value;
             return true;
         }
+        
+        #endregion
+        
+        #region TryGetTrueClientIpAddress
 
         /// <summary>
         /// Tries to to retrieve the true client IP address.
@@ -164,6 +174,10 @@ namespace Scalider.AspNetCore
             resultOutput = httpContext.Connection.RemoteIpAddress;
             return true;
         }
+        
+        #endregion
+        
+        #region TryGetFirstNotEmptyHeaderValue
 
         private static bool TryGetFirstNotEmptyHeaderValue(HttpRequest httpRequest, string headerName,
             out string resultOutput)
@@ -194,6 +208,8 @@ namespace Scalider.AspNetCore
             resultOutput = firstHeaderValue;
             return true;
         }
+        
+        #endregion
         
     }
     

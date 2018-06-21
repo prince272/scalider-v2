@@ -5,24 +5,17 @@ using JetBrains.Annotations;
 namespace Scalider.Hosting.Queue
 {
     
+    /// <summary>
+    /// Defines the basic functionality of a task queue.
+    /// </summary>
     public interface ITaskQueueService
     {
 
         /// <summary>
-        /// Adds an <see cref="IQueueableTask"/> to the end of the queue.
+        /// Adds a task to the end of the queue.
         /// </summary>
         /// <param name="queueableTask">The <see cref="IQueueableTask"/> to add to the queue.</param>
         void Enqueue([NotNull] IQueueableTask queueableTask);
-
-        /// <summary>
-        /// Asynchornously adds an <see cref="IQueueableTask"/> to the end of the queue.
-        /// </summary>
-        /// <param name="queueableTask">The <see cref="IQueueableTask"/> to add to the queue.</param>
-        /// <param name="cancellationToken">Indicates that the start process has been aborted.</param>
-        /// <returns>
-        /// The <see cref="Task"/> object representing the asynchronous operation.
-        /// </returns>
-        Task EnqueueAsync([NotNull] IQueueableTask queueableTask, CancellationToken cancellationToken);
         
         /// <summary>
         /// Removes and returns the <see cref="IQueueableTask"/> at the beginning of the queue.
