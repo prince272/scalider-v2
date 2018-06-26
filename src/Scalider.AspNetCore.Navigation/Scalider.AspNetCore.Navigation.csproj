@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Version>2.1.0</Version>
+    <LangVersion>7.2</LangVersion>
+    <Description>Inspired by https://github.com/cloudscribe/cloudscribe.Web.Navigation
+Provides a way for easily creating and display navigation menus.</Description>
+    <RepositoryUrl>https://github.com/wilsonrivera/scalider-v2/src/Scalider.AspNetCore.Navigation</RepositoryUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\netcoreapp2.1\Scalider.AspNetCore.Navigation.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\shared\Check.cs">
+      <Link>Check.cs</Link>
+    </Compile>
+  </ItemGroup>
+</Project>
