@@ -50,7 +50,8 @@ namespace Scalider.Domain.Repository
         public virtual int Count() => DbSet.Count();
 
         /// <inheritdoc />
-        public Task<int> CountAsync(CancellationToken cancellationToken) => DbSet.CountAsync(cancellationToken);
+        public Task<int> CountAsync(CancellationToken cancellationToken = default) =>
+            DbSet.CountAsync(cancellationToken);
 
         /// <inheritdoc />
         public virtual IEnumerable<TEntity> GetAll() => DbSet.ToList();

@@ -53,7 +53,7 @@ namespace Scalider.Domain.Repository
             // Register all the repositories
             foreach (var type in repositoryTypes)
             {
-                services.TryAddScoped(type, type);
+                services.TryAddTransient(type, type);
                 AddAllInterfacesAsServicesForType(services, type, type);
             }
 
@@ -73,7 +73,7 @@ namespace Scalider.Domain.Repository
                     continue;
 
                 // Repository definition found, add as a service
-                services.TryAddScoped(@interface, implementationType);
+                services.TryAddTransient(@interface, implementationType);
             }
         }
 
