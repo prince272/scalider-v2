@@ -47,18 +47,18 @@ namespace Scalider.Domain.Repository
         #region IBatchRepository<TEntity> Members
 
         /// <inheritdoc />
-        public virtual int Count() => DbSet.Count();
+        public virtual int Count() => DbSet.AsNoTracking().Count();
 
         /// <inheritdoc />
         public Task<int> CountAsync(CancellationToken cancellationToken = default) =>
-            DbSet.CountAsync(cancellationToken);
+            DbSet.AsNoTracking().CountAsync(cancellationToken);
 
         /// <inheritdoc />
-        public virtual IEnumerable<TEntity> GetAll() => DbSet.ToList();
+        public virtual IEnumerable<TEntity> GetAll() => DbSet.AsNoTracking().ToList();
 
         /// <inheritdoc />
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default) =>
-            await DbSet.ToListAsync(cancellationToken);
+            await DbSet.AsNoTracking().ToListAsync(cancellationToken);
 
         /// <inheritdoc />
         public virtual void Add(TEntity entity)
