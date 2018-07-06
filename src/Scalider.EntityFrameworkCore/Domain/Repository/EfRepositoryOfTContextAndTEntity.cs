@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
@@ -15,10 +16,12 @@ namespace Scalider.Domain.Repository
     /// </summary>
     /// <typeparam name="TContext">The type encapsulating the database context.</typeparam>
     /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
-    public class EfRepository<TContext, TEntity> : IBatchRepository<TEntity>
+    public class EfRepository<TContext, TEntity> : IBatchRepository<TEntity>, IDisposable
         where TContext : DbContext
         where TEntity : class, IEntity
     {
+
+        private bool _disposed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EfRepository{TContext, TEntity}"/> class.
@@ -43,6 +46,21 @@ namespace Scalider.Domain.Repository
         /// </summary>
         [UsedImplicitly]
         protected DbSet<TEntity> DbSet => Context.Set<TEntity>();
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        /// <param name="disposing">A value indicating whether the dispose method was called.</param>
+        [SuppressMessage("ReSharper", "VirtualMemberNeverOverridden.Global")]
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed && disposing)
+            {
+                Context.Dispose();
+            }
+
+            _disposed = true;
+        }
 
         #region IBatchRepository<TEntity> Members
 
@@ -133,7 +151,7 @@ namespace Scalider.Domain.Repository
         {
             Check.NotNull(entities, nameof(entities));
             DbSet.UpdateRange(entities);
-            
+
             return Task.CompletedTask;
         }
 
@@ -150,8 +168,19 @@ namespace Scalider.Domain.Repository
         {
             Check.NotNull(entities, nameof(entities));
             DbSet.RemoveRange(entities);
-            
+
             return Task.CompletedTask;
+        }
+
+        #endregion
+
+        #region IDisposable Members
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         #endregion
