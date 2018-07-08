@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace Scalider.Net.Mail.Smtp
+namespace Scalider.Mail.Smtp
 {
 
     /// <summary>

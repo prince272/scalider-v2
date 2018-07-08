@@ -9,7 +9,7 @@ using MimeKit.IO;
 using ContentDisposition = MimeKit.ContentDisposition;
 using ContentType = MimeKit.ContentType;
 
-namespace Scalider.Net.Mail
+namespace Scalider.Mail
 {
 
     /// <summary>

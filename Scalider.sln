@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.AspNetCore.Navigat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EFCore", "EFCore", "{70A585EF-5048-4FF0-A041-27EF7D4659DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalider.DotLiquid", "src\Scalider.DotLiquid\Scalider.DotLiquid.csproj", "{6F632D36-35EA-4382-8938-CAEA0E2D0843}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{071DE313-8E6E-471D-96C3-79EEA07CCC4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{071DE313-8E6E-471D-96C3-79EEA07CCC4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{071DE313-8E6E-471D-96C3-79EEA07CCC4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F632D36-35EA-4382-8938-CAEA0E2D0843}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F632D36-35EA-4382-8938-CAEA0E2D0843}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F632D36-35EA-4382-8938-CAEA0E2D0843}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F632D36-35EA-4382-8938-CAEA0E2D0843}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +98,7 @@ Global
 		{76474B76-C069-4050-B32F-CEED5217BDDF} = {CDA4FE44-57E4-4862-B842-2EB7025D41E0}
 		{071DE313-8E6E-471D-96C3-79EEA07CCC4F} = {FB0D5CDB-4D64-482A-8285-BCAD747353D0}
 		{5AE06EA7-B8B1-41DD-B913-89D47DD0E5B2} = {70A585EF-5048-4FF0-A041-27EF7D4659DF}
+		{6F632D36-35EA-4382-8938-CAEA0E2D0843} = {81CD7205-9FEA-4359-9D34-71F12F9D9A79}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4B223D4-16BF-4D43-A92B-142C9DD5CE76}

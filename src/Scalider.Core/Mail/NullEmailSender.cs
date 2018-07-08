@@ -2,8 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Scalider.Net.Mail
+namespace Scalider.Mail
 {
 
     /// <summary>
@@ -16,14 +17,20 @@ namespace Scalider.Net.Mail
         private readonly ILogger<NullEmailSender> _logger;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public static readonly IEmailSender Instance =
+            new NullEmailSender(NullLoggerFactory.Instance.CreateLogger<NullEmailSender>());
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="NullEmailSender"/> class.
         /// </summary>
-        /// <param name="loggerFactory"></param>
-        public NullEmailSender(ILoggerFactory loggerFactory)
+        /// <param name="logger"></param>
+        public NullEmailSender(ILogger<NullEmailSender> logger)
         {
-            Check.NotNull(loggerFactory, nameof(loggerFactory));
+            Check.NotNull(logger, nameof(logger));
 
-            _logger = loggerFactory.CreateLogger<NullEmailSender>();
+            _logger = logger;
         }
 
         private void LogMessage(string callingMethod, MailMessage message)

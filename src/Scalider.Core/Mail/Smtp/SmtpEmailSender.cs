@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Options;
 
-namespace Scalider.Net.Mail.Smtp
+namespace Scalider.Mail.Smtp
 {
 
     /// <summary>

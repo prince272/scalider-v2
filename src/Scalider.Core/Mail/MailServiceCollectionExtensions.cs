@@ -2,8 +2,8 @@
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Scalider;
-using Scalider.MailKit;
-using Scalider.Net.Mail;
+using Scalider.Mail;
+using Scalider.Mail.Smtp;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
@@ -12,43 +12,44 @@ namespace Microsoft.Extensions.DependencyInjection
     /// <summary>
     /// Provides extension methods for the <see cref="IServiceCollection"/> interface.
     /// </summary>
-    public static class MailKitServiceCollectionExtensions
+    public static class MailServiceCollectionExtensions
     {
 
         /// <summary>
-        /// Registers the <see cref="MailKitEmailSender"/> as a service.
+        /// Registers the <see cref="NullEmailSender"/> as a service.
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/> that services should be added to.</param>
         /// <returns>
         /// The <see cref="IServiceCollection"/>.
         /// </returns>
-        public static IServiceCollection AddMailKitEmailSender([NotNull] this IServiceCollection services)
+        public static IServiceCollection AddNullEmailSender([NotNull] this IServiceCollection services)
         {
             Check.NotNull(services, nameof(services));
-            
-            services.TryAddSingleton(typeof(IEmailSender), typeof(MailKitEmailSender));
+
+            services.TryAddSingleton(typeof(IEmailSender), typeof(NullEmailSender));
             return services;
         }
-        
+
         /// <summary>
-        /// Registers the <see cref="MailKitEmailSender"/> as a service.
+        /// Registers the <see cref="SmtpEmailSender"/> as a service.
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/> that services should be added to.</param>
-        /// <param name="configureOptions">The action used to configure the MailKit options.</param>
+        /// <param name="configureOptions">The action used to configure the SMTP options.</param>
         /// <returns>
         /// The <see cref="IServiceCollection"/>.
         /// </returns>
-        public static IServiceCollection AddMailKitEmailSender([NotNull] this IServiceCollection services,
-            Action<MailKitEmailSenderOptions> configureOptions)
+        public static IServiceCollection AddSmtpEmailSender([NotNull] this IServiceCollection services,
+            [NotNull] Action<SmtpEmailSenderOptions> configureOptions)
         {
             Check.NotNull(services, nameof(services));
             Check.NotNull(configureOptions, nameof(configureOptions));
 
             services.Configure(configureOptions);
-            services.TryAddSingleton(typeof(IEmailSender), typeof(MailKitEmailSender));
+            services.TryAddSingleton<IEmailSender, SmtpEmailSender>();
 
             return services;
         }
 
     }
+
 }

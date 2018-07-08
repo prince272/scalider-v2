@@ -6,10 +6,9 @@ using JetBrains.Annotations;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using Scalider.Net.Mail;
 using MailMessage = System.Net.Mail.MailMessage;
 
-namespace Scalider.MailKit
+namespace Scalider.Mail.MailKit
 {
 
     /// <summary>

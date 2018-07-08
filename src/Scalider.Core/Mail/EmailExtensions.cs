@@ -2,7 +2,7 @@
 using System.Text;
 using JetBrains.Annotations;
 
-namespace Scalider.Net.Mail
+namespace Scalider.Mail
 {
 
     /// <summary>

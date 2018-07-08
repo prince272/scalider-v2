@@ -3,15 +3,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MimeKit;
-using Scalider.MailKit;
 
-namespace Scalider.Net.Mail
+namespace Scalider.Mail.MailKit
 {
 
     /// <summary>
     /// Provides extension methods for the <see cref="IEmailSender"/> interface.
     /// </summary>
-    public static class EmailSenderExensions
+    public static class EmailSenderExtensions
     {
 
         /// <summary>

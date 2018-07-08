@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using MailKit.Security;
 
-namespace Scalider.MailKit
+namespace Scalider.Mail.MailKit
 {
 
     /// <summary>

@@ -63,6 +63,15 @@ namespace Scalider
         }
         
         #endregion
+
+        [UsedImplicitly]
+        public static string GetAssemblyName([NotNull] Assembly assembly)
+        {
+            Check.NotNull(assembly, nameof(assembly));
+
+            var name = assembly.GetName(true);
+            return name.Name;
+        }
         
         #region GetTypeReadableName
 
@@ -99,9 +108,9 @@ namespace Scalider
                 if (genericArgs.Count > 0)
                 {
                     // We could retrieve at least one generic argument
-                    sb.Append('{')
+                    sb.Append('<')
                       .Append(string.Join(",", genericArgs))
-                      .Append('}');
+                      .Append('>');
                 }
             }
 
@@ -111,6 +120,24 @@ namespace Scalider
         }
         
         #endregion
+
+        public static string GetTypeDisplayName([NotNull] Type type)
+        {
+            Check.NotNull(type, nameof(type));
+
+            return $"{type.Namespace}.{GetTypeReadableName(type)} ({GetAssemblyName(type.Assembly)})";
+        }
+
+        public static string GetMemberDisplayName([NotNull] MemberInfo memberInfo)
+        {
+            Check.NotNull(memberInfo, nameof(memberInfo));
+
+            var type = memberInfo.DeclaringType;
+            return type == null
+                ? $"<Unknown>.{memberInfo.Name} (<Unknown>)"
+                : $"{type.Namespace}.{GetTypeReadableName(type)}.{memberInfo.Name} " +
+                  $"({GetAssemblyName(type.Assembly)})";
+        }
 
         private static IEnumerable<Type> GetAllInheritedTypes(Type type, bool includingSelf)
         {

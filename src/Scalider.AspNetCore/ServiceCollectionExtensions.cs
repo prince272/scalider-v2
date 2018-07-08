@@ -1,7 +1,11 @@
 ﻿using JetBrains.Annotations;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Scalider;
+using Scalider.AspNetCore;
+using Scalider.Template;
 
-namespace Scalider.AspNetCore
+// ReSharper disable once CheckNamespace
+namespace Microsoft.Extensions.DependencyInjection
 {
 
     /// <summary>
@@ -11,18 +15,17 @@ namespace Scalider.AspNetCore
     {
 
         /// <summary>
-        /// Adds the base <see cref="IViewRenderer"/> implementation as a service.
+        /// Registers the <see cref="RazorTemplateRenderer"/> as a service.
         /// </summary>
-        /// <param name="services">The <see cref="IServiceCollection"/> that
-        /// services should be added to.</param>
+        /// <param name="services">The <see cref="IServiceCollection"/>.</param>
         /// <returns>
         /// The <see cref="IServiceCollection"/>.
         /// </returns>
-        public static IServiceCollection AddDefaultViewRenderer([NotNull] this IServiceCollection services)
+        public static IServiceCollection AddRazorTemplateRenderer([NotNull] this IServiceCollection services)
         {
             Check.NotNull(services, nameof(services));
 
-            services.AddScoped<IViewRenderer, DefaultViewRenderer>();
+            services.TryAddScoped<ITemplateRenderer, RazorTemplateRenderer>();
             return services;
         }
 

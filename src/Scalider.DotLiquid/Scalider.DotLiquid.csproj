@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Version>2.1.0</Version>
+        <RepositoryUrl>https://github.com/wilsonrivera/scalider-v2</RepositoryUrl>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Scalider.Core\Scalider.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="DotLiquid" Version="2.0.266" />
+        <PackageReference Include="JetBrains.Annotations" Version="11.1.0" PrivateAssets="All" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Include="..\shared\Check.cs">
+        <Link>Check.cs</Link>
+      </Compile>
+      <Compile Include="..\shared\ReflectionUtils.cs">
+        <Link>ReflectionUtils.cs</Link>
+      </Compile>
+    </ItemGroup>
+
+</Project>
