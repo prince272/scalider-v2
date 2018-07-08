@@ -108,6 +108,9 @@ namespace Scalider.AspNetCore
             return actionContext;
         }
 
+        private static bool IsApplicationRelativeViewName(string viewName) =>
+            viewName.StartsWith("~") || viewName.StartsWith("/");
+
         #region ITemplateRenderer Members
 
         /// <inheritdoc />
@@ -117,7 +120,7 @@ namespace Scalider.AspNetCore
             var actionContext = GetActionContext(cancellationToken);
 
             // Try to find the view with the given name
-            var result = !string.IsNullOrEmpty(template)
+            var result = !string.IsNullOrEmpty(template) && IsApplicationRelativeViewName(template)
                 ? _viewEngine.GetView(null, template, false)
                 : _viewEngine.FindView(actionContext, template, false);
 
