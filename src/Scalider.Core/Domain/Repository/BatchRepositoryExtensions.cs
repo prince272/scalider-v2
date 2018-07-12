@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using Microsoft.Extensions.Internal;
 using Scalider.Domain.Entity;
 
 namespace Scalider.Domain.Repository
@@ -189,7 +190,7 @@ namespace Scalider.Domain.Repository
                 return batchRepository;
 
             // The type of the repository doesn't support batch
-            var typeName = ReflectionUtils.GetTypeReadableName(typeof(IBatchRepository<TEntity>));
+            var typeName = TypeNameHelper.GetTypeDisplayName(typeof(IBatchRepository<TEntity>), true, true);
             throw new ArgumentException(
                 $"The repository must implement the {typeName} interface.",
                 nameof(repository)

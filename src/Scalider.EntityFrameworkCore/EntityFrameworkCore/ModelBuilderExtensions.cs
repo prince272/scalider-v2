@@ -49,16 +49,16 @@ namespace Scalider.EntityFrameworkCore
             // Retrieve all the type configuration
             var interfaceType = typeof(IEntityTypeConfiguration<>);
             var assemblyTypes =
-                ReflectionUtils.GetAvailableTypesFromAssembly(assembly)
+                ReflectionUtils.GetExportedTypes(assembly)
                                .Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericType)
-                               .Where(t => ReflectionUtils.IsAssignableFrom(interfaceType, t));
+                               .Where(t => ReflectionUtils.IsAssignableFromGenericType(interfaceType, t))
+                               .ToArray();
 
             // Apply all the type configurations
             foreach (var type in assemblyTypes)
             {
                 var configurationInterfaces =
                     type.GetInterfaces()
-                        .Select(t => t.GetTypeInfo())
                         .Where(t => t.IsGenericType && t.GetGenericTypeDefinition() == interfaceType);
 
                 var instance = Activator.CreateInstance(type);

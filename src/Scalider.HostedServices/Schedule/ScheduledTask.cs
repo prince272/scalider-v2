@@ -1,5 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
+using Microsoft.Extensions.Internal;
 
 namespace Scalider.Hosting.Schedule
 {
@@ -19,7 +20,7 @@ namespace Scalider.Hosting.Schedule
             Check.NotNull(task, nameof(task));
 
             TaskInstance = task;
-            Name = TaskExecutionHelper.GetTaskName(task);
+            Name = TypeNameHelper.GetTypeDisplayName(task);
         }
 
         /// <summary>

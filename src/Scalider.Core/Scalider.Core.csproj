@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Scalider</RootNamespace>
-    <Version>2.1.6</Version>
+    <Version>2.1.7</Version>
     <Description>Provides core extension and utility classes with the bare minium package dependency.</Description>
     <LangVersion>7.2</LangVersion>
     <RepositoryUrl>https://github.com/wilsonrivera/scalider-v2</RepositoryUrl>
@@ -22,6 +22,9 @@
     </Compile>
     <Compile Include="..\shared\ReflectionUtils.cs">
       <Link>ReflectionUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\shared\TypeNameHelper.cs">
+      <Link>TypeNameHelper.cs</Link>
     </Compile>
   </ItemGroup>
 </Project>

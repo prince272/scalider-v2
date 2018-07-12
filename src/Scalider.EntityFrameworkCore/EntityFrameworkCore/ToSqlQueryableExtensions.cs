@@ -52,7 +52,7 @@ namespace Scalider.EntityFrameworkCore
 
             // Unwrap the IIncludedQueryable
             var queryType = query.GetType();
-            if (ReflectionUtils.IsAssignableFrom(typeof(IIncludableQueryable<,>), queryType))
+            if (ReflectionUtils.IsAssignableFromGenericType(typeof(IIncludableQueryable<,>), queryType))
             {
                 var field = queryType.GetTypeInfo().DeclaredFields.First(t => t.Name == "_queryable");
                 query = field.GetValue(query) as IQueryable<TEntity>;

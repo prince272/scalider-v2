@@ -1,9 +1,11 @@
 ﻿using System;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
+using Scalider;
+using Scalider.AspNetCore.Identity;
 
-namespace Scalider.AspNetCore.Identity
+// ReSharper disable once CheckNamespace
+namespace Microsoft.Extensions.DependencyInjection
 {
 
     /// <summary>

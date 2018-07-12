@@ -10,19 +10,6 @@ namespace Scalider.Hosting
     
     internal static class TaskExecutionHelper
     {
-
-        public static string GetTaskName(object task)
-        { 
-            var taskName = task?.ToString() ?? "[UNNAMED TASK]";
-            if (!taskName.Contains("`") || task == null)
-                return taskName;
-
-            // Try to convert the type to a readable string
-            var type = task.GetType();
-            taskName = type.Namespace + "." + ReflectionUtils.GetTypeReadableName(type);
-
-            return taskName;
-        }
         
         #region ReportUnhandledTaskException
 

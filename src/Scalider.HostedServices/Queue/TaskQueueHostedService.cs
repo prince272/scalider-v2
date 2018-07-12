@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Internal;
 using Microsoft.Extensions.Logging;
 
 namespace Scalider.Hosting.Queue
@@ -85,7 +86,7 @@ namespace Scalider.Hosting.Queue
         private async Task ExecuteQueuedTaskAsync(IQueueableTask queuedTask,
             IServiceProvider serviceProvider, CancellationToken cancellationToken)
         {
-            var taskName = TaskExecutionHelper.GetTaskName(queuedTask);
+            var taskName = TypeNameHelper.GetTypeDisplayName(queuedTask);
 
             // Try to execute the task
             Exception exception = null;

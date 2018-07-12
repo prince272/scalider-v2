@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using DotLiquid;
+using Microsoft.Extensions.Internal;
 using Microsoft.Extensions.Logging;
 
 namespace Scalider.DotLiquid
@@ -63,7 +64,7 @@ namespace Scalider.DotLiquid
             {
                 // The model type hasn't been cached before
                 _logger.LogDebug("Trying to retrieve all the public fields and properties for {@ModelType}",
-                    ReflectionUtils.GetTypeReadableName(modelType));
+                    TypeNameHelper.GetTypeDisplayName(modelType));
 
                 var modelFields = modelType
                     .GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy);
@@ -80,8 +81,11 @@ namespace Scalider.DotLiquid
             var result = new Dictionary<string, object>();
             foreach (var mInfo in modelMembers)
             {
-                _logger.LogDebug("Trying to resolve value for {@Member}",
-                    ReflectionUtils.GetMemberDisplayName(mInfo));
+                _logger.LogDebug(
+                    "Trying to resolve value for {@Member}",
+                    $"{TypeNameHelper.GetTypeDisplayName(mInfo.DeclaringType, true, true)}.{mInfo.Name} " +
+                    $"({mInfo.DeclaringType?.Assembly.GetName().Name})"
+                );
 
                 if (result.ContainsKey(mInfo.Name))
                 {
@@ -110,8 +114,9 @@ namespace Scalider.DotLiquid
                                 e,
                                 "There was an unexpected exception while trying to retrieve the value for " +
                                 "the property {@PropertyName} of type {@PropertyType}",
-                                ReflectionUtils.GetMemberDisplayName(pInfo),
-                                ReflectionUtils.GetTypeReadableName(pInfo.PropertyType)
+                                $"{TypeNameHelper.GetTypeDisplayName(pInfo.DeclaringType, true, true)}.{pInfo.Name} " +
+                                $"({pInfo.DeclaringType?.Assembly.GetName().Name})",
+                                TypeNameHelper.GetTypeDisplayName(pInfo.PropertyType)
                             );
 
                             // Add the default value for the property, that way it is still populated

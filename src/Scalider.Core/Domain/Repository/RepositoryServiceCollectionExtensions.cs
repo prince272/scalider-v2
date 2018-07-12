@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +15,7 @@ namespace Scalider.Domain.Repository
 
         /// <summary>
         /// Scans a assembly of <typeparamref name="T"/> for types that implement the <see cref="IRepository"/>
-        /// interface, wether it be directly or via inheritance, and adds the found types as services.
+        /// interface, whether it be directly or via inheritance, and adds the found types as services.
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/> that services should be added to.</param>
         /// <typeparam name="T"></typeparam>
@@ -26,8 +24,7 @@ namespace Scalider.Domain.Repository
         /// </returns>
         [UsedImplicitly]
         public static IServiceCollection AddRepositoriesFromAssemblyOf<T>(
-            [NotNull] this IServiceCollection services) =>
-            AddRepositoriesFromAssembly(services, typeof(T).GetTypeInfo().Assembly);
+            [NotNull] this IServiceCollection services) => AddRepositoriesFromAssembly(services, typeof(T).Assembly);
 
         /// <summary>
         /// Scans an assembly for types that implement the <see cref="IRepository"/> interface, wether it be directly
@@ -45,36 +42,37 @@ namespace Scalider.Domain.Repository
             Check.NotNull(services, nameof(services));
             Check.NotNull(assembly, nameof(assembly));
 
-            // Keep only the repositories
-            var repositoryTypes = ReflectionUtils
-                                  .GetAvailableTypesFromAssembly(assembly)
-                                  .Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericType);
+            // Retrieve all the types exported by the assembly and filter out the types that aren't repositories
+            var repositoryInterface = typeof(IRepository);
+            var foundRepositoryTypes =
+                ReflectionUtils.GetExportedTypes(assembly)
+                               .Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericType)
+                               .Where(t => repositoryInterface.IsAssignableFrom(t))
+                               .ToArray();
 
             // Register all the repositories
-            foreach (var type in repositoryTypes)
+            foreach (var implementationType in foundRepositoryTypes)
             {
-                services.TryAddTransient(type, type);
-                AddAllInterfacesAsServicesForType(services, type, type);
+                services.TryAddTransient(implementationType, implementationType);
+
+                var typeInterfaces = implementationType.GetInterfaces().Where(t => t != null).ToArray();
+                foreach (var intrfc in typeInterfaces)
+                {
+                    var isRepositoryInterface = repositoryInterface.IsAssignableFrom(intrfc);
+                    if (!isRepositoryInterface || intrfc.IsGenericType || intrfc == repositoryInterface)
+                    {
+                        // We don't care about interfaces that doesn't extends the base repository interface,
+                        // that are generic types and we don't care about adding the base repository
+                        // interface type as a service
+                        continue;
+                    }
+
+                    services.TryAddTransient(intrfc, implementationType);
+                }
             }
 
             // Done
             return services;
-        }
-
-        [SuppressMessage("ReSharper", "SuggestBaseTypeForParameter")]
-        private static void AddAllInterfacesAsServicesForType(IServiceCollection services, Type serviceType,
-            Type implementationType)
-        {
-            var interfaces = serviceType.GetInterfaces().Where(i => i != null).ToArray();
-            foreach (var @interface in interfaces)
-            {
-                var isRepositoryService = @interface.GetInterfaces().Contains(typeof(IRepository));
-                if (@interface.IsGenericType || !isRepositoryService)
-                    continue;
-
-                // Repository definition found, add as a service
-                services.TryAddTransient(@interface, implementationType);
-            }
         }
 
     }

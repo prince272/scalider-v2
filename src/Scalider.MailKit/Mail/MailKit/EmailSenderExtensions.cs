@@ -51,9 +51,11 @@ namespace Scalider.Mail.MailKit
                 return kitEmailSender;
 
             // The type of the sender doesn't support MailKit
-            var typeName = ReflectionUtils.GetTypeReadableName(typeof(MailKitEmailSender));
-            throw new ArgumentException($"The email sender must be an instance of the {typeName} class",
-                nameof(sender));
+            var typeName = nameof(MailKitEmailSender);
+            throw new ArgumentException(
+                $"The email sender must be an instance of the {typeName} class",
+                nameof(sender)
+            );
         }
 
     }

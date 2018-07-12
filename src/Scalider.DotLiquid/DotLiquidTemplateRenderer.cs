@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DotLiquid.NamingConventions;
 using JetBrains.Annotations;
+using Microsoft.Extensions.Internal;
 using Microsoft.Extensions.Logging;
 using Scalider.DotLiquid.Filters;
 using Scalider.Template;
@@ -69,7 +70,7 @@ namespace Scalider.DotLiquid
             else
             {
                 // Render with a custom model
-                var modelType = ReflectionUtils.GetTypeDisplayName(model.GetType());
+                var modelType = TypeNameHelper.GetTypeDisplayName(model.GetType());
                 _logger.LogDebug(
                     "Trying to convert the model of type {@ModelType} to local variables for the template",
                     modelType
