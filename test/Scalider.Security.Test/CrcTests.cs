@@ -144,6 +144,7 @@ namespace Scalider.Security.Test
         public void Crc16CcittFalseShouldMatchValues(string value, string expectedValue) =>
             TestAlgorithmWithMatchingValue("crc16/ccitt-false", value, expectedValue);
 
+        [Theory]
         [InlineData("Hello", "C4E8")]
         [InlineData("Good bye", "F269")]
         [InlineData("Random string", "3958")]
@@ -273,48 +274,56 @@ namespace Scalider.Security.Test
         
         #region CRC32 Algorithms
 
+        [Theory]
         [InlineData("Hello", "1A546492")]
         [InlineData("Good bye", "5AA88CA0")]
         [InlineData("Random string", "DBB21FAD")]
         public void Crc32Bzip2ShouldMatchValues(string value, string expectedValue) =>
             TestAlgorithmWithMatchingValue("crc32/bzip2", value, expectedValue);
 
+        [Theory]
         [InlineData("Hello", "81D90E1B")]
         [InlineData("Good bye", "02E54841")]
         [InlineData("Random string", "84D698BA")]
         public void Crc32CShouldMatchValues(string value, string expectedValue) =>
             TestAlgorithmWithMatchingValue("crc32/c", value, expectedValue);
 
+        [Theory]
         [InlineData("Hello", "DAB57281")]
         [InlineData("Good bye", "134EA988")]
         [InlineData("Random string", "E33A26D9")]
         public void Crc32DShouldMatchValues(string value, string expectedValue) =>
             TestAlgorithmWithMatchingValue("crc32/d", value, expectedValue);
 
+        [Theory]
         [InlineData("Hello", "082E767D")]
         [InlineData("Good bye", "792F5C74")]
         [InlineData("Random string", "D8F1D39D")]
         public void Crc32JamCrcShouldMatchValues(string value, string expectedValue) =>
             TestAlgorithmWithMatchingValue("crc32/jamcrc", value, expectedValue);
 
+        [Theory]
         [InlineData("Hello", "E5AB9B6D")]
         [InlineData("Good bye", "A557735F")]
         [InlineData("Random string", "244DE052")]
         public void Crc32Mpeg2ShouldMatchValues(string value, string expectedValue) =>
             TestAlgorithmWithMatchingValue("crc32/mpeg2", value, expectedValue);
 
+        [Theory]
         [InlineData("Hello", "5D44DF0E")]
         [InlineData("Good bye", "33AC37F9")]
         [InlineData("Random string", "652FCEA2")]
         public void Crc32PoxisShouldMatchValues(string value, string expectedValue) =>
             TestAlgorithmWithMatchingValue("crc32/poxis", value, expectedValue);
 
+        [Theory]
         [InlineData("Hello", "105D1351")]
         [InlineData("Good bye", "07926283")]
         [InlineData("Random string", "F9CAC1D8")]
         public void Crc32QShouldMatchValues(string value, string expectedValue) =>
             TestAlgorithmWithMatchingValue("crc32/q", value, expectedValue);
 
+        [Theory]
         [InlineData("Hello", "0ACEF329")]
         [InlineData("Good bye", "4EDED98A")]
         [InlineData("Random string", "0B9446E1")]
