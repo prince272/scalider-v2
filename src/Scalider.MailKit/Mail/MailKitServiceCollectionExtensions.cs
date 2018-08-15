@@ -26,7 +26,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             Check.NotNull(services, nameof(services));
             
-            services.TryAddSingleton(typeof(IEmailSender), typeof(MailKitEmailSender));
+            services.TryAddSingleton<IEmailSender, MailKitEmailSender>();
             return services;
         }
         
@@ -45,7 +45,7 @@ namespace Microsoft.Extensions.DependencyInjection
             Check.NotNull(configureOptions, nameof(configureOptions));
 
             services.Configure(configureOptions);
-            services.TryAddSingleton(typeof(IEmailSender), typeof(MailKitEmailSender));
+            services.TryAddSingleton<IEmailSender, MailKitEmailSender>();
 
             return services;
         }

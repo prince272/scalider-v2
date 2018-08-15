@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -11,7 +12,8 @@ namespace Scalider.Domain.UnitOfWork
     /// Implementation of the <see cref="IUnitOfWork"/> interface that uses Entity Framework Core.
     /// </summary>
     /// <typeparam name="TContext">The type encapsulating the database context.</typeparam>
-    public class EfUnitOfWork<TContext> : IUnitOfWork
+    [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global")]
+    public class EfUnitOfWork<TContext> : IEfUnitOfWork
         where TContext : DbContext
     {
 
@@ -43,7 +45,10 @@ namespace Scalider.Domain.UnitOfWork
             _disposed = true;
         }
 
-        #region IUnitOfWork Members
+        #region IEfUnitOfWork Members
+
+        /// <inheritdoc />
+        DbContext IEfUnitOfWork.DbContext => _dbContext;
 
         /// <inheritdoc />
         public virtual void SaveChanges() => _dbContext.SaveChanges();

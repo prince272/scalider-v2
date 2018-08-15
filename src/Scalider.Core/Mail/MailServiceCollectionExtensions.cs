@@ -16,21 +16,6 @@ namespace Microsoft.Extensions.DependencyInjection
     {
 
         /// <summary>
-        /// Registers the <see cref="NullEmailSender"/> as a service.
-        /// </summary>
-        /// <param name="services">The <see cref="IServiceCollection"/> that services should be added to.</param>
-        /// <returns>
-        /// The <see cref="IServiceCollection"/>.
-        /// </returns>
-        public static IServiceCollection AddNullEmailSender([NotNull] this IServiceCollection services)
-        {
-            Check.NotNull(services, nameof(services));
-
-            services.TryAddSingleton(typeof(IEmailSender), typeof(NullEmailSender));
-            return services;
-        }
-
-        /// <summary>
         /// Registers the <see cref="SmtpEmailSender"/> as a service.
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/> that services should be added to.</param>
