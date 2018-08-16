@@ -22,7 +22,7 @@ namespace Scalider.Domain.UnitOfWork
         /// <returns>
         /// A <see cref="IDbContextTransaction" /> that represents the started transaction.
         /// </returns>
-        public static IDbContextTransaction BeginTransaction([NotNull] IUnitOfWork unitOfWork)
+        public static IDbContextTransaction BeginTransaction([NotNull] this IUnitOfWork unitOfWork)
         {
             Check.NotNull(unitOfWork, nameof(unitOfWork));
             return GetEfUnitOfWorkOrThrow(unitOfWork)
@@ -41,7 +41,7 @@ namespace Scalider.Domain.UnitOfWork
         /// A task that represents the asynchronous transaction initialization. The task result contains
         /// a <see cref="IDbContextTransaction" /> that represents the started transaction.
         /// </returns>
-        public static Task<IDbContextTransaction> BeginTransactionAsync([NotNull] IUnitOfWork unitOfWork,
+        public static Task<IDbContextTransaction> BeginTransactionAsync([NotNull] this IUnitOfWork unitOfWork,
             CancellationToken cancellationToken = default)
         {
             Check.NotNull(unitOfWork, nameof(unitOfWork));
@@ -60,7 +60,7 @@ namespace Scalider.Domain.UnitOfWork
         /// <returns>
         /// A <see cref="IDbContextTransaction" /> that encapsulates the given transaction.
         /// </returns>
-        public static IDbContextTransaction UseTransaction([NotNull] IUnitOfWork unitOfWork,
+        public static IDbContextTransaction UseTransaction([NotNull] this IUnitOfWork unitOfWork,
             [NotNull] IDbContextTransaction dbContextTransaction)
         {
             Check.NotNull(unitOfWork, nameof(unitOfWork));
