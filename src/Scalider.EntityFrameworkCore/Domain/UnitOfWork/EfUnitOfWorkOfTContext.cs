@@ -13,7 +13,7 @@ namespace Scalider.Domain.UnitOfWork
     /// </summary>
     /// <typeparam name="TContext">The type encapsulating the database context.</typeparam>
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global")]
-    public class EfUnitOfWork<TContext> : IEfUnitOfWork
+    public class EfUnitOfWork<TContext> : IUnitOfWork
         where TContext : DbContext
     {
 
@@ -45,10 +45,7 @@ namespace Scalider.Domain.UnitOfWork
             _disposed = true;
         }
 
-        #region IEfUnitOfWork Members
-
-        /// <inheritdoc />
-        DbContext IEfUnitOfWork.DbContext => _dbContext;
+        #region IUnitOfWork Members
 
         /// <inheritdoc />
         public virtual void SaveChanges() => _dbContext.SaveChanges();
@@ -56,6 +53,17 @@ namespace Scalider.Domain.UnitOfWork
         /// <inheritdoc />
         public virtual Task SaveChangesAsync(CancellationToken cancellationToken = default) =>
             _dbContext.SaveChangesAsync(cancellationToken);
+
+        /// <inheritdoc />
+        public IUnitOfWorkTransaction BeginTransaction() =>
+            new EfUnitOfWorkTransaction(_dbContext.Database.BeginTransaction());
+
+        /// <inheritdoc />
+        public async Task<IUnitOfWorkTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default)
+        {
+            var transaction = await _dbContext.Database.BeginTransactionAsync(cancellationToken);
+            return new EfUnitOfWorkTransaction(transaction);
+        }
 
         /// <inheritdoc />
         public void Dispose()

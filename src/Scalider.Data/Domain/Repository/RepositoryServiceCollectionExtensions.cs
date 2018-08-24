@@ -58,7 +58,7 @@ namespace Scalider.Domain.Repository
                 var typeInterfaces = implementationType.GetInterfaces().Where(t => t != null).ToArray();
                 foreach (var intrfc in typeInterfaces)
                 {
-                    var isRepositoryInterface = repositoryInterface.IsAssignableFrom(intrfc);
+                    bool isRepositoryInterface = repositoryInterface.IsAssignableFrom(intrfc);
                     if (!isRepositoryInterface || intrfc.IsGenericType || intrfc == repositoryInterface)
                     {
                         // We don't care about interfaces that doesn't extends the base repository interface,

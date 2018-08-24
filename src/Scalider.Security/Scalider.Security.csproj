@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Scalider</RootNamespace>
-    <Version>2.1.1</Version>
-    <LangVersion>7.2</LangVersion>
+    <Version>2.1.2</Version>
+    <LangVersion>latest</LangVersion>
     <Description>Provides some security utilities.</Description>
     <RepositoryUrl>https://github.com/wilsonrivera/scalider-v2</RepositoryUrl>
   </PropertyGroup>
@@ -16,7 +16,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" PrivateAssets="All" />
+    <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Scalider.Core\Scalider.Core.csproj" />

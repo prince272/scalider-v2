@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>Scalider</RootNamespace>
+        <Version>2.1.0</Version>
+        <Description />
+        <LangVersion>latest</LangVersion>
+        <RepositoryUrl>https://github.com/wilsonrivera/scalider-v2</RepositoryUrl>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\netstandard2.0\Scalider.Data.xml</DocumentationFile>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="..\shared\Check.cs">
+            <Link>Check.cs</Link>
+        </Compile>
+        <Compile Include="..\shared\ReflectionUtils.cs">
+            <Link>ReflectionUtils.cs</Link>
+        </Compile>
+        <Compile Include="..\shared\TypeNameHelper.cs">
+            <Link>TypeNameHelper.cs</Link>
+        </Compile>
+    </ItemGroup>
+</Project>

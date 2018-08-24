@@ -2,16 +2,16 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Scalider</RootNamespace>
-    <Version>2.1.7</Version>
-    <Description>Provides core extension and utility classes with the bare minium package dependency.</Description>
-    <LangVersion>7.2</LangVersion>
+    <Version>2.1.8</Version>
+    <Description>Provides core extension and utility classes with the bare minimum package dependency.</Description>
+    <LangVersion>latest</LangVersion>
     <RepositoryUrl>https://github.com/wilsonrivera/scalider-v2</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DocumentationFile>bin\Release\netstandard2.0\Scalider.Core.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" PrivateAssets="All" />
+    <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" PrivateAssets="All" />

@@ -19,13 +19,13 @@ namespace Scalider.Domain.Repository
         /// <summary>
         /// Adds a collection of new entities.
         /// </summary>
-        /// <param name="entities">The collection of entities to add to the data store.</param>
+        /// <param name="entities">The collection of entities to add to the database.</param>
         void AddRange([NotNull] IEnumerable<TEntity> entities);
 
         /// <summary>
         /// Asynchronously adds a collection of new entities.
         /// </summary>
-        /// <param name="entities">The collection of entities to add to the data store.</param>
+        /// <param name="entities">The collection of entities to add to the database.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for
         /// the task to complete.</param>
         /// <returns>
@@ -36,13 +36,13 @@ namespace Scalider.Domain.Repository
         /// <summary>
         /// Updates a collection of entities.
         /// </summary>
-        /// <param name="entities">The collection of entities to update in the data store.</param>
+        /// <param name="entities">The collection of entities to update in the database.</param>
         void UpdateRange([NotNull] IEnumerable<TEntity> entities);
 
         /// <summary>
         /// Asynchronously updates a collection of entities.
         /// </summary>
-        /// <param name="entities">The collection of entities to update in the data store.</param>
+        /// <param name="entities">The collection of entities to update in the database.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the
         /// task to complete.</param>
         /// <returns>
@@ -54,13 +54,13 @@ namespace Scalider.Domain.Repository
         /// <summary>
         /// Removes a collection of entities.
         /// </summary>
-        /// <param name="entities">The collection of entities to remove from the data store.</param>
+        /// <param name="entities">The collection of entities to remove from the database.</param>
         void RemoveRange([NotNull] IEnumerable<TEntity> entities);
 
         /// <summary>
         /// Asynchronously removes a collection of entities.
         /// </summary>
-        /// <param name="entities">The collection of entities to remove from the data store.</param>
+        /// <param name="entities">The collection of entities to remove from the database.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the
         /// task to complete.</param>
         /// <returns>

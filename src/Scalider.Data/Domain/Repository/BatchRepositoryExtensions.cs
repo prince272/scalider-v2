@@ -16,11 +16,11 @@ namespace Scalider.Domain.Repository
     {
 
         /// <summary>
-        /// Adds a collection of new entities to the data store.
+        /// Adds a collection of new entities to the database.
         /// </summary>
         /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
         /// <param name="repository">The <see cref="IRepository{TEntity}"/>.</param>
-        /// <param name="entities">The collection of entities to add to the data store.</param>
+        /// <param name="entities">The collection of entities to add to the database.</param>
         public static void AddRange<TEntity>([NotNull] this IRepository<TEntity> repository,
             [NotNull] params TEntity[] entities)
             where TEntity : class, IEntity
@@ -32,11 +32,11 @@ namespace Scalider.Domain.Repository
         }
 
         /// <summary>
-        /// Asynchronously adds a collection of new entities to the data store.
+        /// Asynchronously adds a collection of new entities to the database.
         /// </summary>
         /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
         /// <param name="repository">The <see cref="IRepository{TEntity}"/>.</param>
-        /// <param name="entities">The collection of entities to add to the data store.</param>
+        /// <param name="entities">The collection of entities to add to the database.</param>
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
@@ -51,11 +51,11 @@ namespace Scalider.Domain.Repository
         }
 
         /// <summary>
-        /// Asynchronously adds a collection of new entities to the data store.
+        /// Asynchronously adds a collection of new entities to the database.
         /// </summary>
         /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
         /// <param name="repository">The <see cref="IRepository{TEntity}"/>.</param>
-        /// <param name="entities">The collection of entities to add to the data store.</param>
+        /// <param name="entities">The collection of entities to add to the database.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the
         /// task to complete.</param>
         /// <returns>
@@ -72,11 +72,11 @@ namespace Scalider.Domain.Repository
         }
 
         /// <summary>
-        /// Updates a collection of entities in the data store.
+        /// Updates a collection of entities in the database.
         /// </summary>
         /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
         /// <param name="repository">The <see cref="IRepository{TEntity}"/>.</param>
-        /// <param name="entities">The collection of entities to add to the data store.</param>
+        /// <param name="entities">The collection of entities to add to the database.</param>
         public static void UpdateRange<TEntity>([NotNull] this IRepository<TEntity> repository,
             [NotNull] params TEntity[] entities)
             where TEntity : class, IEntity
@@ -88,11 +88,11 @@ namespace Scalider.Domain.Repository
         }
 
         /// <summary>
-        /// Asynchronously updates a collection of entities in the data store.
+        /// Asynchronously updates a collection of entities in the database.
         /// </summary>
         /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
         /// <param name="repository">The <see cref="IRepository{TEntity}"/>.</param>
-        /// <param name="entities">The collection of entities to add to the data store.</param>
+        /// <param name="entities">The collection of entities to add to the database.</param>
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
@@ -107,11 +107,11 @@ namespace Scalider.Domain.Repository
         }
 
         /// <summary>
-        /// Asynchronously updates a collection of entities in the data store.
+        /// Asynchronously updates a collection of entities in the database.
         /// </summary>
         /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
         /// <param name="repository">The <see cref="IRepository{TEntity}"/>.</param>
-        /// <param name="entities">The collection of entities to add to the data store.</param>
+        /// <param name="entities">The collection of entities to add to the database.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the
         /// task to complete.</param>
         /// <returns>
@@ -128,11 +128,11 @@ namespace Scalider.Domain.Repository
         }
 
         /// <summary>
-        /// Removes a collection of entities from the data store.
+        /// Removes a collection of entities from the database.
         /// </summary>
         /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
         /// <param name="repository">The <see cref="IRepository{TEntity}"/>.</param>
-        /// <param name="entities">The collection of entities to remove from the data store.</param>
+        /// <param name="entities">The collection of entities to remove from the database.</param>
         public static void RemoveRange<TEntity>([NotNull] this IRepository<TEntity> repository,
             [NotNull] params TEntity[] entities)
             where TEntity : class, IEntity
@@ -144,11 +144,11 @@ namespace Scalider.Domain.Repository
         }
 
         /// <summary>
-        /// Asynchronously removes a collection of entities from the data store.
+        /// Asynchronously removes a collection of entities from the database.
         /// </summary>
         /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
         /// <param name="repository">The <see cref="IRepository{TEntity}"/>.</param>
-        /// <param name="entities">The collection of entities to remove from the data store.</param>
+        /// <param name="entities">The collection of entities to remove from the database.</param>
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
@@ -163,11 +163,11 @@ namespace Scalider.Domain.Repository
         }
 
         /// <summary>
-        /// Asynchronously removes a collection of entities from the data store.
+        /// Asynchronously removes a collection of entities from the database.
         /// </summary>
         /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
         /// <param name="repository">The <see cref="IRepository{TEntity}"/>.</param>
-        /// <param name="entities">The collection of entities to remove from the data store.</param>
+        /// <param name="entities">The collection of entities to remove from the database.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the
         /// task to complete.</param>
         /// <returns>
