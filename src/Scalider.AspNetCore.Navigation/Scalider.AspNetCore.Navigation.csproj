@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <Version>2.1.2</Version>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>7.3</LangVersion>
     <Description>Inspired by https://github.com/cloudscribe/cloudscribe.Web.Navigation
 Provides a way for easily creating and display navigation menus.</Description>
     <RepositoryUrl>https://github.com/wilsonrivera/scalider-v2/src/Scalider.AspNetCore.Navigation</RepositoryUrl>

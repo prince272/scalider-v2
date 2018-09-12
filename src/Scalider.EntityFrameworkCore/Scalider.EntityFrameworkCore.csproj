@@ -4,7 +4,7 @@
     <RootNamespace>Scalider</RootNamespace>
     <Version>2.1.11</Version>
     <Description>Uses Entity Framework Core to provide a Unit of Work and Repository layer.</Description>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>7.3</LangVersion>
     <RepositoryUrl>https://github.com/wilsonrivera/scalider-v2</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
