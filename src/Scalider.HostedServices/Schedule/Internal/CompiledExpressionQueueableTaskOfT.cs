@@ -10,7 +10,8 @@ namespace Scalider.Hosting.Schedule.Internal
 
         private readonly Func<T, Func<ScheduledTaskExecutionContext, Task>> _compiledExpression;
 
-        public CompiledExpressionSchedulableTask(Func<T, Func<ScheduledTaskExecutionContext, Task>> compiledExpression,
+        public CompiledExpressionSchedulableTask(
+            Func<T, Func<ScheduledTaskExecutionContext, Task>> compiledExpression,
             ITrigger trigger)
         {
             _compiledExpression = compiledExpression;

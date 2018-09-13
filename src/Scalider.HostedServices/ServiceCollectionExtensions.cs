@@ -9,9 +9,9 @@ using Scalider.Hosting.Schedule;
 // ReSharper disable CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
 {
-    
+
     /// <summary>
-    /// Proivdes extension methods for the <see cref="IServiceCollection"/> interface.
+    /// Provides extension methods for the <see cref="IServiceCollection"/> interface.
     /// </summary>
     public static class ServiceCollectionExtensions
     {
@@ -44,7 +44,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// The <see cref="IServiceCollection"/>.
         /// </returns>
         [SuppressMessage("ReSharper", "UnusedMethodReturnValue.Global")]
-        public static IServiceCollection AddTaskScheduleSerivce([NotNull] this IServiceCollection services)
+        public static IServiceCollection AddTaskScheduleService([NotNull] this IServiceCollection services)
         {
             Check.NotNull(services, nameof(services));
 
@@ -53,7 +53,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             return services;
         }
-        
+
     }
     
 }

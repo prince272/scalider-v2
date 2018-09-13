@@ -33,8 +33,10 @@ namespace Scalider.Hosting.Schedule
         /// <param name="serviceScopeFactory"></param>
         /// <param name="taskSchedulerService"></param>
         /// <param name="logger"></param>
-        public TaskScheduleHostedService([NotNull] IServiceScopeFactory serviceScopeFactory,
-            [NotNull] ITaskSchedulerService taskSchedulerService, [NotNull] ILogger<TaskScheduleHostedService> logger)
+        public TaskScheduleHostedService(
+            [NotNull] IServiceScopeFactory serviceScopeFactory,
+            [NotNull] ITaskSchedulerService taskSchedulerService,
+            [NotNull] ILogger<TaskScheduleHostedService> logger)
             : this(serviceScopeFactory, taskSchedulerService, NullTaskExceptionHandler.Instance, logger)
         {
         }
@@ -46,8 +48,10 @@ namespace Scalider.Hosting.Schedule
         /// <param name="taskSchedulerService"></param>
         /// <param name="taskExceptionHandler"></param>
         /// <param name="logger"></param>
-        public TaskScheduleHostedService([NotNull] IServiceScopeFactory serviceScopeFactory,
-            [NotNull] ITaskSchedulerService taskSchedulerService, [NotNull] ITaskExceptionHandler taskExceptionHandler,
+        public TaskScheduleHostedService(
+            [NotNull] IServiceScopeFactory serviceScopeFactory,
+            [NotNull] ITaskSchedulerService taskSchedulerService,
+            [NotNull] ITaskExceptionHandler taskExceptionHandler,
             [NotNull] ILogger<TaskScheduleHostedService> logger)
         {
             Check.NotNull(serviceScopeFactory, nameof(serviceScopeFactory));

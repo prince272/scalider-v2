@@ -30,8 +30,10 @@ namespace Scalider.Hosting.Queue
         /// <param name="serviceScopeFactory"></param>
         /// <param name="taskQueueService"></param>
         /// <param name="logger"></param>
-        public TaskQueueHostedService([NotNull] IServiceScopeFactory serviceScopeFactory,
-            [NotNull] ITaskQueueService taskQueueService, ILogger<TaskQueueHostedService> logger)
+        public TaskQueueHostedService(
+            [NotNull] IServiceScopeFactory serviceScopeFactory,
+            [NotNull] ITaskQueueService taskQueueService,
+            ILogger<TaskQueueHostedService> logger)
             : this(serviceScopeFactory, taskQueueService, NullTaskExceptionHandler.Instance, logger)
         {
         }
@@ -43,8 +45,10 @@ namespace Scalider.Hosting.Queue
         /// <param name="taskQueueService"></param>
         /// <param name="taskExceptionHandler"></param>
         /// <param name="logger"></param>
-        public TaskQueueHostedService([NotNull] IServiceScopeFactory serviceScopeFactory,
-            [NotNull] ITaskQueueService taskQueueService, [NotNull] ITaskExceptionHandler taskExceptionHandler,
+        public TaskQueueHostedService(
+            [NotNull] IServiceScopeFactory serviceScopeFactory,
+            [NotNull] ITaskQueueService taskQueueService,
+            [NotNull] ITaskExceptionHandler taskExceptionHandler,
             [NotNull] ILogger<TaskQueueHostedService> logger)
         {
             Check.NotNull(serviceScopeFactory, nameof(serviceScopeFactory));
