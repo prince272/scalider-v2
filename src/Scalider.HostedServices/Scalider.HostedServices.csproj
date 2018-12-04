@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Scalider.Hosting</RootNamespace>
-    <Version>2.2.1-preview3</Version>
+    <Version>2.2.0</Version>
     <Description>Provides a base implementation of the IHostedService interface as well as a hosted service for executing scheduled and queued tasks.</Description>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
@@ -11,9 +11,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="2.2.0-preview3-35497" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="2.2.0" />
     <PackageReference Include="ncrontab" Version="3.3.0" />
-    <PackageReference Include="CronExpressionDescriptor" Version="2.8.0" />
+    <PackageReference Include="CronExpressionDescriptor" Version="2.9.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\shared\Check.cs">
