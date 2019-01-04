@@ -7,10 +7,10 @@ using System.Collections.Generic;
 
 namespace Microsoft.Extensions.Internal
 {
-    
+
     internal static class TypeNameHelper
     {
-        private static readonly Dictionary<Type, string> _builtInTypeNames = new Dictionary<Type, string>
+        private static readonly Dictionary<Type, string> BuiltInTypeNames = new Dictionary<Type, string>
         {
             { typeof(void), "void" },
             { typeof(bool), "bool" },
@@ -60,7 +60,7 @@ namespace Microsoft.Extensions.Internal
             {
                 ProcessArrayType(builder, type, options);
             }
-            else if (_builtInTypeNames.TryGetValue(type, out var builtInName))
+            else if (BuiltInTypeNames.TryGetValue(type, out var builtInName))
             {
                 builder.Append(builtInName);
             }
@@ -80,14 +80,13 @@ namespace Microsoft.Extensions.Internal
         private static void ProcessArrayType(StringBuilder builder, Type type, DisplayNameOptions options)
         {
             var innerType = type;
-            while (innerType.IsArray)
+            while (innerType != null && innerType.IsArray)
             {
                 innerType = innerType.GetElementType();
             }
 
             ProcessType(builder, innerType, options);
-
-            while (type.IsArray)
+            while (type != null && type.IsArray)
             {
                 builder.Append('[');
                 builder.Append(',', type.GetArrayRank() - 1);
@@ -96,10 +95,11 @@ namespace Microsoft.Extensions.Internal
             }
         }
 
-        private static void ProcessGenericType(StringBuilder builder, Type type, Type[] genericArguments, int length, DisplayNameOptions options)
+        private static void ProcessGenericType(StringBuilder builder, Type type,
+            IReadOnlyList<Type> genericArguments, int length, DisplayNameOptions options)
         {
             var offset = 0;
-            if (type.IsNested)
+            if (type.IsNested && type.DeclaringType != null)
             {
                 offset = type.DeclaringType.GetGenericArguments().Length;
             }
@@ -157,6 +157,6 @@ namespace Microsoft.Extensions.Internal
 
             public bool IncludeGenericParameterNames { get; }
         }
-        
+
     }
 }

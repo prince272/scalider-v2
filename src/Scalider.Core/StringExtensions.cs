@@ -66,6 +66,7 @@ namespace Scalider
         /// <returns>
         /// A byte array containing the results of encoding the specified set of characters.
         /// </returns>
+        [UsedImplicitly]
         public static byte[] FromHexString(this string s)
         {
             if (string.IsNullOrEmpty(s))

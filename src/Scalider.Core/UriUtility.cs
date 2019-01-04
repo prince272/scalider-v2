@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using JetBrains.Annotations;
+using Scalider.Globalization;
 
 namespace Scalider
 {
@@ -8,6 +9,7 @@ namespace Scalider
     /// <summary>
     /// Provides some utility methods for dealing with Uris and Uris related operations.
     /// </summary>
+    [UsedImplicitly]
     public static class UriUtility
     {
 
@@ -18,6 +20,7 @@ namespace Scalider
         /// <returns>
         /// A string containing a url-friendly slug.
         /// </returns>
+        [UsedImplicitly]
         [NotNull]
         public static string ToFriendlyUri(string str)
         {

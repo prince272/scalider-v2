@@ -4,13 +4,12 @@ using System.Text;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 
-namespace Scalider
+namespace Scalider.Globalization
 {
-    
+
     /// <summary>
     /// Provides extension methods for the <see cref="string"/> class for handling normalization.
     /// </summary>
-    [UsedImplicitly]
     public static class GlobalizationStringExtensions
     {
 
@@ -24,6 +23,7 @@ namespace Scalider
         /// <remarks>
         /// See http://stackoverflow.com/a/1615860/2411798
         /// </remarks>
+        [UsedImplicitly]
         public static string EncodeNonAsciiCharacters(this string str)
         {
             if (string.IsNullOrWhiteSpace(str))
@@ -52,6 +52,7 @@ namespace Scalider
         /// <remarks>
         /// See http://stackoverflow.com/a/1615860/2411798
         /// </remarks>
+        [UsedImplicitly]
         public static string DecodeNonAsciiCharacters(this string str)
         {
             if (string.IsNullOrWhiteSpace(str))
@@ -88,6 +89,6 @@ namespace Scalider
 
             return sb.ToString().Normalize(NormalizationForm.FormC);
         }
-        
+
     }
 }
