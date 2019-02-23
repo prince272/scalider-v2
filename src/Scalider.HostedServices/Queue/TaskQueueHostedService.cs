@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Scalider.Hosting.Queue
 {
-    
+
     /// <summary>
     /// Implementation of the <see cref="HostedServiceBase"/> class that uses <see cref="ITaskQueueService"/>
     /// to execute the queued tasks.
@@ -55,7 +55,7 @@ namespace Scalider.Hosting.Queue
             Check.NotNull(taskQueueService, nameof(taskQueueService));
             Check.NotNull(taskExceptionHandler, nameof(taskExceptionHandler));
             Check.NotNull(logger, nameof(logger));
-            
+
             _serviceScopeFactory = serviceScopeFactory;
             _taskQueueService = taskQueueService;
             _taskExceptionHandler = taskExceptionHandler;
@@ -74,7 +74,7 @@ namespace Scalider.Hosting.Queue
                     _logger.LogDebug("Got a NULL task, will ignore and wait for a valid task");
                     continue;
                 }
-                
+
                 // Create a service scope for the task
                 using (var serviceScope = _serviceScopeFactory.CreateScope())
                 {
@@ -84,8 +84,6 @@ namespace Scalider.Hosting.Queue
             }
         }
 
-        #region ExecuteQueuedTaskAsync
-        
         [SuppressMessage("ReSharper", "SuspiciousTypeConversion.Global")]
         private async Task ExecuteQueuedTaskAsync(IQueueableTask queuedTask,
             IServiceProvider serviceProvider, CancellationToken cancellationToken)
@@ -123,9 +121,7 @@ namespace Scalider.Hosting.Queue
                 _logger
             );
         }
-        
-        #endregion
 
     }
-    
+
 }

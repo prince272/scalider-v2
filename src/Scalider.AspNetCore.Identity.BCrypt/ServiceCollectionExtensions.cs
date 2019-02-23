@@ -44,6 +44,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>
         /// The <see cref="IServiceCollection"/>.
         /// </returns>
+        [UsedImplicitly]
         public static IServiceCollection AddBCryptPasswordHasher<TUser>([NotNull] this IServiceCollection services,
             Action<BCryptPasswordHasherOptions> configureAction)
             where TUser : class

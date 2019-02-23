@@ -15,8 +15,6 @@ namespace Scalider.Hosting.Queue.Internal
             _compiledExpression = compiledExpression;
         }
 
-        #region IQueueableTask Members
-
         /// <inheritdoc />
         public Task RunAsync(QueuedTaskExecutionContext executionContext)
         {
@@ -27,8 +25,6 @@ namespace Scalider.Hosting.Queue.Internal
                 executionContext
             );
         }
-
-        #endregion
 
     }
 

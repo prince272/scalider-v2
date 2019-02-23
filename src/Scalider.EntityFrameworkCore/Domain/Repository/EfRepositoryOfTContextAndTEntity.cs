@@ -47,22 +47,12 @@ namespace Scalider.Domain.Repository
         [UsedImplicitly]
         protected DbSet<TEntity> DbSet => Context.Set<TEntity>();
 
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        /// <param name="disposing">A value indicating whether the dispose method was called.</param>
-        [SuppressMessage("ReSharper", "VirtualMemberNeverOverridden.Global")]
-        protected virtual void Dispose(bool disposing)
+        /// <inheritdoc />
+        public void Dispose()
         {
-            if (!_disposed && disposing)
-            {
-                Context.Dispose();
-            }
-
-            _disposed = true;
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
-
-        #region IBatchRepository<TEntity> Members
 
         /// <inheritdoc />
         public virtual int Count() => DbSet.AsNoTracking().Count();
@@ -172,18 +162,20 @@ namespace Scalider.Domain.Repository
             return Task.CompletedTask;
         }
 
-        #endregion
-
-        #region IDisposable Members
-
-        /// <inheritdoc />
-        public void Dispose()
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        /// <param name="disposing">A value indicating whether the dispose method was called.</param>
+        [SuppressMessage("ReSharper", "VirtualMemberNeverOverridden.Global")]
+        protected virtual void Dispose(bool disposing)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+            if (!_disposed && disposing)
+            {
+                Context.Dispose();
+            }
 
-        #endregion
+            _disposed = true;
+        }
 
     }
 }

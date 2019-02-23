@@ -24,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>
         /// The <see cref="IServiceCollection"/>.
         /// </returns>
-        [SuppressMessage("ReSharper", "UnusedMethodReturnValue.Global")]
+        [UsedImplicitly]
         public static IServiceCollection AddTaskQueueService([NotNull] this IServiceCollection services)
         {
             Check.NotNull(services, nameof(services));
@@ -43,7 +43,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>
         /// The <see cref="IServiceCollection"/>.
         /// </returns>
-        [SuppressMessage("ReSharper", "UnusedMethodReturnValue.Global")]
+        [UsedImplicitly]
         public static IServiceCollection AddTaskScheduleService([NotNull] this IServiceCollection services)
         {
             Check.NotNull(services, nameof(services));
@@ -55,5 +55,5 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
     }
-    
+
 }

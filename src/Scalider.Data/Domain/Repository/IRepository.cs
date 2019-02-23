@@ -1,13 +1,14 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace Scalider.Domain.Repository
 {
 
     /// <summary>
     /// A repository represents a session with the database that can be used to retrieve, update and
-    /// delete entities. 
+    /// delete entities.
     /// </summary>
     [SuppressMessage("ReSharper", "UnusedMemberInSuper.Global")]
     public interface IRepository
@@ -19,6 +20,7 @@ namespace Scalider.Domain.Repository
         /// <returns>
         /// The total number of entities for this repository.
         /// </returns>
+        [UsedImplicitly]
         int Count();
 
         /// <summary>
@@ -29,6 +31,7 @@ namespace Scalider.Domain.Repository
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
+        [UsedImplicitly]
         Task<int> CountAsync(CancellationToken cancellationToken = default);
 
     }

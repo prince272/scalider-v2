@@ -23,6 +23,7 @@ namespace Scalider.Domain.Repository
         /// <returns>
         /// A collection containing all the entities for this repository.
         /// </returns>
+        [UsedImplicitly]
         IEnumerable<TEntity> GetAll();
 
         /// <summary>
@@ -33,12 +34,14 @@ namespace Scalider.Domain.Repository
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
+        [UsedImplicitly]
         Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Adds a new entity.
         /// </summary>
         /// <param name="entity">The entity to add.</param>
+        [UsedImplicitly]
         void Add([NotNull] TEntity entity);
 
         /// <summary>
@@ -50,12 +53,14 @@ namespace Scalider.Domain.Repository
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
+        [UsedImplicitly]
         Task AddAsync([NotNull] TEntity entity, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Updates an existing entity.
         /// </summary>
         /// <param name="entity">The entity to update.</param>
+        [UsedImplicitly]
         void Update([NotNull] TEntity entity);
 
         /// <summary>
@@ -67,6 +72,7 @@ namespace Scalider.Domain.Repository
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
+        [UsedImplicitly]
         [SuppressMessage("ReSharper", "UnusedParameter.Global")]
         Task UpdateAsync([NotNull] TEntity entity, CancellationToken cancellationToken = default);
 

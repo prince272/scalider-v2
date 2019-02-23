@@ -15,8 +15,6 @@ namespace Scalider.Hosting.Schedule.Internal
             Trigger = trigger;
         }
 
-        #region ISchedulableTask Members
-
         /// <inheritdoc />
         public ITrigger Trigger { get; }
 
@@ -26,8 +24,6 @@ namespace Scalider.Hosting.Schedule.Internal
             Check.NotNull(executionContext, nameof(executionContext));
             return _func(executionContext) ?? Task.CompletedTask;
         }
-
-        #endregion
 
     }
 

@@ -37,8 +37,6 @@ namespace Scalider.AspNetCore.Identity
             _options = options?.Value ?? new BCryptPasswordHasherOptions();
         }
 
-        #region IPasswordHasher<TUser> Members
-
         /// <inheritdoc />
         public string HashPassword(TUser user, string password)
         {
@@ -71,8 +69,6 @@ namespace Scalider.AspNetCore.Identity
             // Done
             return PasswordVerificationResult.Success;
         }
-
-        #endregion
 
     }
 

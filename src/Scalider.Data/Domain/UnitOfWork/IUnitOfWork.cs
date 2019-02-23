@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace Scalider.Domain.UnitOfWork
 {
@@ -14,6 +15,7 @@ namespace Scalider.Domain.UnitOfWork
         /// <summary>
         /// Saves all changes made in this unit of work to the database.
         /// </summary>
+        [UsedImplicitly]
         void SaveChanges();
 
         /// <summary>
@@ -24,6 +26,7 @@ namespace Scalider.Domain.UnitOfWork
         /// <returns>
         /// A task that represents the asynchronous save operation.
         /// </returns>
+        [UsedImplicitly]
         Task SaveChangesAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
@@ -32,6 +35,7 @@ namespace Scalider.Domain.UnitOfWork
         /// <returns>
         /// A <see cref="IUnitOfWorkTransaction" /> that represents the started transaction.
         /// </returns>
+        [UsedImplicitly]
         IUnitOfWorkTransaction BeginTransaction();
 
         /// <summary>
@@ -43,6 +47,7 @@ namespace Scalider.Domain.UnitOfWork
         /// A task that represents the asynchronous transaction initialization. The task result contains
         /// a <see cref="IUnitOfWorkTransaction" /> that represents the started transaction.
         /// </returns>
+        [UsedImplicitly]
         Task<IUnitOfWorkTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default);
 
     }

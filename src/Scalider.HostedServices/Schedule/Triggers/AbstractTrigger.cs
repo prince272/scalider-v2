@@ -21,20 +21,16 @@ namespace Scalider.Hosting.Schedule.Triggers
 
         /// <summary>
         /// Gets or sets a value indicating the maximum allowed date and time (with timezone UTC) for the
-        /// scheduled task. 
+        /// scheduled task.
         /// </summary>
         [UsedImplicitly]
         public virtual DateTimeOffset? EndTimeUtc { get; }
-
-        #region ITrigger Members
 
         /// <inheritdoc />
         public abstract bool ShouldRemoveTask { get; }
 
         /// <inheritdoc />
         public abstract DateTimeOffset? GetExecutionTimeAfter(DateTimeOffset utcNow, int executionCount);
-
-        #endregion
 
     }
 

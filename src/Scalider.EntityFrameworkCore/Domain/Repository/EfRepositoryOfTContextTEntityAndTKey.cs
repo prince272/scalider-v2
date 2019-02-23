@@ -38,8 +38,6 @@ namespace Scalider.Domain.Repository
         {
         }
 
-        #region IRepository<TEntity,TKey> Members
-
         /// <inheritdoc />
         public virtual TEntity FindById(TKey id)
         {
@@ -48,7 +46,7 @@ namespace Scalider.Domain.Repository
                 // We are not going to try to retrieve the entity when the default value for the type is provided
                 return null;
             }
-            
+
             // Try to find the entity with a simple primary key type
             var baseQuery = DbSet.AsNoTracking();
             switch (id)
@@ -78,7 +76,7 @@ namespace Scalider.Domain.Repository
                 // We are not going to try to retrieve the entity when the default value for the type is provided
                 return Task.FromResult<TEntity>(null);
             }
-            
+
             // Try to find the entity with a simple primary key type
             var baseQuery = DbSet.AsNoTracking();
             switch (id)
@@ -108,8 +106,6 @@ namespace Scalider.Domain.Repository
                     throw new ArgumentOutOfRangeException();
             }
         }
-
-        #endregion
 
     }
 

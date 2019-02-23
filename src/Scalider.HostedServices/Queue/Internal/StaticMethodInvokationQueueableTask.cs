@@ -27,16 +27,12 @@ namespace Scalider.Hosting.Queue.Internal
             return $"{declaringType.FullName}.{mi.Name} ({assemblyName})";
         }
 
-        #region IQueueableTask Members
-
         /// <inheritdoc />
         public Task RunAsync(QueuedTaskExecutionContext executionContext)
         {
             var task = _methodInfo.Invoke(null, new object[] {executionContext}) as Task;
             return task ?? Task.CompletedTask;
         }
-
-        #endregion
 
     }
 

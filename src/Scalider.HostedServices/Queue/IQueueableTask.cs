@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 
 namespace Scalider.Hosting.Queue
 {
-    
+
     /// <summary>
     /// Defines the basic functionality of a queueable task.
     /// </summary>
@@ -11,7 +11,7 @@ namespace Scalider.Hosting.Queue
     {
 
         /// <summary>
-        /// Callend by <see cref="TaskQueueHostedService"/> when the task is dequeued.
+        /// Called by <see cref="TaskQueueHostedService"/> when the task is dequeued.
         /// </summary>
         /// <param name="executionContext">The execution context for the task.</param>
         /// <returns>
@@ -20,5 +20,5 @@ namespace Scalider.Hosting.Queue
         Task RunAsync([NotNull] QueuedTaskExecutionContext executionContext);
 
     }
-    
+
 }

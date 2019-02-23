@@ -32,6 +32,28 @@ namespace Scalider.Mail.Smtp
                            nameof(options));
         }
 
+        /// <inheritdoc />
+        public virtual void Send(MailMessage message)
+        {
+            Check.NotNull(message, nameof(message));
+
+            using (var client = CreateClient())
+            {
+                client.Send(message.Normalize());
+            }
+        }
+
+        /// <inheritdoc />
+        public virtual async Task SendAsync(MailMessage message, CancellationToken cancellationToken = default)
+        {
+            Check.NotNull(message, nameof(message));
+
+            using (var client = CreateClient())
+            {
+                await client.SendMailAsync(message.Normalize());
+            }
+        }
+
         /// <summary>
         /// Creates a new instance of the <see cref="SmtpClient"/> class.
         /// </summary>
@@ -69,32 +91,6 @@ namespace Scalider.Mail.Smtp
                 throw;
             }
         }
-
-        #region IEmailSender Members
-
-        /// <inheritdoc />
-        public virtual void Send(MailMessage message)
-        {
-            Check.NotNull(message, nameof(message));
-
-            using (var client = CreateClient())
-            {
-                client.Send(message.Normalize());
-            }
-        }
-
-        /// <inheritdoc />
-        public virtual async Task SendAsync(MailMessage message, CancellationToken cancellationToken = default)
-        {
-            Check.NotNull(message, nameof(message));
-
-            using (var client = CreateClient())
-            {
-                await client.SendMailAsync(message.Normalize());
-            }
-        }
-
-        #endregion
 
     }
 

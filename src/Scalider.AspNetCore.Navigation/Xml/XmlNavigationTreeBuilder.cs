@@ -102,122 +102,13 @@ namespace Scalider.AspNetCore.Navigation.Xml
                 : defaultValue;
         }
 
-        #region CreateNode
-
-        /// <summary>
-        /// Creates a navigation node from the given <paramref name="element"/>.
-        /// </summary>
-        /// <param name="element">The current XML element.</param>
-        /// <param name="canHaveChildren">Whether the element can have children.</param>
-        /// <returns>
-        /// The new <see cref="NavigationTreeNode"/>.
-        /// </returns>
-        /// <exception cref="XmlNavigationException">When the node is invalid.</exception>
-        protected virtual NavigationTreeNode CreateNode(XElement element, bool canHaveChildren)
-        {
-            var node = new NavigationNode
-            {
-                Key = GetAttributeValue(element, KeyAttributeName),
-                Enabled = GetAttributeBooleanValue(element, EnabledAttributeName, true),
-
-                Title = GetAttributeValue(element, TitleAttributeName),
-                LinkTarget = GetAttributeValue(element, LinkTargetAttributeName),
-
-                Area = GetAttributeValue(element, AreaAttributeName),
-                Controller = GetAttributeValue(element, ControllerAttributeName),
-                Action = GetAttributeValue(element, ActionAttributeName),
-                RouteName = GetAttributeValue(element, RouteNameAttributeName) ??
-                            GetAttributeValue(element, RouteNameAttributeAltName),
-                RouteParameters = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase),
-                Url = GetAttributeValue(element, UrlAttributeName),
-
-                Roles = GetAttributeValue(element, RolesAttributeName) ?? "*",
-                AuthorizationPolicyName = GetAttributeValue(element, AuthenticationPolicyNameAttributeName) ??
-                                          GetAttributeValue(element, AuthenticationPolicyNameAttributeAltName),
-
-                ClassName = GetAttributeValue(element, ClassNameAttributeName) ??
-                            GetAttributeValue(element, ClassNameAttributeAltName),
-                Icon = GetAttributeValue(element, IconAttributeName) ??
-                       GetAttributeValue(element, IconClassNameAttributeName) ??
-                       GetAttributeValue(element, IconClassNameAttributeAltName)
-            };
-
-            // Retrieve all the route parameters
-            foreach (var attr in element.Attributes())
-            {
-                var attrName = attr.Name.LocalName ?? string.Empty;
-                if (attrName.Length <= RouteParamAttributePrefix.Length ||
-                    !attrName.StartsWith(RouteParamAttributePrefix) ||
-                    string.Equals(RouteNameAttributeName, attrName, StringComparison.OrdinalIgnoreCase) ||
-                    string.Equals(RouteNameAttributeAltName, attrName, StringComparison.OrdinalIgnoreCase))
-                {
-                    // We are going to ignore the "route-name" attribute
-                    continue;
-                }
-
-                var name = attrName.Substring(RouteParamAttributePrefix.Length);
-                if (!string.IsNullOrEmpty(name))
-                {
-                    // We got a valid parameter name, we can continue
-                    node.RouteParameters.TryAdd(name, attr.Value);
-                }
-            }
-            
-            // Retrieves a value indicating which kind of user the node should be hidden from
-            var hideFrom = GetAttributeValue(element, HideFromAttributeName) ??
-                           GetAttributeValue(element, HideFromAttributeAltName);
-
-            if (!string.IsNullOrWhiteSpace(hideFrom))
-            {
-                // Determine if the hide-from value is valid
-                if (!Enum.TryParse<HideNodeFrom>(hideFrom, true, out var result))
-                {
-                    // Unknown value
-                    throw new XmlNavigationException(
-                        $"The value '{hideFrom}' is not allowed for the '{HideFromAttributeName}' attribute."
-                    );
-                }
-
-                node.HideNodeFrom = result;
-            }
-
-            // Determine if the node can have children
-            var navigationNode = new NavigationTreeNode(node);
-            if (!canHaveChildren)
-            {
-                // The node isn't allowed to have children, how sad
-                return navigationNode;
-            }
-
-            // Retrieve all the children for the node
-            var childElements = element.Elements(NodeElementName);
-            foreach (var child in childElements)
-            {
-                var childNode = CreateNode(child, true);
-                if (child == null)
-                {
-                    // The child node should be ignored
-                    continue;
-                }
-
-                navigationNode.AddChild(childNode);
-            }
-
-            // Done
-            return navigationNode;
-        }
-
-        #endregion
-
-        #region INavigationTreeBuilder Members
-
         /// <inheritdoc />
         public virtual async Task<NavigationTreeNode> BuildTreeAsync(CancellationToken cancellationToken = default)
         {
             var filename = string.IsNullOrEmpty(_options.FileName)
                 ? XmlNavigationOptions.DefaultFileName
                 : _options.FileName;
-            
+
             var file = Path.Combine(_hostingEnvironment.ContentRootPath, filename);
             if (!File.Exists(file))
             {
@@ -286,7 +177,103 @@ namespace Scalider.AspNetCore.Navigation.Xml
             return tree;
         }
 
-        #endregion
+        /// <summary>
+        /// Creates a navigation node from the given <paramref name="element"/>.
+        /// </summary>
+        /// <param name="element">The current XML element.</param>
+        /// <param name="canHaveChildren">Whether the element can have children.</param>
+        /// <returns>
+        /// The new <see cref="NavigationTreeNode"/>.
+        /// </returns>
+        /// <exception cref="XmlNavigationException">When the node is invalid.</exception>
+        protected virtual NavigationTreeNode CreateNode(XElement element, bool canHaveChildren)
+        {
+            var node = CreateNodeFromXml(element);
+            foreach (var attr in element.Attributes())
+            {
+                var attrName = attr.Name.LocalName ?? string.Empty;
+                if (attrName.Length <= RouteParamAttributePrefix.Length ||
+                    !attrName.StartsWith(RouteParamAttributePrefix) ||
+                    string.Equals(RouteNameAttributeName, attrName, StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(RouteNameAttributeAltName, attrName, StringComparison.OrdinalIgnoreCase))
+                {
+                    // We are going to ignore the "route-name" attribute
+                    continue;
+                }
+
+                var name = attrName.Substring(RouteParamAttributePrefix.Length);
+                if (!string.IsNullOrEmpty(name))
+                {
+                    // We got a valid parameter name, we can continue
+                    node.RouteParameters.TryAdd(name, attr.Value);
+                }
+            }
+
+            // Retrieves a value indicating which kind of user the node should be hidden from
+            var hideFrom = GetAttributeValue(element, HideFromAttributeName) ??
+                           GetAttributeValue(element, HideFromAttributeAltName);
+
+            if (!string.IsNullOrWhiteSpace(hideFrom))
+            {
+                // Determine if the hide-from value is valid
+                if (!Enum.TryParse<HideNodeFrom>(hideFrom, true, out var result))
+                {
+                    // Unknown value
+                    throw new XmlNavigationException(
+                        $"The value '{hideFrom}' is not allowed for the '{HideFromAttributeName}' attribute."
+                    );
+                }
+
+                node.HideNodeFrom = result;
+            }
+
+            // Determine if the node can have children
+            var navigationNode = new NavigationTreeNode(node);
+            if (!canHaveChildren)
+            {
+                // The node isn't allowed to have children, how sad
+                return navigationNode;
+            }
+
+            // Retrieve all the children for the node
+            var childElements = element.Elements(NodeElementName);
+            foreach (var child in childElements)
+            {
+                var childNode = CreateNode(child, true);
+                navigationNode.AddChild(childNode);
+            }
+
+            // Done
+            return navigationNode;
+        }
+
+        private static NavigationNode CreateNodeFromXml(XElement element) =>
+            new NavigationNode
+            {
+                Key = GetAttributeValue(element, KeyAttributeName),
+                Enabled = GetAttributeBooleanValue(element, EnabledAttributeName, true),
+
+                Title = GetAttributeValue(element, TitleAttributeName),
+                LinkTarget = GetAttributeValue(element, LinkTargetAttributeName),
+
+                Area = GetAttributeValue(element, AreaAttributeName),
+                Controller = GetAttributeValue(element, ControllerAttributeName),
+                Action = GetAttributeValue(element, ActionAttributeName),
+                RouteName = GetAttributeValue(element, RouteNameAttributeName) ??
+                            GetAttributeValue(element, RouteNameAttributeAltName),
+                RouteParameters = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase),
+                Url = GetAttributeValue(element, UrlAttributeName),
+
+                Roles = GetAttributeValue(element, RolesAttributeName) ?? "*",
+                AuthorizationPolicyName = GetAttributeValue(element, AuthenticationPolicyNameAttributeName) ??
+                                          GetAttributeValue(element, AuthenticationPolicyNameAttributeAltName),
+
+                ClassName = GetAttributeValue(element, ClassNameAttributeName) ??
+                            GetAttributeValue(element, ClassNameAttributeAltName),
+                Icon = GetAttributeValue(element, IconAttributeName) ??
+                       GetAttributeValue(element, IconClassNameAttributeName) ??
+                       GetAttributeValue(element, IconClassNameAttributeAltName)
+            };
 
     }
 

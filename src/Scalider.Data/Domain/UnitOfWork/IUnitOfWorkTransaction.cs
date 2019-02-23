@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 
 namespace Scalider.Domain.UnitOfWork
 {
@@ -12,16 +13,19 @@ namespace Scalider.Domain.UnitOfWork
         /// <summary>
         /// Gets a value indicating the transaction identifier.
         /// </summary>
+        [UsedImplicitly]
         string Id { get; }
 
         /// <summary>
         /// Commits all the changes made to the database in the current transaction.
         /// </summary>
+        [UsedImplicitly]
         void Commit();
 
         /// <summary>
         /// Discards all the changes made to the database in the current transaction.
         /// </summary>
+        [UsedImplicitly]
         void Rollback();
 
     }

@@ -29,13 +29,6 @@ namespace Scalider.AspNetCore.Identity
         private int _workFactor = DefaultWorkFactor;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BCryptPasswordHasherOptions"/> class.
-        /// </summary>
-        public BCryptPasswordHasherOptions()
-        {
-        }
-
-        /// <summary>
         /// Gets the log2 of the number of rounds of hashing to apply - the work factor therefore increases
         /// as 2 ^ WorkFactor.
         /// </summary>

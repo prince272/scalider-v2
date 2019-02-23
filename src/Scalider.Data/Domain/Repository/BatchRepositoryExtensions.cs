@@ -21,6 +21,7 @@ namespace Scalider.Domain.Repository
         /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
         /// <param name="repository">The <see cref="IRepository{TEntity}"/>.</param>
         /// <param name="entities">The collection of entities to add to the database.</param>
+        [UsedImplicitly]
         public static void AddRange<TEntity>([NotNull] this IRepository<TEntity> repository,
             [NotNull] params TEntity[] entities)
             where TEntity : class, IEntity
@@ -40,6 +41,7 @@ namespace Scalider.Domain.Repository
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
+        [UsedImplicitly]
         public static Task AddRangeAsync<TEntity>([NotNull] this IRepository<TEntity> repository,
             [NotNull] params TEntity[] entities)
             where TEntity : class, IEntity
@@ -61,6 +63,7 @@ namespace Scalider.Domain.Repository
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
+        [UsedImplicitly]
         public static Task AddRangeAsync<TEntity>([NotNull] this IRepository<TEntity> repository,
             [NotNull] TEntity[] entities, CancellationToken cancellationToken)
             where TEntity : class, IEntity
@@ -77,6 +80,7 @@ namespace Scalider.Domain.Repository
         /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
         /// <param name="repository">The <see cref="IRepository{TEntity}"/>.</param>
         /// <param name="entities">The collection of entities to add to the database.</param>
+        [UsedImplicitly]
         public static void UpdateRange<TEntity>([NotNull] this IRepository<TEntity> repository,
             [NotNull] params TEntity[] entities)
             where TEntity : class, IEntity
@@ -96,6 +100,7 @@ namespace Scalider.Domain.Repository
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
+        [UsedImplicitly]
         public static Task UpdateRangeAsync<TEntity>([NotNull] this IRepository<TEntity> repository,
             [NotNull] params TEntity[] entities)
             where TEntity : class, IEntity
@@ -117,6 +122,7 @@ namespace Scalider.Domain.Repository
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
+        [UsedImplicitly]
         public static Task UpdateRangeAsync<TEntity>([NotNull] this IRepository<TEntity> repository,
             [NotNull] TEntity[] entities, CancellationToken cancellationToken)
             where TEntity : class, IEntity
@@ -133,6 +139,7 @@ namespace Scalider.Domain.Repository
         /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
         /// <param name="repository">The <see cref="IRepository{TEntity}"/>.</param>
         /// <param name="entities">The collection of entities to remove from the database.</param>
+        [UsedImplicitly]
         public static void RemoveRange<TEntity>([NotNull] this IRepository<TEntity> repository,
             [NotNull] params TEntity[] entities)
             where TEntity : class, IEntity
@@ -152,6 +159,7 @@ namespace Scalider.Domain.Repository
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
+        [UsedImplicitly]
         public static Task RemoveRangeAsync<TEntity>([NotNull] this IRepository<TEntity> repository,
             [NotNull] params TEntity[] entities)
             where TEntity : class, IEntity
@@ -173,6 +181,7 @@ namespace Scalider.Domain.Repository
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
+        [UsedImplicitly]
         public static Task RemoveRangeAsync<TEntity>([NotNull] this IRepository<TEntity> repository,
             [NotNull] TEntity[] entities, CancellationToken cancellationToken)
             where TEntity : class, IEntity

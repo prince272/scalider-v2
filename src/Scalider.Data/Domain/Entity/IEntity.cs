@@ -6,7 +6,6 @@
     /// </summary>
     public interface IEntity
     {
-
     }
 
 }

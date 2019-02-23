@@ -11,13 +11,6 @@ namespace Scalider.Mail.Smtp
     {
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SmtpEmailSender"/> class.
-        /// </summary>
-        public SmtpEmailSenderOptions()
-        {
-        }
-
-        /// <summary>
         /// Gets or sets the host for the SMTP server.
         /// </summary>
         [UsedImplicitly]

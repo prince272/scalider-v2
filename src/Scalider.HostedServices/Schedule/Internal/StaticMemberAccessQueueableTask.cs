@@ -27,8 +27,6 @@ namespace Scalider.Hosting.Schedule.Internal
             return $"{declaringType.FullName}.{mi.Name} ({assemblyName})";
         }
 
-        #region ISchedulableTask Members
-
         /// <inheritdoc />
         public ITrigger Trigger { get; }
 
@@ -41,8 +39,6 @@ namespace Scalider.Hosting.Schedule.Internal
 
             return callback(executionContext) ?? Task.CompletedTask;
         }
-
-        #endregion
 
     }
 

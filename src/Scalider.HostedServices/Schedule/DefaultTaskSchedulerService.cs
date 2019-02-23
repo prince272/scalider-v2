@@ -10,7 +10,7 @@ namespace Scalider.Hosting.Schedule
 {
 
     /// <summary>
-    /// Default implmentation of the <see cref="ITaskSchedulerService"/> interface.
+    /// Default implementation of the <see cref="ITaskSchedulerService"/> interface.
     /// </summary>
     [UsedImplicitly]
     [DebuggerDisplay("Scheduled = {_scheduledTasks.Count}")]
@@ -41,32 +41,12 @@ namespace Scalider.Hosting.Schedule
             );
         }
 
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        /// <param name="disposing">A value indicating whether the dispose method was called.</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed && disposing)
-            {
-                // Dispose the services allocated by the service
-            }
-
-            _disposed = true;
-        }
-
-        #region IDisposable Members
-
         /// <inheritdoc />
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-        #endregion
-
-        #region ITaskSchedulerService Members
 
         /// <inheritdoc />
         public virtual void Schedule(ISchedulableTask schedulableTask)
@@ -75,7 +55,7 @@ namespace Scalider.Hosting.Schedule
 
             _scheduledTasks.Add(new ScheduledTask(schedulableTask));
         }
-        
+
         /// <inheritdoc />
         public IEnumerable<ScheduledTask> GetTasksPendingExecution(DateTimeOffset utcNow)
         {
@@ -120,7 +100,19 @@ namespace Scalider.Hosting.Schedule
             }
         }
 
-        #endregion
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        /// <param name="disposing">A value indicating whether the dispose method was called.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed && disposing)
+            {
+                // Dispose the services allocated by the service
+            }
+
+            _disposed = true;
+        }
 
     }
 

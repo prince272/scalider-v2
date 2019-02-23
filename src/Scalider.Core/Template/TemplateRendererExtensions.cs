@@ -4,10 +4,11 @@ using JetBrains.Annotations;
 
 namespace Scalider.Template
 {
-    
+
     /// <summary>
     /// Provides extension methods for the <see cref="ITemplateRenderer"/> interface.
     /// </summary>
+    [UsedImplicitly]
     public static class TemplateRendererExtensions
     {
 
@@ -21,6 +22,7 @@ namespace Scalider.Template
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
+        [UsedImplicitly]
         public static Task<string> RenderAsync([NotNull] this ITemplateRenderer renderer,
             string template, CancellationToken cancellationToken = default)
         {
@@ -29,7 +31,7 @@ namespace Scalider.Template
                 ? Task.FromResult(string.Empty)
                 : renderer.RenderAsync(template, null, cancellationToken);
         }
-        
+
     }
-    
+
 }

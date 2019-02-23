@@ -71,6 +71,13 @@ namespace Scalider.Hosting.Schedule
         [UsedImplicitly]
         public DateTimeOffset? NextExecutionTimeUtc { get; internal set; }
 
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            _cts?.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
         /// <summary>
         /// Cancels the execution of the task. The task is responsible of observing the token cancellation.
         /// </summary>
@@ -82,17 +89,6 @@ namespace Scalider.Hosting.Schedule
                 _cts.Cancel();
             }
         }
-
-        #region IDisposable Members
-
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            _cts?.Dispose();
-            GC.SuppressFinalize(this);
-        }
-
-        #endregion
 
     }
 

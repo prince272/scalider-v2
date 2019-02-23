@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 
 namespace Scalider.AspNetCore.Identity
 {
-    
+
     [UsedImplicitly]
     internal sealed class HashInformation
     {
@@ -21,19 +21,19 @@ namespace Scalider.AspNetCore.Identity
             WorkFactor = workFactor;
             RawHash = rawHash;
         }
-        
+
         /// <summary>
         /// Gets a value indicating the salt revision of the hash.
         /// </summary>
         [UsedImplicitly]
         public SaltRevision Revision { get; }
-        
+
         /// <summary>
         /// Gets a value indicating the work factor of the hash.
         /// </summary>
         [UsedImplicitly]
         public int WorkFactor { get; }
-        
+
         /// <summary>
         /// Gets a value indicating the hash.
         /// </summary>
@@ -44,7 +44,7 @@ namespace Scalider.AspNetCore.Identity
         public static HashInformation Parse(string hash)
         {
             Check.NotNullOrEmpty(hash, nameof(hash));
-            
+
             // Try to parse the hash information
             var matchResult = HashInformationRegex.Match(hash);
             if (!matchResult.Success ||
@@ -54,7 +54,7 @@ namespace Scalider.AspNetCore.Identity
                 // Could not parse the hash
                 throw new HashInformationParseException("Invalid hash format");
             }
-            
+
             // Done
             return new HashInformation(saltRevision, workFactor, matchResult.Groups["hash"].Value);
         }
@@ -76,7 +76,7 @@ namespace Scalider.AspNetCore.Identity
             {
                 // Ignore
             }
-            
+
             // Could not parse the hash information
             return false;
         }
@@ -88,6 +88,7 @@ namespace Scalider.AspNetCore.Identity
         /// <returns>
         /// <c>true</c> if the passwords match; otherwise <c>false</c>.
         /// </returns>
+        [UsedImplicitly]
         public bool Verify(string text) => BCrypt.Net.BCrypt.Verify(text, RawHash);
 
         private static bool TryGetSaltRevision(string value, out SaltRevision result)
@@ -99,7 +100,7 @@ namespace Scalider.AspNetCore.Identity
             // Determine which version we got
             if (value.Length < 2)
                 return true;
-            
+
             switch (value[1])
             {
                 case 'a':
@@ -117,11 +118,11 @@ namespace Scalider.AspNetCore.Identity
                 default:
                     return false;
             }
-            
+
             // Got the salt revision successfully
             return true;
         }
 
     }
-    
+
 }

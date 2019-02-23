@@ -18,8 +18,6 @@ namespace Scalider.Hosting.Schedule.Internal
             Trigger = trigger;
         }
 
-        #region ISchedulableTask Members
-
         /// <inheritdoc />
         public ITrigger Trigger { get; }
 
@@ -33,8 +31,6 @@ namespace Scalider.Hosting.Schedule.Internal
                 executionContext
             );
         }
-
-        #endregion
 
     }
 

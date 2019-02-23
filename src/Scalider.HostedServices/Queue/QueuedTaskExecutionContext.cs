@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 
 namespace Scalider.Hosting.Queue
 {
-    
+
     /// <summary>
     /// Context for queued task execution.
     /// </summary>
@@ -39,6 +39,13 @@ namespace Scalider.Hosting.Queue
         [UsedImplicitly]
         public CancellationToken CancellationToken => _cts.Token;
 
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            _cts?.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
         /// <summary>
         /// Cancels the execution of the task. The task is responsible of observing the token cancellation.
         /// </summary>
@@ -51,16 +58,6 @@ namespace Scalider.Hosting.Queue
             }
         }
 
-        #region IDisposable Members
-
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            _cts?.Dispose();
-            GC.SuppressFinalize(this);
-        }
-
-        #endregion
     }
-    
+
 }

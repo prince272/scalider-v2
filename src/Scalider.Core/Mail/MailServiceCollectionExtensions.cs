@@ -12,6 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
     /// <summary>
     /// Provides extension methods for the <see cref="IServiceCollection"/> interface.
     /// </summary>
+    [UsedImplicitly]
     public static class MailServiceCollectionExtensions
     {
 
@@ -23,6 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>
         /// The <see cref="IServiceCollection"/>.
         /// </returns>
+        [UsedImplicitly]
         public static IServiceCollection AddSmtpEmailSender([NotNull] this IServiceCollection services,
             [NotNull] Action<SmtpEmailSenderOptions> configureOptions)
         {

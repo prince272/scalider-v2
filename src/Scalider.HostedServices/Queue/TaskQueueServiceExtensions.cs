@@ -7,18 +7,19 @@ using Scalider.Hosting.Queue.Internal;
 
 namespace Scalider.Hosting.Queue
 {
-    
+
     /// <summary>
     /// Provides extension methods for the <see cref="ITaskQueueService"/> interface.
     /// </summary>
     public static class TaskQueueServiceExtensions
     {
-        
+
         /// <summary>
-        /// Adds a function delegate to the end of the queue. 
+        /// Adds a function delegate to the end of the queue.
         /// </summary>
         /// <param name="queueService">The <see cref="ITaskQueueService"/>.</param>
         /// <param name="func">The function to add to the queue.</param>
+        [UsedImplicitly]
         public static void Enqueue([NotNull] this ITaskQueueService queueService, [NotNull] Func<Task> func)
         {
             Check.NotNull(queueService, nameof(queueService));
@@ -28,10 +29,11 @@ namespace Scalider.Hosting.Queue
         }
 
         /// <summary>
-        /// Adds a function delegate to the end of the queue. 
+        /// Adds a function delegate to the end of the queue.
         /// </summary>
         /// <param name="queueService">The <see cref="ITaskQueueService"/>.</param>
         /// <param name="func">The function to add to the queue.</param>
+        [UsedImplicitly]
         public static void Enqueue([NotNull] this ITaskQueueService queueService,
             [NotNull] Func<QueuedTaskExecutionContext, Task> func)
         {
@@ -40,8 +42,7 @@ namespace Scalider.Hosting.Queue
 
             queueService.Enqueue(new DelegateQueueableTask(func));
         }
-        
-        #region Enqueue<T>
+
 
         /// <summary>
         /// Adds a queued task that queries or create a service of <typeparamref name="T"/> and executes the
@@ -55,18 +56,19 @@ namespace Scalider.Hosting.Queue
         /// <param name="queueService">The <see cref="ITaskQueueService"/>.</param>
         /// <param name="expression">The expression.</param>
         /// <exception cref="ArgumentException">When the <paramref name="expression"/> is invalid.</exception>
+        [UsedImplicitly]
         public static void Enqueue<T>([NotNull] this ITaskQueueService queueService,
             [NotNull] Expression<Func<T, Func<QueuedTaskExecutionContext, Task>>> expression)
             where T : class
         {
             Check.NotNull(queueService, nameof(queueService));
             Check.NotNull(expression, nameof(expression));
-            
+
             // Retrieve the real expression
             var exp = expression.Body;
             if (exp is UnaryExpression unaryExpression)
                 exp = unaryExpression.Operand;
-            
+
             // Determine whether the expression body is null
             if (exp is ConstantExpression constantExpression && constantExpression.Value  == null)
             {
@@ -75,7 +77,7 @@ namespace Scalider.Hosting.Queue
                     nameof(expression)
                 );
             }
-            
+
             // Enqueue the task
             switch (exp)
             {
@@ -108,9 +110,7 @@ namespace Scalider.Hosting.Queue
                     );
             }
         }
-        
-        #endregion
 
     }
-    
+
 }

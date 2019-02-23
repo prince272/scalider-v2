@@ -17,16 +17,12 @@ namespace Scalider.Hosting.Queue.Internal
             _func = func;
         }
 
-        #region IQueueableTask Members
-
         /// <inheritdoc />
         public Task RunAsync(QueuedTaskExecutionContext executionContext)
         {
             Check.NotNull(executionContext, nameof(executionContext));
             return _func(executionContext) ?? Task.CompletedTask;
         }
-
-        #endregion
 
     }
 

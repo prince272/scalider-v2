@@ -66,7 +66,7 @@ namespace Scalider.Domain.Repository
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
-        [SuppressMessage("ReSharper", "UnusedParameter.Global")]
+        [UsedImplicitly]
         Task RemoveRangeAsync([NotNull] IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 
     }

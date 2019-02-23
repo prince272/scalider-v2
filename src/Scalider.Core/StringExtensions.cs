@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
@@ -22,7 +21,6 @@ namespace Scalider
         /// <returns>
         /// A byte array containing the results of encoding the specified set of characters.
         /// </returns>
-        [SuppressMessage("ReSharper", "ReturnTypeCanBeEnumerable.Global")]
         public static byte[] ToByteArray([NotNull] this string s, Encoding encoding = null) =>
             string.IsNullOrEmpty(s)
                 ? Array.Empty<byte>()
@@ -36,6 +34,7 @@ namespace Scalider
         /// <returns>
         /// A string that contains the results of decoding the specified sequence of bytes.
         /// </returns>
+        [UsedImplicitly]
         public static string GetString([NoEnumeration] this IEnumerable<byte> bytes, Encoding encoding = null)
         {
             var bytesArray = bytes?.ToArray() ?? Array.Empty<byte>();

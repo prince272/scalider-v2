@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -12,7 +11,7 @@ namespace Scalider.Domain.UnitOfWork
     /// Implementation of the <see cref="IUnitOfWork"/> interface that uses Entity Framework Core.
     /// </summary>
     /// <typeparam name="TContext">The type encapsulating the database context.</typeparam>
-    [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global")]
+    [UsedImplicitly]
     public class EfUnitOfWork<TContext> : IUnitOfWork
         where TContext : DbContext
     {
@@ -31,21 +30,12 @@ namespace Scalider.Domain.UnitOfWork
             _dbContext = dbContext;
         }
 
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        /// <param name="disposing">A value indicating whether the dispose method was called.</param>
-        protected virtual void Dispose(bool disposing)
+        /// <inheritdoc />
+        public void Dispose()
         {
-            if (!_disposed && disposing)
-            {
-                _dbContext.Dispose();
-            }
-
-            _disposed = true;
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
-
-        #region IUnitOfWork Members
 
         /// <inheritdoc />
         public virtual void SaveChanges() => _dbContext.SaveChanges();
@@ -65,14 +55,19 @@ namespace Scalider.Domain.UnitOfWork
             return new EfUnitOfWorkTransaction(transaction);
         }
 
-        /// <inheritdoc />
-        public void Dispose()
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        /// <param name="disposing">A value indicating whether the dispose method was called.</param>
+        protected virtual void Dispose(bool disposing)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+            if (!_disposed && disposing)
+            {
+                _dbContext.Dispose();
+            }
 
-        #endregion
+            _disposed = true;
+        }
 
     }
 

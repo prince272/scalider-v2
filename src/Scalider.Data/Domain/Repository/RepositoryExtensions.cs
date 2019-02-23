@@ -7,7 +7,7 @@ using Scalider.Domain.Entity;
 
 namespace Scalider.Domain.Repository
 {
-    
+
     /// <summary>
     /// Provides extension methods for the <see cref="IRepository"/> interface.
     /// </summary>
@@ -21,6 +21,7 @@ namespace Scalider.Domain.Repository
         /// <param name="id">The identifier of the entity to remove.</param>
         /// <typeparam name="TEntity">The type encapsulating the entity.</typeparam>
         /// <typeparam name="TKey">The type encapsulating the identifier of the entity.</typeparam>
+        [UsedImplicitly]
         public static void RemoveById<TEntity, TKey>([NotNull] this IRepository<TEntity, TKey> repository, TKey id)
             where TEntity : class, IEntity<TKey>
             where TKey : IEquatable<TKey>
@@ -31,7 +32,7 @@ namespace Scalider.Domain.Repository
                 // The given identifier seems to be the default value for the type
                 return;
             }
-            
+
             // Try to retrieve the entity with the given unique identifier
             var entity = repository.FindById(id);
             if (entity != null)
@@ -53,6 +54,7 @@ namespace Scalider.Domain.Repository
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous peration.
         /// </returns>
+        [UsedImplicitly]
         public static async Task RemoveByIdAsync<TEntity, TKey>([NotNull] this IRepository<TEntity, TKey> repository,
             TKey id, CancellationToken cancellationToken = default)
             where TEntity : class, IEntity<TKey>
@@ -64,7 +66,7 @@ namespace Scalider.Domain.Repository
                 // The given identifier seems to be the default value for the type
                 return;
             }
-            
+
             // Try to retrieve the entity with the given unique identifier
             var entity = await repository.FindByIdAsync(id, cancellationToken);
             if (entity != null)
@@ -73,7 +75,7 @@ namespace Scalider.Domain.Repository
                 await repository.RemoveAsync(entity, cancellationToken);
             }
         }
-        
+
     }
-    
+
 }

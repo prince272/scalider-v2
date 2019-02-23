@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Scalider.AspNetCore.Navigation
 {
-    
+
     /// <summary>
     /// Provides a view model for the navigation component.
     /// </summary>
@@ -25,7 +25,7 @@ namespace Scalider.AspNetCore.Navigation
         //
         private NavigationTreeNode _currentNode;
         private IEnumerable<NavigationTreeNode> _parentChain;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="NavigationViewModel"/> class.
         /// </summary>
@@ -50,7 +50,7 @@ namespace Scalider.AspNetCore.Navigation
             _authorizationService = authorizationService;
             _logger = logger;
         }
-        
+
         /// <summary>
         /// Gets the root node.
         /// </summary>
@@ -94,11 +94,9 @@ namespace Scalider.AspNetCore.Navigation
             };
         }
 
-        #region ClassNames
-
         /// <summary>
         /// Retrieves a string containing the merged CSS class names for the given <paramref name="node"/> and
-        /// <paramref name="classes"/>. 
+        /// <paramref name="classes"/>.
         /// </summary>
         /// <param name="node">The node.</param>
         /// <param name="classes">A dictionary containing a definition of which classes should be applied.</param>
@@ -109,14 +107,14 @@ namespace Scalider.AspNetCore.Navigation
         {
             Check.NotNull(node, nameof(node));
             Check.NotNull(classes, nameof(classes));
-            
+
             var actualClasses = classes.Where(kv => kv.Value).Select(kv => kv.Key).ToArray();
             return ClassNames(node, actualClasses);
         }
 
         /// <summary>
         /// Retrieves a string containing the merged CSS class names for the given <paramref name="node"/> and
-        /// <paramref name="classes"/>. 
+        /// <paramref name="classes"/>.
         /// </summary>
         /// <param name="node">The node.</param>
         /// <param name="classes">The class names.</param>
@@ -127,7 +125,7 @@ namespace Scalider.AspNetCore.Navigation
         public string ClassNames([NotNull] NavigationTreeNode node, params string[] classes)
         {
             Check.NotNull(node, nameof(node));
-            
+
             // Create a list containing a union of the classes defined by the node and the classes
             // given by the caller
             var classNames = new List<string>();
@@ -139,14 +137,10 @@ namespace Scalider.AspNetCore.Navigation
 
             if (classes != null && classes.Length > 0)
                 classNames.AddRange(classes.Where(c => !string.IsNullOrEmpty(c)));
-            
+
             // Done
             return string.Join(" ", classNames.Distinct());
         }
-        
-        #endregion
-
-        #region ShouldDisplayAsync
 
         /// <summary>
         /// Asynchronously determines whether the given <paramref name="node"/> can be displayed based on
@@ -222,8 +216,6 @@ namespace Scalider.AspNetCore.Navigation
             return user != null && user.IsInRole(node.Value.Roles);
         }
 
-        #endregion
-
         /// <summary>
         /// Asynchronously determines whether the given <paramref name="node"/> has any visible children.
         /// </summary>
@@ -263,11 +255,9 @@ namespace Scalider.AspNetCore.Navigation
             Check.NotNull(node, nameof(node));
             if (childNode == null)
                 return false;
-            
+
             return node.IsRootNode || GetParentChainForNode(childNode).Contains(node);
         }
-        
-        #region ResolveUrl
 
         /// <summary>
         /// Retrieves the link url for the given <paramref name="node"/>.
@@ -298,7 +288,7 @@ namespace Scalider.AspNetCore.Navigation
             {
                 //
                 var action = string.IsNullOrEmpty(node.Value.Action) ? "Index" : node.Value.Action;
-                
+
                 var parameters = GetRouteParameters(node);
                 if (!string.IsNullOrEmpty(node.Value.Area))
                     parameters.TryAdd("area", node.Value.Area);
@@ -309,8 +299,6 @@ namespace Scalider.AspNetCore.Navigation
             // Done
             return resolvedUrl;
         }
-        
-        #endregion
 
         private static IDictionary<string, string> GetRouteParameters(NavigationTreeNode node)
         {
@@ -326,35 +314,33 @@ namespace Scalider.AspNetCore.Navigation
         }
 
         private static IEnumerable<NavigationTreeNode> GetParentChainForNode(NavigationTreeNode node)
-        {   
+        {
             if (node == null || node.IsRootNode)
             {
                 // The node is the root node, we don't need to calculate anything
                 return Array.Empty<NavigationTreeNode>();
             }
-                
+
             // Calculate the parent chain until the root node
             var parentChain = new List<NavigationTreeNode>();
             var parent = node.Parent;
-            
+
             while (parent != null)
             {
                 parentChain.Add(parent);
                 parent = parent.Parent;
             }
-                
+
             // Done
             parentChain.Reverse();
             return parentChain.ToArray();
         }
-        
-        #region CurrentNodeMatcher
 
         private bool CurrentNodeMatcher(NavigationTreeNode node)
         {
             if (node == null)
                 return false;
-            
+
             //
             if (!string.IsNullOrEmpty(node.Value.Url))
             {
@@ -362,10 +348,10 @@ namespace Scalider.AspNetCore.Navigation
                 var url = node.Value.Url;
                 if (url.StartsWith("~"))
                     url = _urlHelper.Content(url);
-                
+
                 return _httpContext.Request.Path.Equals(url);
             }
-            
+
             //
             if (string.IsNullOrEmpty(node.Value.RouteName) && string.IsNullOrEmpty(node.Value.Controller))
             {
@@ -388,7 +374,7 @@ namespace Scalider.AspNetCore.Navigation
                 !routeData.Values.TryGetValue("action", out var currentAction) ||
                 !string.Equals(currentAction as string, action, StringComparison.OrdinalIgnoreCase))
                 return false;
-            
+
             // Determine if the area matches
             if (!string.IsNullOrEmpty(node.Value.Area) &&
                 (!routeData.Values.TryGetValue("area", out var currentArea) ||
@@ -410,13 +396,11 @@ namespace Scalider.AspNetCore.Navigation
                     return false;
                 }
             }
-             
+
             // The parameters match
             return true;
         }
-        
-        #endregion
-        
+
     }
-    
+
 }

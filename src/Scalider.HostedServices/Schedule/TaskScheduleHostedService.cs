@@ -86,13 +86,11 @@ namespace Scalider.Hosting.Schedule
                         await Task.WhenAll(tasks);
                     }
                 }
-                
+
                 // We will wait a bit before trying again
                 await Task.Delay(ExecutionDelay, cancellationToken);
             }
         }
-        
-        #region ExecuteScheduledTaskAsync
 
         [SuppressMessage("ReSharper", "SuspiciousTypeConversion.Global")]
         private async Task ExecuteScheduledTaskAsync(ScheduledTask scheduledTask,
@@ -106,9 +104,9 @@ namespace Scalider.Hosting.Schedule
                 ctx.ScheduledExecutionTimeUtc = scheduledTask.ActualScheduledExecutionTimeUtc;
                 ctx.PreviousExecutionTimeUtc = scheduledTask.LastKnownExecutionTimeUtc;
                 ctx.NextExecutionTimeUtc = scheduledTask.NextPossibleExecutionTimeUtc;
-                
+
                 scheduledTask.LastKnownExecutionTimeUtc = executionTime;
-             
+
                 // Really execute the task
                 _logger.LogDebug($"Executing task \"{scheduledTask.Name}\"");
                 var sw = Stopwatch.StartNew();
@@ -135,8 +133,6 @@ namespace Scalider.Hosting.Schedule
                 _logger
             );
         }
-        
-        #endregion
 
     }
 

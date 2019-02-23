@@ -7,6 +7,7 @@ namespace Scalider
     /// <summary>
     /// Provides extension methods for the <see cref="Uri"/> class.
     /// </summary>
+    [UsedImplicitly]
     public static class UriExtensions
     {
 
@@ -17,6 +18,7 @@ namespace Scalider
         /// <returns>
         /// The converted <see cref="Uri"/>.
         /// </returns>
+        [UsedImplicitly]
         public static Uri ToDnsSafeUri([NotNull] this Uri uri)
         {
             Check.NotNull(uri, nameof(uri));

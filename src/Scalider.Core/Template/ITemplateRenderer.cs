@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace Scalider.Template
 {
@@ -21,7 +22,7 @@ namespace Scalider.Template
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
-        [SuppressMessage("ReSharper", "UnusedParameter.Global")]
+        [UsedImplicitly]
         Task<string> RenderAsync(string template, object model, CancellationToken cancellationToken = default);
 
     }

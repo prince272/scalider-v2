@@ -7,10 +7,11 @@ using Scalider.Hosting.Schedule.Internal;
 
 namespace Scalider.Hosting.Schedule
 {
-    
+
     /// <summary>
     /// Provides extension methods for the <see cref="ITaskSchedulerService"/> interface.
     /// </summary>
+    [UsedImplicitly]
     public static class TaskSchedulerServiceExtensions
     {
 
@@ -20,6 +21,7 @@ namespace Scalider.Hosting.Schedule
         /// <param name="schedulerService">The <see cref="ITaskSchedulerService"/>.</param>
         /// <param name="func">The function to add to the queue.</param>
         /// <param name="taskTrigger">The <see cref="ITrigger"/> for the task.</param>
+        [UsedImplicitly]
         public static void Schedule([NotNull] this ITaskSchedulerService schedulerService,
             [NotNull] Func<Task> func, [NotNull] ITrigger taskTrigger)
         {
@@ -36,6 +38,7 @@ namespace Scalider.Hosting.Schedule
         /// <param name="schedulerService">The <see cref="ITaskSchedulerService"/>.</param>
         /// <param name="func">The function to add to the queue.</param>
         /// <param name="taskTrigger">The <see cref="ITrigger"/> for the task.</param>
+        [UsedImplicitly]
         public static void Schedule([NotNull] this ITaskSchedulerService schedulerService,
             [NotNull] Func<ScheduledTaskExecutionContext, Task> func, [NotNull] ITrigger taskTrigger)
         {
@@ -45,8 +48,6 @@ namespace Scalider.Hosting.Schedule
 
             schedulerService.Schedule(new DelegateSchedulableTask(func, taskTrigger));
         }
-        
-        #region Schedule<T>
 
         /// <summary>
         /// Schedules a task that queries or create a service of <typeparamref name="T"/> and executes the
@@ -61,6 +62,7 @@ namespace Scalider.Hosting.Schedule
         /// <param name="expression">The expression.</param>
         /// <param name="taskTrigger">The <see cref="ITrigger"/> for the task.</param>
         /// <exception cref="ArgumentException">When the <paramref name="expression"/> is invalid.</exception>
+        [UsedImplicitly]
         public static void Schedule<T>([NotNull] this ITaskSchedulerService schedulerService,
             [NotNull] Expression<Func<T, Func<ScheduledTaskExecutionContext, Task>>> expression,
             [NotNull] ITrigger taskTrigger)
@@ -69,12 +71,12 @@ namespace Scalider.Hosting.Schedule
             Check.NotNull(schedulerService, nameof(schedulerService));
             Check.NotNull(expression, nameof(expression));
             Check.NotNull(taskTrigger, nameof(taskTrigger));
-            
+
             // Retrieve the real expression
             var exp = expression.Body;
             if (exp is UnaryExpression unaryExpression)
                 exp = unaryExpression.Operand;
-            
+
             // Determine whether the expression body is null
             if (exp is ConstantExpression constantExpression && constantExpression.Value  == null)
             {
@@ -83,7 +85,7 @@ namespace Scalider.Hosting.Schedule
                     nameof(expression)
                 );
             }
-            
+
             // Enqueue the task
             switch (exp)
             {
@@ -119,9 +121,7 @@ namespace Scalider.Hosting.Schedule
                     );
             }
         }
-        
-        #endregion
-        
+
     }
-    
+
 }

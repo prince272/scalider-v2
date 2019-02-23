@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 
 namespace Scalider.Hosting.Schedule.Triggers
 {
-    
+
     /// <summary>
     /// Provides an implementation of the <see cref="ITrigger"/> that uses a fixed interval to calculate
     /// the execution time for <see cref="ISchedulableTask"/>s.
@@ -32,22 +32,22 @@ namespace Scalider.Hosting.Schedule.Triggers
 
             RepeatInterval = repeatInterval;
         }
-        
+
         /// <summary>
         /// Gets a <see cref="FixedIntervalTrigger"/> that schedules a task for every minute.
         /// </summary>
         public static FixedIntervalTrigger Minutely => new FixedIntervalTrigger(TimeSpan.FromMinutes(1));
-        
+
         /// <summary>
         /// Gets a <see cref="FixedIntervalTrigger"/> that schedules a task for every hour.
         /// </summary>
         public static FixedIntervalTrigger Hourly => new FixedIntervalTrigger(TimeSpan.FromHours(1));
-        
+
         /// <summary>
         /// Gets a <see cref="FixedIntervalTrigger"/> that schedules a task for every day.
         /// </summary>
         public static FixedIntervalTrigger Daily => new FixedIntervalTrigger(TimeSpan.FromDays(1));
-        
+
         /// <summary>
         /// Gets a <see cref="FixedIntervalTrigger"/> that schedules a task for every 7 days.
         /// </summary>
@@ -76,14 +76,12 @@ namespace Scalider.Hosting.Schedule.Triggers
                 _repeatCount = value;
             }
         }
-        
+
         /// <summary>
         /// Gets a value indicating the repeat interval for the task.
         /// </summary>
         [UsedImplicitly]
         public TimeSpan RepeatInterval { get; }
-        
-        #region GetExecutionTimeAfter
 
         /// <inheritdoc />
         public override DateTimeOffset? GetExecutionTimeAfter(DateTimeOffset utcNow, int executionCount)
@@ -94,7 +92,7 @@ namespace Scalider.Hosting.Schedule.Triggers
                 _shouldRemoveTask = true;
                 return null;
             }
-            
+
             // Calculate the lower and upper execution bounds
             var lowerBound = StartTimeUtc?.DateTime ?? DateTime.MinValue.ToUniversalTime();
             var upperBound = EndTimeUtc?.DateTime ?? DateTime.MaxValue.ToUniversalTime();
@@ -105,7 +103,7 @@ namespace Scalider.Hosting.Schedule.Triggers
                 // The given date and time is outside the execution range for the task
                 return null;
             }
-            
+
             // Try to retrieve the next execution time
             try
             {
@@ -119,9 +117,7 @@ namespace Scalider.Hosting.Schedule.Triggers
             // It was not possible to determine the next execution time
             return null;
         }
-        
-        #endregion
 
     }
-    
+
 }

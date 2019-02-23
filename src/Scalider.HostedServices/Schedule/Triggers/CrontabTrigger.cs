@@ -8,7 +8,7 @@ using NCrontab;
 
 namespace Scalider.Hosting.Schedule.Triggers
 {
-    
+
     /// <summary>
     /// Provides an implementation of the <see cref="ITrigger"/> interface that uses crontab expressions
     /// to calculate the execution time for <see cref="ISchedulableTask"/>s.
@@ -17,7 +17,7 @@ namespace Scalider.Hosting.Schedule.Triggers
     /// </summary>
     /// <code>
     /// Example of crontab expression:
-    /// 
+    ///
     /// * * * * *
     /// - - - - -
     /// | | | | |
@@ -36,7 +36,7 @@ namespace Scalider.Hosting.Schedule.Triggers
     {
 
         private static readonly Options ExpressionParserOptions = new Options();
-        
+
         private readonly string _cronExpression;
         private readonly CrontabSchedule[] _schedules;
 
@@ -49,7 +49,7 @@ namespace Scalider.Hosting.Schedule.Triggers
             Check.NotNullOrEmpty(expression, nameof(expression));
 
             _cronExpression = expression;
-            
+
             // Parse all the possible expressions
             var expressions = expression.Split(new[] {';'}, StringSplitOptions.RemoveEmptyEntries)
                                         .Where(t => !string.IsNullOrWhiteSpace(t))
@@ -81,30 +81,35 @@ namespace Scalider.Hosting.Schedule.Triggers
         /// </summary>
         [UsedImplicitly]
         public string Description { get; }
-        
+
         /// <summary>
         /// Gets a <see cref="CrontabTrigger"/> that schedules a task for every minute.
         /// </summary>
+        [UsedImplicitly]
         public static CrontabTrigger Minutely => new CrontabTrigger("* * * * *");
-        
+
         /// <summary>
         /// Gets a <see cref="CrontabTrigger"/> that schedules a task for every hour.
         /// </summary>
+        [UsedImplicitly]
         public static CrontabTrigger Hourly => new CrontabTrigger("0 */1 * * *");
-        
+
         /// <summary>
         /// Gets a <see cref="CrontabTrigger"/> that schedules a task for every day.
         /// </summary>
+        [UsedImplicitly]
         public static CrontabTrigger Daily => new CrontabTrigger("0 0 */1 * *");
-        
+
         /// <summary>
         /// Gets a <see cref="CrontabTrigger"/> that schedules a task for every 7 days.
         /// </summary>
+        [UsedImplicitly]
         public static CrontabTrigger Weekly => new CrontabTrigger("0 0 */7 * *");
-        
+
         /// <summary>
         /// Gets a <see cref="CrontabTrigger"/> that schedules a task for the first day of every month.
         /// </summary>
+        [UsedImplicitly]
         public static CrontabTrigger Monthly => new CrontabTrigger("0 0 1 */1 *");
 
         /// <inheritdoc />
@@ -112,8 +117,6 @@ namespace Scalider.Hosting.Schedule.Triggers
 
         /// <inheritdoc />
         public override string ToString() => $"{_cronExpression} ({Description})";
-        
-        #region GetExecutionTimeAfter
 
         /// <inheritdoc />
         public override DateTimeOffset? GetExecutionTimeAfter(DateTimeOffset utcNow, int executionCount)
@@ -127,7 +130,7 @@ namespace Scalider.Hosting.Schedule.Triggers
                 // The given date and time is outside the execution range for the task
                 return null;
             }
-            
+
             // Try to retrieve the next execution time
             try
             {
@@ -151,13 +154,9 @@ namespace Scalider.Hosting.Schedule.Triggers
             // It was not possible to determine the next execution time
             return null;
         }
-        
-        #endregion
 
         private static KeyValuePair<TKey, TValue> Pair<TKey, TValue>(TKey key, TValue value) =>
             new KeyValuePair<TKey, TValue>(key, value);
-
-        #region Merge
 
         private DateTimeOffset[] Merge(DateTime utcNow, DateTime endTimeUtc)
         {
@@ -236,8 +235,6 @@ namespace Scalider.Hosting.Schedule.Triggers
             }
         }
 
-        #endregion
-
     }
-    
+
 }

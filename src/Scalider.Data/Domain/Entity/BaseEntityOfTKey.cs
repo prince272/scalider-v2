@@ -14,12 +14,8 @@ namespace Scalider.Domain.Entity
         where TKey : IEquatable<TKey>
     {
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseEntity{TKey}"/> class.
-        /// </summary>
-        protected BaseEntity()
-        {
-        }
+        /// <inheritdoc />
+        public virtual TKey Id { get; [UsedImplicitly] set; }
 
         /// <inheritdoc />
         public override string ToString() => $"{GetType().Name} {Id}";
@@ -72,13 +68,6 @@ namespace Scalider.Domain.Entity
         /// <paramref name="right" />; otherwise, <c>false</c>.
         /// </returns>
         public static bool operator !=(BaseEntity<TKey> left, BaseEntity<TKey> right) => !(left == right);
-
-        #region IEntity<TKey> Members
-
-        /// <inheritdoc />
-        public virtual TKey Id { get; [UsedImplicitly] set; }
-
-        #endregion
 
     }
 

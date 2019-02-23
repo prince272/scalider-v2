@@ -7,11 +7,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Scalider.Hosting
 {
-    
+
     internal static class TaskExecutionHelper
     {
-        
-        #region ReportUnhandledTaskException
 
         [SuppressMessage("ReSharper", "SuspiciousTypeConversion.Global")]
         public static void ReportUnhandledTaskException(Exception exception, object task,
@@ -22,7 +20,7 @@ namespace Scalider.Hosting
                 // There was no exception to report
                 return;
             }
-            
+
             var context = new UnhandledTaskExceptionContext(exception, serviceProvider);
             if (task is ITaskExceptionHandler queueableTaskExceptionHandler)
             {
@@ -41,15 +39,11 @@ namespace Scalider.Hosting
                 // The exception was handled by the global handler
                 return;
             }
-                
+
             // Log the unhandled exception
             logger.LogError(exception, "An unhandled exception has occurred while executing the task.");
         }
-        
-        #endregion
 
-        #region ExecuteExpressionCompilationOnInstance<TArg>
-        
         public static Task ExecuteExpressionCompilationOnInstance<T, TArg>(IServiceProvider serviceProvider,
             Func<T, Func<TArg, Task>> taskFactoryCalback, TArg contextArg)
         {
@@ -100,8 +94,6 @@ namespace Scalider.Hosting
             // Done
             return task;
         }
-        
-        #endregion
 
         public static Func<TArg, Task> GetStaticMemberCallback<TArg>(MemberInfo memberInfo)
         {
@@ -117,5 +109,5 @@ namespace Scalider.Hosting
         }
 
     }
-    
+
 }

@@ -16,6 +16,7 @@ namespace Scalider.Mail
         /// Delivers an email message.
         /// </summary>
         /// <param name="message">The message to be delivered.</param>
+        [UsedImplicitly]
         void Send([NotNull] MailMessage message);
 
         /// <summary>
@@ -27,6 +28,7 @@ namespace Scalider.Mail
         /// <returns>
         /// The <see cref="Task"/> object representing the asynchronous operation.
         /// </returns>
+        [UsedImplicitly]
         Task SendAsync([NotNull] MailMessage message, CancellationToken cancellationToken = default);
 
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace Scalider.Collections
 {
@@ -7,6 +8,7 @@ namespace Scalider.Collections
     /// <summary>
     /// Provides extension methods for the <see cref="IEnumerable{T}"/> interface.
     /// </summary>
+    [UsedImplicitly]
     public static class EnumerableExtensions
     {
 
@@ -17,8 +19,9 @@ namespace Scalider.Collections
         /// <param name="source">The <see cref="IEnumerable{T}"/>.</param>
         /// <returns>
         /// <c>true</c> when <paramref name="source"/> is not <c>null</c> and have at least one element;
-        /// otherwsie, false.
+        /// otherwise, false.
         /// </returns>
+        [UsedImplicitly]
         public static bool IsNullOrEmpty<T>(this IEnumerable<T> source) => source == null || !source.Any();
 
     }
