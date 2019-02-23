@@ -93,26 +93,6 @@ namespace Scalider.AspNetCore
             _tempDataProvider = tempDataProvider;
         }
 
-        private ActionContext GetActionContext(CancellationToken cancellationToken)
-        {
-            var actionContext = new ActionContext(
-                new DefaultHttpContext
-                {
-                    RequestServices = _serviceProvider,
-                    RequestAborted = cancellationToken
-                },
-                new RouteData(),
-                new ActionDescriptor()
-            );
-
-            return actionContext;
-        }
-
-        private static bool IsApplicationRelativeViewName(string viewName) =>
-            viewName.StartsWith("~") || viewName.StartsWith("/");
-
-        #region ITemplateRenderer Members
-
         /// <inheritdoc />
         public async Task<string> RenderAsync(string template, object model,
             CancellationToken cancellationToken = default)
@@ -153,7 +133,23 @@ namespace Scalider.AspNetCore
             }
         }
 
-        #endregion
+        private ActionContext GetActionContext(CancellationToken cancellationToken)
+        {
+            var actionContext = new ActionContext(
+                new DefaultHttpContext
+                {
+                    RequestServices = _serviceProvider,
+                    RequestAborted = cancellationToken
+                },
+                new RouteData(),
+                new ActionDescriptor()
+            );
+
+            return actionContext;
+        }
+
+        private static bool IsApplicationRelativeViewName(string viewName) =>
+            viewName.StartsWith("~") || viewName.StartsWith("/");
 
     }
 
